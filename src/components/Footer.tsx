@@ -4,10 +4,10 @@ export default function Footer() {
             <div className="container mx-auto max-w-5xl px-4 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div className="flex flex-col gap-2 text-center md:text-left">
                     <div className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-emerald-400">
-                        Icons.Registry
+                        Icon
                     </div>
                     <p className="text-sm text-muted-foreground">
-                        A premium demo icons registry concept designed for pphat.me.
+                        A premium demo icon concept designed for pphat.me.
                     </p>
                 </div>
 

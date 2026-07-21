@@ -196,7 +196,7 @@ export default function CommandPalette() {
                                 </span>
                             </div>
                             <div>
-                                <span className="font-semibold text-foreground/50">Registry</span>
+                                <span className="font-semibold text-foreground/50">Icon</span>
                             </div>
                         </div>
                     </div>

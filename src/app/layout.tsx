@@ -13,8 +13,8 @@ const poppins = Poppins({
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
-    title: "Icons Registry | Premium Design",
-    description: "A premium demo icons registry built with Next.js and Tailwind CSS",
+    title: "Icon | Premium Design",
+    description: "A premium demo icon library built with Next.js and Tailwind CSS",
 };
 
 export default function RootLayout({
@@ -26,6 +26,7 @@ export default function RootLayout({
         <html
             lang="en"
             className={`${poppins.variable} h-full scroll-smooth antialiased`}
+            data-scroll-behavior="smooth"
             suppressHydrationWarning
         >
             <head />

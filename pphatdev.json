@@ -1,0 +1,9 @@
+{
+  "name": "test",
+  "icons": {
+    "nextjs": {
+      "dir": "src/components/icons",
+      "use": true
+    }
+  }
+}

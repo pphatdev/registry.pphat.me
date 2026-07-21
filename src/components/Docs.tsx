@@ -6,7 +6,7 @@ export default function Docs() {
             <div className="container mx-auto max-w-6xl px-4">
                 
                 <div className="text-center mb-16 animate-[fade-up_0.8s_ease-out_forwards]">
-                    <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Why use the registry?</h2>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Why use the icon library?</h2>
                     <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Modern frontend development requires speed and efficiency. We built this tool to give you exactly what you need, nothing you don't.</p>
                 </div>
 
@@ -34,7 +34,7 @@ export default function Docs() {
                             </div>
                             <h3 className="text-xl font-bold mb-3">Lightning Fast</h3>
                             <p className="text-muted-foreground leading-relaxed">
-                                Powered by a robust static registry hosted directly on GitHub's raw CDN. Enjoy instantaneous downloads with no rate limits.
+                                Powered by a robust static icon library hosted directly on GitHub's raw CDN. Enjoy instantaneous downloads with no rate limits.
                             </p>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ export default function Docs() {
                             </div>
                             <h3 className="text-xl font-bold mb-2">Add components & icons</h3>
                             <p className="text-muted-foreground mb-6">
-                                Search for your desired items in the registry and add them directly to your codebase. You can optionally force a specific format using the <code className="bg-muted px-1.5 py-0.5 rounded text-sm text-foreground">-f</code> flag.
+                                Search for your desired items in the library and add them directly to your codebase. You can optionally force a specific format using the <code className="bg-muted px-1.5 py-0.5 rounded text-sm text-foreground">-f</code> flag.
                             </p>
                             <div className="flex flex-col w-full justify-start mt-4 max-w-lg gap-6">
                                 <div>
