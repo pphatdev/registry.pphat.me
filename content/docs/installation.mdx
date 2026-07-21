@@ -1,0 +1,44 @@
+# Installation
+
+A quick start guide to using the **@pphatdev/registry** CLI tool.
+
+---
+
+## Usage via npx (Recommended)
+
+You don't even need to install it! You can run it directly using `npx`:
+
+<CopyCode code="npx @pphatdev/registry init" />
+
+## Global Installation (Alternative)
+
+Install the registry CLI tool globally on your machine to access it from anywhere without needing to use `npx` every time.
+
+<CopyCode code="npm install -g @pphatdev/registry" />
+
+> **Getting an EEXIST error?** This happens if an old version's binary is stuck in your npm cache. Simply run `npm install -g @pphatdev/registry --force` to overwrite it.
+
+---
+
+## 1. Initialize your project
+
+Run the `init` command to set up your preferences. It will ask you where you want to save your items and what format you prefer (SVG, Next.js, or Nuxt.js).
+
+Using npx:
+<CopyCode code="npx @pphatdev/registry init" />
+
+Using global install:
+<CopyCode code="pphat init" />
+
+## 2. Add components & icons
+
+Search for your desired items in the registry and add them directly to your codebase. You can optionally force a specific format using the `-f` flag.
+
+Using npx:
+<CopyCode code="npx @pphatdev/registry add <iconname> -f <format>" />
+
+Using global install:
+<CopyCode code="pphat add <iconname> -f <format>" />
+
+Example:
+<CopyCode code="pphat add icons/brands/github -f nextjs" />

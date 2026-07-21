@@ -1,0 +1,37 @@
+# Configuration
+
+Learn how to customize your preferences using **config.json**.
+
+---
+
+## Persistent Config
+
+When you run `pphat init`, a tiny `config.json` file is saved to your project root. The CLI automatically reads this file on subsequent runs, meaning you don't have to repeatedly type out the framework flag (`-f nextjs`) or output directory path.
+
+### Example `config.json`
+
+```json
+{
+    "name": "Default configuration",
+    "icons": {
+        "svg": {
+            "dir": "assets/icons",
+            "use": false
+        },
+        "nextjs": {
+            "dir": "src/components/icons",
+            "use": true
+        },
+        "nuxtjs": {
+            "dir": "components/icons",
+            "use": false
+        }
+    }
+}
+```
+
+## Bypassing Configuration
+
+If you need to quickly override your saved configuration for a single component, you can pass explicit flags directly into the command line which will take precedence over the config file:
+
+<CopyCode code="pphat add icons/brands/github -f svg" />
