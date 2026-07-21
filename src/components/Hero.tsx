@@ -30,8 +30,8 @@ export default function Hero() {
                         </div>
 
                         <h1 className="text-5xl md:text-6xl xl:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1]">
-                            Lightning Fast <br className="hidden sm:block" />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Component Registry</span>
+                            Beautiful & Customizable <br className="hidden sm:block" />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Icon</span>
                         </h1>
 
                         <div className="space-y-4 mb-10 max-w-xl">
