@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import CopyDrawer from "./CopyDrawer";
 
 const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, onCopy }: { icon: any, size: number, strokeWidth: number, color: string, onCopy: (icon: any) => void }) {
     const [svg, setSvg] = useState<string>("");
@@ -70,7 +71,7 @@ const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, 
 
             {/* Copy tooltip on hover */}
             <div className="absolute opacity-0 group-hover:opacity-100 -top-5 left-1/2 -translate-x-1/2 bg-foreground text-background text-xs py-1 px-2 rounded font-medium transition-all duration-300 pointer-events-none whitespace-nowrap shadow-xl">
-                Copy SVG
+                Copy
                 <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-foreground"></div>
             </div>
         </div>
@@ -165,8 +166,8 @@ export default function ClientIconGrid({ icons }: { icons: any[] }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [globalSize, globalStrokeWidth, globalColor, searchQuery, filter]);
 
-    // Copy Notification State
-    const [copiedIcon, setCopiedIcon] = useState<string | null>(null);
+    // Drawer State
+    const [selectedIconForCopy, setSelectedIconForCopy] = useState<any | null>(null);
 
     // Reset visible count when search or filter changes
     useEffect(() => {
@@ -204,61 +205,20 @@ export default function ClientIconGrid({ icons }: { icons: any[] }) {
 
     const displayedIcons = filteredIcons.slice(0, visibleCount);
 
-    const handleCopySvg = async (icon: any) => {
-        // Fetch raw SVG if not already loaded in icon.svgContent
-        let svgContent = icon.svgContent;
-        if (!svgContent && icon.target) {
-            try {
-                const res = await fetch(`https://raw.githubusercontent.com/pphatdev/icons/main/${icon.target}`);
-                const data = await res.json();
-                svgContent = data.files[0]?.content || "";
-            } catch (e) { }
-        }
-
-        if (!svgContent) return;
-
-        let finalSvg = svgContent;
-        if (finalSvg.includes('width="')) finalSvg = finalSvg.replace(/width="[^"]+"/, `width="${globalSize}"`);
-        else finalSvg = finalSvg.replace('<svg ', `<svg width="${globalSize}" `);
-        if (finalSvg.includes('height="')) finalSvg = finalSvg.replace(/height="[^"]+"/, `height="${globalSize}"`);
-        else finalSvg = finalSvg.replace('<svg ', `<svg height="${globalSize}" `);
-        if (finalSvg.includes('stroke-width="')) finalSvg = finalSvg.replace(/stroke-width="[^"]+"/, `stroke-width="${globalStrokeWidth}"`);
-
-        // Always replace currentColor with the selected color so it copies accurately
-        if (globalColor) {
-            finalSvg = finalSvg.replace(/currentColor/g, globalColor);
-        }
-
-        try {
-            if (navigator.clipboard && window.isSecureContext) {
-                await navigator.clipboard.writeText(finalSvg);
-            } else {
-                const textArea = document.createElement("textarea");
-                textArea.value = finalSvg;
-                textArea.style.position = "absolute";
-                textArea.style.left = "-999999px";
-                document.body.prepend(textArea);
-                textArea.select();
-                document.execCommand("copy");
-                textArea.remove();
-            }
-            setCopiedIcon(icon.name);
-            setTimeout(() => setCopiedIcon(null), 2000);
-        } catch (err) {
-            console.error("Failed to copy", err);
-        }
+    const handleIconClick = (icon: any) => {
+        setSelectedIconForCopy(icon);
     };
 
     return (
         <>
-            {copiedIcon && (
-                <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-foreground text-background px-6 py-3 rounded-full font-medium shadow-2xl flex items-center gap-3 animate-in slide-in-from-bottom-5">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                    Copied &lt;{copiedIcon} /&gt; to clipboard
-                </div>
-            )}
+            <CopyDrawer 
+                isOpen={!!selectedIconForCopy}
+                onClose={() => setSelectedIconForCopy(null)}
+                icon={selectedIconForCopy}
+                size={globalSize}
+                strokeWidth={globalStrokeWidth}
+                color={globalColor}
+            />
 
 
             <section id="explore" className="py-20 relative" ref={sectionRef}>
@@ -394,7 +354,7 @@ export default function ClientIconGrid({ icons }: { icons: any[] }) {
                                         size={globalSize}
                                         strokeWidth={globalStrokeWidth}
                                         color={globalColor}
-                                        onCopy={handleCopySvg}
+                                        onCopy={handleIconClick}
                                     />
                                 ))}
                                 {filteredIcons.length === 0 && (
