@@ -31,19 +31,33 @@ export default function Header() {
 
     return (
         <header
-            className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] sm:w-[95%] max-w-6xl rounded-full h-16 flex items-center justify-between px-4 sm:px-6 transition-all duration-300 ${
-                scrolled
+            className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] sm:w-[95%] max-w-6xl rounded-full h-16 flex items-center justify-between px-4 sm:px-6 transition-all duration-300 ${scrolled
                     ? "bg-background/80 backdrop-blur-xl border border-border/80 shadow-xl shadow-black/10"
                     : "border border-transparent"
-            }`}
+                }`}
         >
-            <div className="flex items-center gap-2">
-                <Link href="/" className="font-bold text-lg sm:text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-emerald-400">
-                    @pphatdev/registry
+            <div className="flex items-center gap-2.5">
+                <Link href="/" className="flex flex-col items-center justify-center group leading-none">
+                    <div className="relative h-14 shrink-0 flex items-center justify-center pb-2">
+                        <img
+                            src="https://pphat.me/assets/logo/logo-transparent-dark-mode.png"
+                            alt="pphat.me logo"
+                            width={32}
+                            height={32}
+                            className="w-14 h-14 object-contain hidden dark:block"
+                        />
+                        <img
+                            src="https://pphat.me/assets/logo/logo-transparent-light-mode.png"
+                            alt="pphat.me logo"
+                            width={32}
+                            height={32}
+                            className="w-14 h-14 object-contain dark:hidden"
+                        />
+                        <span className="font-bold z-50 py-1 absolute left-1/2 -translate-x-1/2 bottom-2 text-[9px] px-1.5 rounded-full bg-primary text-primary-foreground leading-none whitespace-nowrap">
+                            Registry
+                        </span>
+                    </div>
                 </Link>
-                <span className="px-2 py-0.5 ml-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold tracking-wider border border-primary/20 uppercase shadow-sm">
-                    v1.1.0
-                </span>
             </div>
 
             <div className="flex items-center gap-4">
@@ -57,9 +71,8 @@ export default function Header() {
                             <Link
                                 key={link.label}
                                 href={link.href}
-                                className={`relative px-4 py-1.5 rounded-full transition-colors duration-200 ${
-                                    isActive ? "text-foreground font-semibold" : "text-foreground/80 hover:text-foreground"
-                                }`}
+                                className={`relative px-4 py-1.5 rounded-full transition-colors duration-200 ${isActive ? "text-foreground font-semibold" : "text-foreground/80 hover:text-foreground"
+                                    }`}
                             >
                                 {isActive && (
                                     <div className="absolute inset-0 h-full w-full rounded-full bg-foreground/10 ring-1 ring-foreground/20"></div>
