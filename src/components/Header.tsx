@@ -10,19 +10,19 @@ export default function Header() {
     const pathname = usePathname();
 
     const links = [
-        // { label: "Icons", href: "/", exact: true },
-        // { label: "Components", href: "/components", exact: false },
+        { label: "Registry Hub", href: "/", exact: true },
+        { label: "Icon Library", href: "/icons", exact: false },
         { label: "Documentation", href: "/docs", exact: false },
     ];
 
     return (
         <header className="sticky top-4 z-50 w-[calc(100%-2rem)] max-w-6xl mx-auto glass-panel border border-border/50 backdrop-blur-lg rounded-full h-16 flex items-center justify-between px-4 sm:px-6 shadow-xl shadow-black/5 mt-4">
             <div className="flex items-center gap-2">
-                <Link href="/" className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-emerald-400">
-                    Icon
+                <Link href="/" className="font-bold text-lg sm:text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-emerald-400">
+                    @pphatdev/registry
                 </Link>
                 <span className="px-2 py-0.5 ml-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold tracking-wider border border-primary/20 uppercase shadow-sm">
-                    v1.0.0
+                    v1.1.0
                 </span>
             </div>
 
