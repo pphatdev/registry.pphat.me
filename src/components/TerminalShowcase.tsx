@@ -21,12 +21,12 @@ export function TerminalShowcase({
         ? "pnpm add @pphatdev/registry"
         : "bun add @pphatdev/registry";
 
-    const cliSteps = [
+    const cliSteps = React.useMemo(() => [
         installCmd,
         "pphat",
         "pphat init",
         "pphat add nextjs"
-    ];
+    ], [installCmd]);
 
     const [currentCmdIndex, setCurrentCmdIndex] = useState<number>(0);
     const [typedChars, setTypedChars] = useState<number>(0);
@@ -159,7 +159,7 @@ export function TerminalShowcase({
             }, 1800);
             return () => clearTimeout(nextCmdDelayTimer);
         }
-    }, [isTerminalPlaying, typedChars, currentCmdIndex, completedStepCount, initSubStep, activeOptionIndex, selectOptionChecked]);
+    }, [isTerminalPlaying, typedChars, currentCmdIndex, completedStepCount, initSubStep, activeOptionIndex, selectOptionChecked, cliSteps]);
 
     const replayTerminalSession = () => {
         setCurrentCmdIndex(0);
@@ -219,7 +219,7 @@ export function TerminalShowcase({
 
                     {/* Live Stream Indicator Badge */}
                     <div
-                        className="p-1.5 flex items-center justify-center min-w-[27px] h-[27px] relative"
+                        className="p-1.5 flex items-center justify-center min-w-6.75 h-6.75 relative"
                         title={isTerminalPlaying ? "Live Stream Active" : "Stream Paused"}
                     >
                         <div className="relative flex items-center justify-center w-2 h-2">
@@ -233,7 +233,7 @@ export function TerminalShowcase({
             </div>
 
             {/* Terminal Content Stream Viewport */}
-            <div ref={terminalViewportRef} className="p-5 sm:p-7 flex flex-col gap-6 text-zinc-200 h-[400px] overflow-y-auto leading-relaxed select-text font-mono scroll-smooth scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <div ref={terminalViewportRef} className="p-5 sm:p-7 flex flex-col gap-6 text-zinc-200 h-100 overflow-y-auto leading-relaxed select-text font-mono scroll-smooth scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 
                 {/* LINE BLOCK 1: npm install */}
                 <div className="flex flex-col gap-2">
@@ -388,13 +388,13 @@ export function TerminalShowcase({
                                         <div className="flex flex-col gap-1 text-cyan-400 font-bold animate-in fade-in py-0.5">
                                             <div><span className="text-amber-400 font-bold">?</span> What do you want to use ? <span className="text-zinc-400 font-normal">(required must select one)</span></div>
                                             <div className="pl-3 font-mono flex flex-col gap-0.5 text-zinc-400">
-                                                <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 0 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-[15px]'}`}>
+                                                <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 0 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-3.75'}`}>
                                                     {activeOptionIndex === 0 && <span>❯</span>} <span>◯</span> Components
                                                 </div>
-                                                <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 1 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-[15px]'}`}>
+                                                <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 1 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-3.75'}`}>
                                                     {activeOptionIndex === 1 && <span>❯</span>} <span className="transition-all duration-200">{activeOptionIndex === 1 && selectOptionChecked ? '◉' : '◯'}</span> <span className={activeOptionIndex === 1 ? 'underline decoration-emerald-400 underline-offset-2' : ''}>Icons</span>
                                                 </div>
-                                                <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 2 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-[15px]'}`}>
+                                                <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 2 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-3.75'}`}>
                                                     {activeOptionIndex === 2 && <span>❯</span>} <span>◯</span> Both Components and Icons
                                                 </div>
                                             </div>
@@ -412,13 +412,13 @@ export function TerminalShowcase({
                                         <div className="flex flex-col gap-1 text-cyan-400 font-bold animate-in fade-in py-0.5">
                                             <div><span className="text-amber-400 font-bold">?</span> Which directory you want to use ? <span className="text-zinc-400 font-normal">(required must select one)</span></div>
                                             <div className="pl-3 font-mono flex flex-col gap-0.5 text-zinc-400">
-                                                <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 0 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-[15px]'}`}>
+                                                <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 0 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-3.75'}`}>
                                                     {activeOptionIndex === 0 && <span>❯</span>} <span>◯</span> SVG format (.svg)
                                                 </div>
-                                                <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 1 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-[15px]'}`}>
+                                                <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 1 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-3.75'}`}>
                                                     {activeOptionIndex === 1 && <span>❯</span>} <span className="transition-all duration-200">{activeOptionIndex === 1 && selectOptionChecked ? '◉' : '◯'}</span> <span className={activeOptionIndex === 1 ? 'underline decoration-emerald-400 underline-offset-2' : ''}>Nextjs format (.tsx)</span>
                                                 </div>
-                                                <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 2 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-[15px]'}`}>
+                                                <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 2 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-3.75'}`}>
                                                     {activeOptionIndex === 2 && <span>❯</span>} <span>◯</span> Nuxtjs format (.vue)
                                                 </div>
                                             </div>

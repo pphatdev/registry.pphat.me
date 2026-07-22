@@ -5,14 +5,14 @@ import React, { useState, useEffect, useRef } from "react";
 interface CopyDrawerProps {
     isOpen: boolean;
     onClose: () => void;
-    icon: any | null;
+    icon: { name: string; svgContent?: string; target?: string; [key: string]: unknown } | null;
     size: number;
     strokeWidth: number;
     color: string;
 }
 
 export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, color }: CopyDrawerProps) {
-    const [renderedIcon, setRenderedIcon] = useState<any | null>(null);
+    const [renderedIcon, setRenderedIcon] = useState<{ name: string; svgContent?: string; target?: string; [key: string]: unknown } | null>(null);
     const [svgContent, setSvgContent] = useState<string>("");
     const [loading, setLoading] = useState(false);
     const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
@@ -27,6 +27,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
     // Keep the drawer mounted, use isVisible for transitions
     useEffect(() => {
         if (isOpen) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setIsVisible(true);
             document.body.style.overflow = 'hidden';
         } else {
@@ -38,6 +39,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
     // Track the current icon to prevent layout shift during exit animation
     useEffect(() => {
         if (icon) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setRenderedIcon(icon);
             
             if (icon.svgContent) {
@@ -108,10 +110,10 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
             innerContent = innerContent.replace(/<style>([\s\S]*?)<\/style>/gi, "<style>{`\n$1\n`}</style>");
         }
         const lines = innerContent.split("\n");
-        let formattedInner = [];
+        const formattedInner = [];
         let currentIndent = attrIndent;
         for (let i = 0; i < lines.length; i++) {
-            let line = lines[i];
+            const line = lines[i];
             const trimmed = line.trim();
             if (!trimmed) continue;
             if (trimmed.startsWith("</") && trimmed !== "</style>") {
@@ -127,8 +129,8 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                     currentIndent += tabSize;
                 }
             } else {
-                let spaces = line.match(/^\s*/)?.[0].length || 0;
-                let normalizedSpaces = Math.max(0, spaces - minStyleIndent) + attrIndent + tabSize;
+                const spaces = line.match(/^\s*/)?.[0].length || 0;
+                const normalizedSpaces = Math.max(0, spaces - minStyleIndent) + attrIndent + tabSize;
                 formattedInner.push(" ".repeat(normalizedSpaces) + trimmed);
             }
         }
@@ -159,7 +161,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
     };
 
     const getCodeSnippet = () => {
-        const iconName = renderedIcon?.name || 'icon';
+        const iconName = (renderedIcon?.name as string) || 'icon';
         const rawSvg = getCustomizedSvg();
         return transformRegistryContent(iconName, rawSvg, activeTab).content;
     };
@@ -215,7 +217,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
     };
 
     const downloadFile = () => {
-        const iconName = renderedIcon?.name || 'icon';
+        const iconName = (renderedIcon?.name as string) || 'icon';
         const rawSvg = getCustomizedSvg();
         const compiled = transformRegistryContent(iconName, rawSvg, activeTab);
         
@@ -326,7 +328,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                             <div className="flex items-center gap-2">
                                 <span className="text-xs font-semibold tracking-wider uppercase text-muted-foreground">Inspector</span>
                                 <span className="text-xs text-muted-foreground/40">•</span>
-                                <h2 className="text-sm font-bold text-foreground capitalize tracking-wide">{renderedIcon?.name || "Icon"}</h2>
+                                <h2 className="text-sm font-bold text-foreground capitalize tracking-wide">{(renderedIcon?.name as string) || "Icon"}</h2>
                             </div>
                             <span className="text-[11px] text-muted-foreground/80 font-mono">Vector Node • {size}px Grid</span>
                         </div>
@@ -482,7 +484,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                 {['svg', 'nextjs', 'nuxtjs'].map((tab) => (
                                     <button
                                         key={tab}
-                                        onClick={() => setActiveTab(tab as any)}
+                                        onClick={() => setActiveTab(tab as 'svg' | 'nextjs' | 'nuxtjs')}
                                         className={`inline-flex items-center justify-center whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition-all w-full h-full cursor-pointer ${
                                             activeTab === tab 
                                                 ? 'bg-background dark:bg-muted-foreground/25 text-foreground shadow-sm' 

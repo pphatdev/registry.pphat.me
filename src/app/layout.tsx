@@ -34,12 +34,21 @@ export const metadata: Metadata = {
         title: "@pphatdev/registry • Component & Icon Registry",
         description: "Enterprise component and vector icon registry CLI for company frontend projects",
         siteName: "pphatdev registry",
+        images: [
+            {
+                url: "/cover.png",
+                width: 1200,
+                height: 630,
+                alt: "@pphatdev/registry cover image",
+            },
+        ],
     },
     twitter: {
         card: "summary_large_image",
         title: "@pphatdev/registry • Component & Icon Registry",
         description: "Enterprise component and vector icon registry CLI for company frontend projects",
         creator: "@pphatdev",
+        images: ["/cover.png"],
     },
     icons: {
         icon: [
@@ -69,7 +78,7 @@ export default function RootLayout({
             <body className="min-h-full flex flex-col font-sans bg-background text-foreground transition-colors duration-300 relative">
                 <ThemeProvider>
                     <div className="fixed inset-0 pointer-events-none -z-20 h-full w-full bg-[linear-gradient(to_bottom,transparent_0%,hsl(var(--background))_90%),radial-gradient(ellipse_at_center,transparent_40%,hsl(var(--primary)/0.15)_100%)]"></div>
-                    <div className="fixed inset-0 pointer-events-none -z-10 h-full w-full bg-[radial-gradient(hsl(var(--foreground)/0.15)_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+                    <div className="fixed inset-0 pointer-events-none -z-10 h-full w-full bg-[radial-gradient(hsl(var(--foreground)/0.15)_1px,transparent_1px)] bg-size-[24px_24px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
                     
                     <Header />
                     <div className="flex-1 flex flex-col relative pt-20 md:pt-24">

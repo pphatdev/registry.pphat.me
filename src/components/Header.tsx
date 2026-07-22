@@ -40,6 +40,7 @@ export default function Header() {
             <div className="flex items-center gap-2.5">
                 <Link href="/" className="flex flex-col items-center justify-center group leading-none">
                     <div className="relative h-14 shrink-0 flex items-center justify-center pb-2">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src="/logo-dark.png"
                             alt="pphat.me logo"
@@ -47,6 +48,7 @@ export default function Header() {
                             height={32}
                             className="w-14 h-14 object-contain hidden dark:block"
                         />
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src="/logo-light.png"
                             alt="pphat.me logo"
@@ -84,7 +86,7 @@ export default function Header() {
                                 ) : (
                                     <div className="absolute inset-0 rounded-full bg-muted/70 dark:bg-muted/50 border border-border/50 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out" />
                                 )}
-                                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/15 to-emerald-400/15 opacity-0 blur-xs group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                                <div className="absolute inset-0 rounded-full bg-linear-to-r from-primary/15 to-emerald-400/15 opacity-0 blur-xs group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                                 <span className="relative z-10 flex items-center justify-center gap-1.5 transition-transform duration-200 group-hover:scale-[1.02] leading-none">
                                     {link.label}
                                 </span>

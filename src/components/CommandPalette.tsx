@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 
@@ -143,6 +143,7 @@ export default function CommandPalette() {
     const router = useRouter();
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setMounted(true);
     }, []);
 
@@ -170,6 +171,7 @@ export default function CommandPalette() {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden";
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setQuery("");
             setSelectedIndex(0);
             setTimeout(() => inputRef.current?.focus(), 50);
@@ -182,8 +184,18 @@ export default function CommandPalette() {
     }, [isOpen]);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setSelectedIndex(0);
     }, [query]);
+
+    const handleSelect = useCallback((item: SearchItem) => {
+        if (item.external) {
+            window.open(item.href, "_blank");
+        } else {
+            router.push(item.href);
+        }
+        setIsOpen(false);
+    }, [router]);
 
     useEffect(() => {
         const down = (e: KeyboardEvent) => {
@@ -205,19 +217,10 @@ export default function CommandPalette() {
         };
         document.addEventListener("keydown", down);
         return () => document.removeEventListener("keydown", down);
-    }, [isOpen, flatItems, selectedIndex]);
-
-    const handleSelect = (item: SearchItem) => {
-        if (item.external) {
-            window.open(item.href, "_blank");
-        } else {
-            router.push(item.href);
-        }
-        setIsOpen(false);
-    };
+    }, [isOpen, flatItems, selectedIndex, handleSelect]);
 
     const modalContent = isOpen ? (
-        <div className="fixed inset-0 z-[9999] flex items-start justify-center pt-[15vh] sm:pt-[12vh] px-4 pointer-events-auto">
+        <div className="fixed inset-0 z-9999 flex items-start justify-center pt-[15vh] sm:pt-[12vh] px-4 pointer-events-auto">
             {/* Backdrop */}
             <div 
                 className="fixed inset-0 bg-black/70 backdrop-blur-md transition-opacity" 
@@ -260,7 +263,7 @@ export default function CommandPalette() {
                                 <circle cx="11" cy="11" r="8" />
                                 <path d="m21 21-4.3-4.3" />
                             </svg>
-                            <span>No results found for "<span className="text-foreground font-bold">{query}</span>"</span>
+                            <span>No results found for &quot;<span className="text-foreground font-bold">{query}</span>&quot;</span>
                         </div>
                     ) : (
                         filteredData.map((group) => (

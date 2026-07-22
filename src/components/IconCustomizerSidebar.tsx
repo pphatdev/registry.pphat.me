@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 
 interface IconCustomizerSidebarProps {
-    icon: any | null;
+    icon: { svgContent?: string; target?: string; name?: string; [key: string]: unknown } | null;
     isOpen: boolean;
     onClose: () => void;
 }
@@ -22,6 +22,7 @@ export default function IconCustomizerSidebar({ icon, isOpen, onClose }: IconCus
         if (!icon) return;
         
         if (icon.svgContent) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setSvgContent(icon.svgContent);
             return;
         }
@@ -149,7 +150,7 @@ export default function IconCustomizerSidebar({ icon, isOpen, onClose }: IconCus
                 <div className="flex-1 overflow-y-auto p-6 space-y-8">
                     
                     {/* Preview Area */}
-                    <div className="flex items-center justify-center p-8 bg-muted/30 rounded-2xl border border-border/50 min-h-[200px]">
+                    <div className="flex items-center justify-center p-8 bg-muted/30 rounded-2xl border border-border/50 min-h-50">
                         {loading ? (
                             <div className="w-8 h-8 rounded-full border-2 border-primary/20 border-t-primary animate-spin"></div>
                         ) : (

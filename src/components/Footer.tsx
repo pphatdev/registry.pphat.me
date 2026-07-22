@@ -1,8 +1,8 @@
 export default function Footer() {
     return (
         <footer className="relative w-full pb-16 pt-16 px-5 flex flex-col items-center overflow-hidden mt-12">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 max-w-2xl h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-            <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-primary/10 blur-[100px] rounded-[100%] pointer-events-none" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 max-w-2xl h-px bg-linear-to-r from-transparent via-border to-transparent" />
+            <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-150 h-75 bg-primary/10 blur-[100px] rounded-[100%] pointer-events-none" />
             <div className="relative z-10 flex flex-col items-center gap-8">
                 <div className="flex flex-col items-center group">
                     <div className="flex flex-col sm:flex-row gap-8 sm:gap-6 items-center">
@@ -32,6 +32,7 @@ export default function Footer() {
                             className="relative flex items-center gap-3 p-1.5 pr-5 rounded-full bg-background/50 border border-border/60 hover:bg-background/80 hover:border-primary/40 transition-all duration-300 backdrop-blur-xl shadow-xs"
                         >
                             <p className="text-xs text-muted-foreground absolute -top-5 left-1/2 -translate-x-1/2 font-medium">Created by</p>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 src="https://github.com/pphatdev.png"
                                 alt="PPhat"
