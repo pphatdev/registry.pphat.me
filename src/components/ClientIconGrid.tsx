@@ -4,12 +4,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import CopyDrawer from "./CopyDrawer";
 
-const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, onCopy }: { icon: any, size: number, strokeWidth: number, color: string, onCopy: (icon: any) => void }) {
+const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, onCopy }: { icon: { svgContent?: string; target?: string; name?: string; category?: string; [key: string]: unknown }, size: number, strokeWidth: number, color: string, onCopy: (icon: Record<string, unknown>) => void }) {
     const [svg, setSvg] = useState<string>("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (icon.svgContent) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setSvg(icon.svgContent);
             setLoading(false);
             return;
@@ -70,7 +71,7 @@ const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, 
             </div>
 
             {/* Icon CAD/Artboard Canvas Stage */}
-            <div className="w-full min-h-[96px] rounded-xl bg-muted/20 dark:bg-zinc-950/70 border border-border/40 group-hover:border-primary/40 flex items-center justify-center relative transition-all duration-300 p-3 z-10 group-hover:bg-primary/5">
+            <div className="w-full min-h-24 rounded-xl bg-muted/20 dark:bg-zinc-950/70 border border-border/40 group-hover:border-primary/40 flex items-center justify-center relative transition-all duration-300 p-3 z-10 group-hover:bg-primary/5">
                 <div
                     className="text-foreground/80 group-hover:text-primary transition-all duration-300 group-hover:scale-110 transform flex items-center justify-center"
                     style={{ color: color }}
@@ -85,7 +86,7 @@ const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, 
 
             {/* Icon Label & Action Button Row */}
             <div className="w-full flex items-center justify-between gap-2 pt-0.5 z-10">
-                <span className="text-xs font-mono font-bold text-foreground/90 group-hover:text-primary transition-colors truncate max-w-[110px]" title={icon.name}>
+                <span className="text-xs font-mono font-bold text-foreground/90 group-hover:text-primary transition-colors truncate max-w-27.5" title={icon.name}>
                     {icon.name}
                 </span>
 
@@ -116,7 +117,7 @@ const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, 
     );
 });
 
-export default function ClientIconGrid({ icons }: { icons: any[] }) {
+export default function ClientIconGrid({ icons }: { icons: Record<string, unknown>[] }) {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -198,10 +199,11 @@ export default function ClientIconGrid({ icons }: { icons: any[] }) {
     }, [globalSize, globalStrokeWidth, globalColor, searchQuery, filter]);
 
     // Drawer State
-    const [selectedIconForCopy, setSelectedIconForCopy] = useState<any | null>(null);
+    const [selectedIconForCopy, setSelectedIconForCopy] = useState<Record<string, unknown> | null>(null);
 
     const filteredIcons = icons.filter((icon) => {
-        const matchesSearch = icon.name?.toLowerCase().includes(searchQuery.toLowerCase());
+        const name = typeof icon.name === "string" ? icon.name : "";
+        const matchesSearch = name.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesFilter = filter === "All" || icon.category === filter;
         return matchesSearch && matchesFilter;
     });
@@ -210,6 +212,7 @@ export default function ClientIconGrid({ icons }: { icons: any[] }) {
 
     // Reset visible count when search or filter changes
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setVisibleCount(24);
     }, [searchQuery, filter]);
 
@@ -258,7 +261,7 @@ export default function ClientIconGrid({ icons }: { icons: any[] }) {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
-    const handleIconClick = (icon: any) => {
+    const handleIconClick = (icon: Record<string, unknown>) => {
         setSelectedIconForCopy(icon);
     };
 

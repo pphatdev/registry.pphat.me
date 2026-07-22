@@ -16,7 +16,7 @@ export function InteractivePlayground({
 
     // Interactive Playground Sliders & Toggles
     const [iconSize, setIconSize] = useState<number>(32);
-    const [strokeWidth, setStrokeWidth] = useState<number>(2);
+    const [strokeWidth] = useState<number>(2);
     const [rotationAngle, setRotationAngle] = useState<number>(0);
     const [colorTheme, setColorTheme] = useState<string>('currentColor');
 
@@ -98,7 +98,7 @@ export function InteractivePlayground({
                                     </svg>
                                 </div>
                                 <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
-                                    Icon <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-emerald-400 to-teal-300">Playground</span>
+                                    Icon <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-emerald-400 to-teal-300">Playground</span>
                                 </h2>
                             </div>
 
@@ -169,11 +169,11 @@ export function InteractivePlayground({
 
                                 {/* Vector Artboard Viewport Canvas */}
                                 <div
-                                    className={`relative flex-1 min-h-[300px] rounded-2xl border border-border/70 flex flex-col items-center justify-center transition-all overflow-hidden ${canvasBg === 'dots'
-                                            ? 'bg-[radial-gradient(var(--border)_1.5px,transparent_1.5px)] bg-[size:16px_16px] bg-background'
+                                    className={`relative flex-1 min-h-75 rounded-2xl border border-border/70 flex flex-col items-center justify-center transition-all overflow-hidden ${canvasBg === 'dots'
+                                            ? 'bg-[radial-gradient(var(--border)_1.5px,transparent_1.5px)] bg-size-[16px_16px] bg-background'
                                             : canvasBg === 'checker'
-                                                ? 'bg-[linear-gradient(45deg,#80808018_25%,transparent_25%),linear-gradient(-45deg,#80808018_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#80808018_75%),linear-gradient(-45deg,transparent_75%,#80808018_75%)] bg-[size:20px_20px] bg-background'
-                                                : 'bg-slate-950 dark:bg-[#0d1117] bg-[radial-gradient(#334155_1px,transparent_1px)] dark:bg-[radial-gradient(#1f293d_1px,transparent_1px)] bg-[size:20px_20px]'
+                                                ? 'bg-[linear-gradient(45deg,#80808018_25%,transparent_25%),linear-gradient(-45deg,#80808018_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#80808018_75%),linear-gradient(-45deg,transparent_75%,#80808018_75%)] bg-size-[20px_20px] bg-background'
+                                                : 'bg-slate-950 dark:bg-[#0d1117] bg-[radial-gradient(#334155_1px,transparent_1px)] dark:bg-[radial-gradient(#1f293d_1px,transparent_1px)] bg-size-[20px_20px]'
                                         }`}
                                 >
                                     {/* Floating CAD/Checker Switcher */}
@@ -185,7 +185,7 @@ export function InteractivePlayground({
                                             ].map(bg => (
                                                 <button
                                                     key={bg.id}
-                                                    onClick={() => setCanvasBg(bg.id as any)}
+                                                    onClick={() => setCanvasBg(bg.id as 'dots' | 'checker' | 'cad')}
                                                     className={`px-2.5 py-0.5 rounded-full text-[9px] font-mono transition-all cursor-pointer ${canvasBg === bg.id ? 'bg-background text-foreground font-bold shadow-xs' : 'text-muted-foreground hover:text-foreground'
                                                         }`}
                                                 >
@@ -239,7 +239,7 @@ export function InteractivePlayground({
                                             ].map(fmt => (
                                                 <button
                                                     key={fmt.id}
-                                                    onClick={() => setSelectedFormat(fmt.id as any)}
+                                                    onClick={() => setSelectedFormat(fmt.id as 'nextjs' | 'nuxtjs' | 'svg')}
                                                     className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono transition-all cursor-pointer ${selectedFormat === fmt.id
                                                             ? 'bg-background text-foreground shadow-xs font-bold'
                                                             : 'hover:text-foreground'
@@ -306,7 +306,7 @@ export function InteractivePlayground({
                                     </div>
 
                                     {/* Generated Code Inspector Box */}
-                                    <div className="relative flex-1 min-h-[175px] rounded-2xl border border-zinc-800/80 bg-[#0d1117] text-zinc-200 font-mono text-xs overflow-hidden shadow-2xl flex flex-col">
+                                    <div className="relative flex-1 min-h-43.75 rounded-2xl border border-zinc-800/80 bg-[#0d1117] text-zinc-200 font-mono text-xs overflow-hidden shadow-2xl flex flex-col">
                                         <div className="flex items-center justify-between px-3.5 py-2 bg-[#161b22] border-b border-zinc-800/80 text-[10px] shrink-0">
                                             <span className="text-zinc-300 font-mono font-medium flex items-center gap-1.5">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-primary" />

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+
 import { renderMiniIcon } from "./home/VectorIcons";
 
 export default function Hero() {
@@ -39,9 +39,9 @@ export default function Hero() {
         <section className="relative pt-16 sm:pt-24 md:pt-28 pb-12 sm:pb-16 overflow-hidden flex flex-col justify-center">
             {/* Background Ambient Glows & Floating Random Vector Icons */}
             <div className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center overflow-hidden select-none">
-                <div className="absolute top-1/4 left-1/3 w-[550px] h-[550px] bg-primary/20 rounded-full blur-[110px] opacity-40 mix-blend-screen animate-pulse-slow"></div>
-                <div className="absolute top-1/2 right-1/4 w-[450px] h-[450px] bg-emerald-500/15 rounded-full blur-[90px] opacity-30 mix-blend-screen animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+                <div className="absolute top-1/4 left-1/3 w-137.5 h-137.5 bg-primary/20 rounded-full blur-[110px] opacity-40 mix-blend-screen animate-pulse-slow"></div>
+                <div className="absolute top-1/2 right-1/4 w-112.5 h-112.5 bg-emerald-500/15 rounded-full blur-[90px] opacity-30 mix-blend-screen animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/30 to-transparent"></div>
 
                 {/* Floating Random Vector Background Icons */}
                 <div className="absolute top-6 left-[7%] text-primary/25 dark:text-primary/30 rotate-12 [&_svg]:w-8 [&_svg]:h-8 md:[&_svg]:w-10 md:[&_svg]:h-10 transition-all">
@@ -84,7 +84,7 @@ export default function Hero() {
                     {/* Headline Title */}
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.12] text-foreground mt-1">
                         Beautiful & Customizable <br className="hidden sm:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-emerald-400 to-teal-300">Icons Library</span>
+                        <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-emerald-400 to-teal-300">Icons Library</span>
                     </h1>
 
                     {/* Subtitle */}
