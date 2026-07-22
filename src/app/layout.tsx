@@ -19,8 +19,28 @@ const jetbrainsMono = JetBrains_Mono({
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
-    title: "@pphatdev/registry • Component & Icon Registry",
+    title: {
+        default: "@pphatdev/registry • Component & Icon Registry",
+        template: "%s | @pphatdev/registry",
+    },
     description: "Enterprise component and vector icon registry CLI for company frontend projects",
+    keywords: ["react", "nextjs", "icons", "components", "registry", "cli", "frontend"],
+    authors: [{ name: "pphatdev" }],
+    creator: "pphatdev",
+    openGraph: {
+        type: "website",
+        locale: "en_US",
+        url: "https://pphat.me",
+        title: "@pphatdev/registry • Component & Icon Registry",
+        description: "Enterprise component and vector icon registry CLI for company frontend projects",
+        siteName: "pphatdev registry",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "@pphatdev/registry • Component & Icon Registry",
+        description: "Enterprise component and vector icon registry CLI for company frontend projects",
+        creator: "@pphatdev",
+    },
     icons: {
         icon: [
             { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },

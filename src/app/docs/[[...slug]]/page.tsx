@@ -6,7 +6,33 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import CopyCode from "@/components/CopyCode";
 
 import { FLAT_DOCS } from "@/config/docs";
+import type { Metadata } from "next";
 
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug?: string[] }>;
+}): Promise<Metadata> {
+    const resolvedParams = await params;
+    const slug = resolvedParams.slug ? resolvedParams.slug.join("/") : "index";
+    const docItem = FLAT_DOCS.find((item) => item.slug === slug);
+    
+    if (!docItem) {
+        return {
+            title: "Not Found | @pphatdev/registry",
+        };
+    }
+    
+    return {
+        title: `${docItem.title} Docs`,
+        description: `Explore documentation for ${docItem.title} on the @pphatdev/registry.`,
+        openGraph: {
+            title: `${docItem.title} Docs | @pphatdev/registry`,
+            description: `Explore documentation for ${docItem.title} on the @pphatdev/registry.`,
+            type: "article",
+        },
+    };
+}
 const components = {
     CopyCode,
     h1: (props: any) => (
