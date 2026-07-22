@@ -27,8 +27,14 @@ async function fetchIcons() {
     }
 }
 
+import { Suspense } from "react";
+
 export default async function IconGrid() {
     const icons = await fetchIcons();
 
-    return <ClientIconGrid icons={icons} />;
+    return (
+        <Suspense fallback={<div className="flex h-96 items-center justify-center text-muted-foreground animate-pulse font-mono text-sm">Loading icons engine...</div>}>
+            <ClientIconGrid icons={icons} />
+        </Suspense>
+    );
 }

@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "Default configuration",
   "icons": {
     "nextjs": {
       "dir": "src/components/icons",

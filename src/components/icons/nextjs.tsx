@@ -1,0 +1,35 @@
+import React, { forwardRef } from 'react';
+
+export const NextjsIcon = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => (
+    <svg
+        ref={ref}
+        width="48"
+        height="48"
+        viewBox="-10 -10 44 44"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+    >
+        <rect x="-10.2941" y="-10.2941" width="44.5884" height="44.5884" rx="15" fill="currentColor" opacity="0.1"/>
+        <style>{`
+            @keyframes popup {
+                0% {
+                    opacity: 0;
+                    transform: scale(0);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+            #nextjs-logo {
+                animation: popup 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            }
+        `}</style>
+        <g id="nextjs-logo">
+            <title>Next.js</title>
+            <path fill="currentColor" d="M18.665 21.978C16.758 23.255 14.465 24 12 24 5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251l9.85 12.727Zm-3.332-8.533 1.6 2.061V7.2h-1.6v6.245Z" />
+        </g>
+    </svg>
+));
+
+NextjsIcon.displayName = 'NextjsIcon';

@@ -1,20 +1,56 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const poppins = Poppins({
-    weight: ["400", "500", "600", "700"],
-    variable: "--font-sans",
+const jakarta = Plus_Jakarta_Sans({
     subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
+    variable: "--font-sans",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700"],
+    variable: "--font-mono",
 });
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
-    title: "Icon | Premium Design",
-    description: "A premium demo icon library built with Next.js and Tailwind CSS",
+    title: {
+        default: "@pphatdev/registry • Component & Icon Registry",
+        template: "%s | @pphatdev/registry",
+    },
+    description: "Enterprise component and vector icon registry CLI for company frontend projects",
+    keywords: ["react", "nextjs", "icons", "components", "registry", "cli", "frontend"],
+    authors: [{ name: "pphatdev" }],
+    creator: "pphatdev",
+    openGraph: {
+        type: "website",
+        locale: "en_US",
+        url: "https://pphat.me",
+        title: "@pphatdev/registry • Component & Icon Registry",
+        description: "Enterprise component and vector icon registry CLI for company frontend projects",
+        siteName: "pphatdev registry",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "@pphatdev/registry • Component & Icon Registry",
+        description: "Enterprise component and vector icon registry CLI for company frontend projects",
+        creator: "@pphatdev",
+    },
+    icons: {
+        icon: [
+            { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+            { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+        ],
+        apple: [
+            { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+        ],
+    },
+    manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
@@ -25,7 +61,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${poppins.variable} h-full scroll-smooth antialiased`}
+            className={`${jakarta.variable} ${jetbrainsMono.variable} h-full scroll-smooth antialiased`}
             data-scroll-behavior="smooth"
             suppressHydrationWarning
         >
@@ -36,7 +72,7 @@ export default function RootLayout({
                     <div className="fixed inset-0 pointer-events-none -z-10 h-full w-full bg-[radial-gradient(hsl(var(--foreground)/0.15)_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
                     
                     <Header />
-                    <div className="flex-1 flex flex-col relative">
+                    <div className="flex-1 flex flex-col relative pt-20 md:pt-24">
                         {children}
                     </div>
                     <Footer />
