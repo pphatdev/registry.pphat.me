@@ -1,20 +1,26 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const poppins = Poppins({
-    weight: ["400", "500", "600", "700"],
-    variable: "--font-sans",
+const jakarta = Plus_Jakarta_Sans({
     subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800"],
+    variable: "--font-sans",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700"],
+    variable: "--font-mono",
 });
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
-    title: "Icon | Premium Design",
-    description: "A premium demo icon library built with Next.js and Tailwind CSS",
+    title: "@pphatdev/registry • Component & Icon Registry",
+    description: "Enterprise component and vector icon registry CLI for company frontend projects",
 };
 
 export default function RootLayout({
@@ -25,7 +31,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${poppins.variable} h-full scroll-smooth antialiased`}
+            className={`${jakarta.variable} ${jetbrainsMono.variable} h-full scroll-smooth antialiased`}
             data-scroll-behavior="smooth"
             suppressHydrationWarning
         >

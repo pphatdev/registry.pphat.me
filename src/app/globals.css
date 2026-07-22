@@ -42,6 +42,7 @@
     --color-destructive: hsl(var(--destructive));
 
     --font-sans: var(--font-sans);
+    --font-mono: var(--font-mono);
 
     --animate-pulse-slow: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --animate-ripple: ripple 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
