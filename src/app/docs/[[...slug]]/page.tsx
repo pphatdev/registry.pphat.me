@@ -30,6 +30,20 @@ export async function generateMetadata({
             title: `${docItem.title} Docs | @pphatdev/registry`,
             description: `Explore documentation for ${docItem.title} on the @pphatdev/registry.`,
             type: "article",
+            images: [
+                {
+                    url: "/docs.png",
+                    width: 1200,
+                    height: 630,
+                    alt: "Documentation Preview",
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${docItem.title} Docs | @pphatdev/registry`,
+            description: `Explore documentation for ${docItem.title} on the @pphatdev/registry.`,
+            images: ["/docs.png"],
         },
     };
 }

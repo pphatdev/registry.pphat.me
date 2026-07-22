@@ -34,12 +34,21 @@ export const metadata: Metadata = {
         title: "@pphatdev/registry • Component & Icon Registry",
         description: "Enterprise component and vector icon registry CLI for company frontend projects",
         siteName: "pphatdev registry",
+        images: [
+            {
+                url: "/cover.png",
+                width: 1200,
+                height: 630,
+                alt: "@pphatdev/registry cover image",
+            },
+        ],
     },
     twitter: {
         card: "summary_large_image",
         title: "@pphatdev/registry • Component & Icon Registry",
         description: "Enterprise component and vector icon registry CLI for company frontend projects",
         creator: "@pphatdev",
+        images: ["/cover.png"],
     },
     icons: {
         icon: [
