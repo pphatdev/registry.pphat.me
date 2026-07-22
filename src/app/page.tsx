@@ -20,6 +20,7 @@ export default function RegistryHomePage() {
 
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedConfigPreset, setSelectedConfigPreset] = useState<'nextjs' | 'nuxtjs' | 'monorepo'>('nextjs');
+    const [heroPkgManager, setHeroPkgManager] = useState<'npm' | 'pnpm' | 'bun'>('npm');
 
     const copyToClipboard = async (text: string, id: string) => {
         try {
@@ -36,7 +37,7 @@ export default function RegistryHomePage() {
                 textArea.remove();
             }
             setCopiedCommand(id);
-            setTimeout(() => setCopiedCommand(null), 2000);
+            setTimeout(() => setCopiedCommand(null), 12000);
         } catch (err) {
             console.error("Failed to copy", err);
         }
@@ -237,13 +238,39 @@ export default function RegistryHomePage() {
     return (
         <div className="flex-1 w-full flex flex-col gap-6">
 
-            {/* HERO SECTION WITH REDESIGNED TITLE SPACING */}
-            <section className="relative pt-12 md:pt-16 pb-6 md:pb-8 overflow-hidden">
-                {/* Background Ambient Glows */}
-                <div className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center overflow-hidden">
+            {/* HERO SECTION WITH EXPANDED HEIGHT & ELEGANT SPACING */}
+            <section className="relative pt-20 sm:pt-28 md:pt-36 pb-16 sm:pb-20 md:pb-24 overflow-hidden flex flex-col justify-center min-h-[460px] md:min-h-[520px]">
+                {/* Background Ambient Glows & Floating Random Vector Icons */}
+                <div className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center overflow-hidden select-none">
                     <div className="absolute top-1/4 left-1/3 w-[550px] h-[550px] bg-primary/20 rounded-full blur-[110px] opacity-40 mix-blend-screen animate-pulse-slow"></div>
                     <div className="absolute top-1/2 right-1/4 w-[450px] h-[450px] bg-emerald-500/15 rounded-full blur-[90px] opacity-30 mix-blend-screen animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
                     <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+
+                    {/* Floating Random Vector Background Icons - BALANCED MEDIUM SIZE */}
+                    <div className="absolute top-6 left-[7%] text-primary/25 dark:text-primary/30 rotate-12 [&_svg]:w-8 [&_svg]:h-8 md:[&_svg]:w-10 md:[&_svg]:h-10 transition-all">
+                        {renderMiniIcon('sparkles')}
+                    </div>
+                    <div className="absolute top-10 right-[8%] text-emerald-500/25 dark:text-emerald-400/30 -rotate-12 [&_svg]:w-9 [&_svg]:h-9 md:[&_svg]:w-11 md:[&_svg]:h-11 transition-all">
+                        {renderMiniIcon('code')}
+                    </div>
+                    <div className="absolute top-36 left-[3%] text-teal-400/20 dark:text-teal-400/25 -rotate-45 [&_svg]:w-7 [&_svg]:h-7 md:[&_svg]:w-9 md:[&_svg]:h-9 transition-all">
+                        {renderMiniIcon('command')}
+                    </div>
+                    <div className="absolute top-32 right-[4%] text-primary/20 dark:text-primary/25 rotate-45 [&_svg]:w-8 [&_svg]:h-8 md:[&_svg]:w-10 md:[&_svg]:h-10 transition-all">
+                        {renderMiniIcon('zap')}
+                    </div>
+                    <div className="absolute bottom-6 left-[10%] text-emerald-400/20 dark:text-emerald-400/25 rotate-12 [&_svg]:w-8 [&_svg]:h-8 md:[&_svg]:w-10 md:[&_svg]:h-10 transition-all">
+                        {renderMiniIcon('shield')}
+                    </div>
+                    <div className="absolute bottom-4 right-[11%] text-teal-300/25 dark:text-teal-300/30 -rotate-12 [&_svg]:w-8 [&_svg]:h-8 md:[&_svg]:w-10 md:[&_svg]:h-10 transition-all">
+                        {renderMiniIcon('globe')}
+                    </div>
+                    <div className="absolute top-3 left-[45%] text-primary/15 dark:text-primary/20 rotate-12 [&_svg]:w-6 [&_svg]:h-6 md:[&_svg]:w-8 md:[&_svg]:h-8 transition-all">
+                        {renderMiniIcon('search')}
+                    </div>
+                    <div className="absolute bottom-2 right-[43%] text-emerald-500/15 dark:text-emerald-500/20 -rotate-18 [&_svg]:w-7 [&_svg]:h-7 md:[&_svg]:w-9 md:[&_svg]:h-9 transition-all">
+                        {renderMiniIcon('arrow-right')}
+                    </div>
                 </div>
 
                 <div className="container mx-auto max-w-6xl px-4 sm:px-6 relative z-10">
@@ -266,6 +293,81 @@ export default function RegistryHomePage() {
                             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl opacity-90">
                                 Test vector sizes, rotation angles, colors, and live component presets. Export typed Next.js TSX, Nuxt 3 Vue, or raw SVG components directly to your codebase.
                             </p>
+
+                            {/* HERO INSTALLATION CLI (KHMER-DATETIME STYLE) */}
+                            <div className="w-full max-w-md mx-auto flex flex-col gap-2.5 mt-2">
+                                {/* Package Manager Switcher Pills */}
+                                <div className="flex items-center gap-1 bg-muted/50 p-1 rounded-xl border border-border/40 w-fit mx-auto shadow-xs">
+                                    {(['npm', 'pnpm', 'bun'] as const).map(pkg => (
+                                        <button
+                                            key={pkg}
+                                            onClick={() => setHeroPkgManager(pkg)}
+                                            className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                                                heroPkgManager === pkg
+                                                    ? 'bg-background text-foreground shadow-xs'
+                                                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                                            }`}
+                                        >
+                                            {pkg}
+                                        </button>
+                                    ))}
+                                </div>
+
+                                {/* CLI Command Box */}
+                                <div className="flex items-center gap-3 bg-background/60 backdrop-blur-xl border border-border/60 p-2 pl-4 rounded-2xl w-full group hover:border-primary/50 transition-colors">
+                                    <span className="text-primary font-mono select-none font-bold">$</span>
+                                    <code className="text-primary text-xs sm:text-sm font-mono flex-1 text-left font-bold select-all">
+                                        {heroPkgManager === 'npm'
+                                            ? 'npm i @pphatdev/registry'
+                                            : heroPkgManager === 'pnpm'
+                                            ? 'pnpm add @pphatdev/registry'
+                                            : 'bun add @pphatdev/registry'
+                                        }
+                                    </code>
+                                    <button
+                                        onClick={() =>
+                                            copyToClipboard(
+                                                heroPkgManager === 'npm'
+                                                    ? 'npx @pphatdev/registry init'
+                                                    : heroPkgManager === 'pnpm'
+                                                    ? 'pnpm dlx @pphatdev/registry init'
+                                                    : 'bunx @pphatdev/registry init',
+                                                'hero-cli'
+                                            )
+                                        }
+                                        title="Copy to clipboard"
+                                        className="p-2 flex items-center justify-center bg-muted/50 hover:bg-muted rounded-xl transition-all border border-border/40 text-muted-foreground hover:text-foreground shrink-0 cursor-pointer active:scale-95"
+                                    >
+                                        {copiedCommand === 'hero-cli' ? (
+                                            <span className="text-[10px] whitespace-nowrap leading-tight pt-0 font-mono font-bold text-primary px-1">Copied</span>
+                                        ) : (
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                            </svg>
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* SECTION 2: DEDICATED INTERACTIVE PLAYGROUND SECTION */}
+            <section className="relative py-4 md:py-6">
+                <div className="container mx-auto max-w-7xl px-4 sm:px-6">
+                    <div className="flex flex-col gap-4">
+                        {/* Section Header Title */}
+                        <div className="flex items-center gap-3 mb-1">
+                            <div className="p-2 bg-primary/10 rounded-xl border border-primary/20 text-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="m18 16 4-4-4-4" />
+                                    <path d="m6 8-4 4 4 4" />
+                                    <path d="m14.5 4-5 16" />
+                                </svg>
+                            </div>
+                            <h2 className="text-xl sm:text-2xl font-bold text-foreground">Playground</h2>
                         </div>
 
                         {/* UNIFIED INTERACTIVE PLAYGROUND STAGE CARD */}
@@ -325,16 +427,16 @@ export default function RegistryHomePage() {
 
                                     {/* Vector Artboard Viewport Canvas (Stretches to fit) */}
                                     <div
-                                        className={`relative flex-1 min-h-[300px] rounded-2xl border border-border/60 flex flex-col items-center justify-center transition-all overflow-hidden ${canvasBg === 'dots'
-                                                ? 'bg-[radial-gradient(var(--border)_1px,transparent_1px)] bg-[size:16px_16px] bg-background'
+                                        className={`relative flex-1 min-h-[300px] rounded-2xl border border-border/70 flex flex-col items-center justify-center transition-all overflow-hidden ${canvasBg === 'dots'
+                                                ? 'bg-[radial-gradient(var(--border)_1.5px,transparent_1.5px)] bg-[size:16px_16px] bg-background'
                                                 : canvasBg === 'checker'
-                                                    ? 'bg-[linear-gradient(45deg,#80808012_25%,transparent_25%),linear-gradient(-45deg,#80808012_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#80808012_75%),linear-gradient(-45deg,transparent_75%,#80808012_75%)] bg-[size:20px_20px] bg-background'
-                                                    : 'bg-[#0d1117] bg-[radial-gradient(#1f293d_1px,transparent_1px)] bg-[size:20px_20px]'
+                                                    ? 'bg-[linear-gradient(45deg,#80808018_25%,transparent_25%),linear-gradient(-45deg,#80808018_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#80808018_75%),linear-gradient(-45deg,transparent_75%,#80808018_75%)] bg-[size:20px_20px] bg-background'
+                                                    : 'bg-slate-950 dark:bg-[#0d1117] bg-[radial-gradient(#334155_1px,transparent_1px)] dark:bg-[radial-gradient(#1f293d_1px,transparent_1px)] bg-[size:20px_20px]'
                                             }`}
                                     >
                                         {/* Floating CAD/Checker Switcher */}
-                                        <div className="absolute top-2.5 left-3 z-10 flex items-center gap-1.5 bg-background/85 backdrop-blur-md px-2.5 py-1 rounded-full border border-border/50 shadow-xs">
-                                            <div className="inline-flex gap-1 rounded-full bg-muted/70 p-0.5">
+                                        <div className="absolute top-2.5 left-3 z-10 flex items-center gap-1.5 bg-background/90 dark:bg-background/85 backdrop-blur-md px-2.5 py-1 rounded-full border border-border/60 shadow-sm">
+                                            <div className="inline-flex gap-1 rounded-full bg-muted/80 p-0.5">
                                                 {[
                                                     { id: 'cad', label: 'CAD' },
                                                     { id: 'checker', label: 'Checker' },
@@ -342,7 +444,7 @@ export default function RegistryHomePage() {
                                                     <button
                                                         key={bg.id}
                                                         onClick={() => setCanvasBg(bg.id as any)}
-                                                        className={`px-2 py-0.2 rounded-full text-[9px] font-mono transition-all cursor-pointer ${canvasBg === bg.id ? 'bg-background text-foreground font-bold shadow-xs' : 'text-muted-foreground hover:text-foreground'
+                                                        className={`px-2.5 py-0.5 rounded-full text-[9px] font-mono transition-all cursor-pointer ${canvasBg === bg.id ? 'bg-background text-foreground font-bold shadow-xs' : 'text-muted-foreground hover:text-foreground'
                                                             }`}
                                                     >
                                                         {bg.label}
@@ -351,12 +453,12 @@ export default function RegistryHomePage() {
                                             </div>
                                         </div>
 
-                                        <div className="absolute top-2 right-2 w-2 h-2 rounded-full border border-primary bg-background shadow-xs" />
-                                        <div className="absolute bottom-2 left-2 w-2 h-2 rounded-full border border-primary bg-background shadow-xs" />
-                                        <div className="absolute bottom-2 right-2 w-2 h-2 rounded-full border border-primary bg-background shadow-xs" />
+                                        <div className="absolute top-2 right-2 w-2 h-2 rounded-full border border-primary bg-primary/20 shadow-xs" />
+                                        <div className="absolute bottom-2 left-2 w-2 h-2 rounded-full border border-primary bg-primary/20 shadow-xs" />
+                                        <div className="absolute bottom-2 right-2 w-2 h-2 rounded-full border border-primary bg-primary/20 shadow-xs" />
 
                                         {/* Center Vector Graphic */}
-                                        <div className="relative p-6 border border-primary/30 rounded-2xl bg-primary/5 flex items-center justify-center transition-all duration-200 shadow-inner">
+                                        <div className="relative p-6 border border-primary/40 rounded-2xl bg-primary/10 dark:bg-primary/5 flex items-center justify-center transition-all duration-200 shadow-inner backdrop-blur-xs">
                                             <div className="absolute -top-3 px-2 py-0.2 whitespace-nowrap rounded-full bg-primary text-primary-foreground font-mono text-[9px] font-bold shadow-xs">
                                                 {iconSize}px Asset
                                             </div>
@@ -364,7 +466,7 @@ export default function RegistryHomePage() {
                                         </div>
 
                                         {/* Bottom Status Overlay */}
-                                        <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[10px] font-mono text-muted-foreground bg-background/90 px-3.5 py-1 rounded-full border border-border/40 backdrop-blur-md shadow-xs">
+                                        <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[10px] font-mono text-muted-foreground bg-background/95 dark:bg-background/90 px-3.5 py-1 rounded-full border border-border/60 backdrop-blur-md shadow-xs">
                                             <span>Size: <strong className="text-foreground">{iconSize}px</strong></span>
                                             <span>Rotate: <strong className="text-foreground">{rotationAngle}°</strong></span>
                                         </div>
@@ -464,9 +566,19 @@ export default function RegistryHomePage() {
                                                 </span>
                                                 <button
                                                     onClick={() => copyToClipboard(getCodeSnippet(), "playground-code")}
-                                                    className="px-2 py-0.5 rounded bg-[#37373d] hover:bg-[#45454d] text-white text-[9px] font-sans font-bold transition-colors cursor-pointer"
+                                                    className="p-1.5 rounded bg-[#37373d] hover:bg-[#45454d] text-white transition-colors cursor-pointer flex items-center justify-center"
+                                                    title={copiedCommand === "playground-code" ? "Copied Code" : "Copy Code"}
                                                 >
-                                                    {copiedCommand === "playground-code" ? "Copied Code" : "Copy Code"}
+                                                    {copiedCommand === "playground-code" ? (
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-400">
+                                                            <polyline points="20 6 9 17 4 12" />
+                                                        </svg>
+                                                    ) : (
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                                            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                                        </svg>
+                                                    )}
                                                 </button>
                                             </div>
 
@@ -487,9 +599,19 @@ export default function RegistryHomePage() {
                                         </div>
                                         <button
                                             onClick={() => copyToClipboard(getCliCommand(), "unified-stage-cli")}
-                                            className="px-3.5 py-1 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-sans font-bold transition-all shrink-0 cursor-pointer shadow-xs active:scale-95"
+                                            className="p-2 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-all shrink-0 cursor-pointer shadow-xs active:scale-95 flex items-center justify-center"
+                                            title={copiedCommand === "unified-stage-cli" ? "Copied Command" : "Copy Command"}
                                         >
-                                            {copiedCommand === "unified-stage-cli" ? "Copied" : "Copy Command"}
+                                            {copiedCommand === "unified-stage-cli" ? (
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                    <polyline points="20 6 9 17 4 12" />
+                                                </svg>
+                                            ) : (
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                                                    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                                                </svg>
+                                            )}
                                         </button>
                                     </div>
                                 </div>

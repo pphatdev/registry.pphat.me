@@ -42,7 +42,7 @@ export default function RootLayout({
                     <div className="fixed inset-0 pointer-events-none -z-10 h-full w-full bg-[radial-gradient(hsl(var(--foreground)/0.15)_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
                     
                     <Header />
-                    <div className="flex-1 flex flex-col relative">
+                    <div className="flex-1 flex flex-col relative pt-20 md:pt-24">
                         {children}
                     </div>
                     <Footer />
