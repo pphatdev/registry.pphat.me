@@ -217,9 +217,17 @@ export function TerminalShowcase({
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
                     </button>
 
-                    <div className="flex items-center gap-1.5 text-[10px] text-zinc-400 font-bold bg-zinc-900/80 px-2.5 py-1 rounded-md border border-zinc-800 ml-1">
-                        <span className={`w-2 h-2 rounded-full ${isTerminalPlaying ? "bg-emerald-400 animate-pulse" : "bg-amber-400"}`} />
-                        <span>{isTerminalPlaying ? "LIVE STREAM" : "PAUSED"}</span>
+                    {/* Live Stream Indicator Badge */}
+                    <div
+                        className="p-1.5 flex items-center justify-center min-w-[27px] h-[27px] relative"
+                        title={isTerminalPlaying ? "Live Stream Active" : "Stream Paused"}
+                    >
+                        <div className="relative flex items-center justify-center w-2 h-2">
+                            {isTerminalPlaying && (
+                                <span className="absolute inline-flex w-4 h-4 rounded-full bg-emerald-400/50 animate-ping" />
+                            )}
+                            <span className={`relative inline-flex w-2 h-2 rounded-full ${isTerminalPlaying ? "bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" : "bg-amber-400"}`} />
+                        </div>
                     </div>
                 </div>
             </div>

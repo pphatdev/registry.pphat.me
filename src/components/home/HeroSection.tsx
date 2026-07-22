@@ -27,6 +27,11 @@ export function HeroSection({
             <div className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center overflow-hidden select-none">
                 <div className="absolute top-1/4 left-1/3 w-[550px] h-[550px] bg-primary/20 rounded-full blur-[110px] opacity-40 mix-blend-screen animate-pulse-slow"></div>
                 <div className="absolute top-1/2 right-1/4 w-[450px] h-[450px] bg-emerald-500/15 rounded-full blur-[90px] opacity-30 mix-blend-screen animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+                
+                {/* Ripple effect rings */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-primary/20 animate-ripple"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full border border-primary/10 animate-ripple" style={{ animationDelay: "1s" }}></div>
+
                 <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
 
                 {/* Floating Random Vector Background Icons */}
