@@ -32,7 +32,7 @@ export default function Header() {
     return (
         <header
             className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[92%] sm:w-[95%] max-w-6xl rounded-full h-16 flex items-center justify-between px-4 sm:px-6 transition-all duration-300 ${scrolled
-                    ? "bg-background/80 backdrop-blur-xl border border-border/80 shadow-xl shadow-black/10"
+                    ? "bg-background/80 backdrop-blur-xl border border-border/80 shadow-xl shadow-background/50"
                     : "border border-transparent"
                 }`}
         >
