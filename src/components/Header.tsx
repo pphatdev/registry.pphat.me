@@ -26,7 +26,7 @@ export default function Header() {
     const links = [
         // { label: "Registry Hub", href: "/", exact: true },
         { label: "Icons", href: "/icons", exact: false },
-        { label: "Documentation", href: "/docs", exact: false },
+        { label: "Docs", href: "/docs", exact: false },
     ];
 
     return (
@@ -36,6 +36,7 @@ export default function Header() {
                     : "border border-transparent"
                 }`}
         >
+            {/* Left: Logo & Branding */}
             <div className="flex items-center gap-2.5">
                 <Link href="/" className="flex flex-col items-center justify-center group leading-none">
                     <div className="relative h-14 shrink-0 flex items-center justify-center pb-2">
@@ -60,8 +61,9 @@ export default function Header() {
                 </Link>
             </div>
 
-            <div className="flex items-center gap-4">
-                <div className="hidden md:flex items-center space-x-2 text-sm font-medium text-foreground/60 transition duration-200">
+            {/* Right: Navigation Menu Items & Controls */}
+            <div className="flex items-center gap-3 sm:gap-4">
+                <div className="hidden md:flex items-center gap-1.5">
                     {links.map((link) => {
                         const isActive = link.exact
                             ? pathname === link.href
@@ -71,13 +73,21 @@ export default function Header() {
                             <Link
                                 key={link.label}
                                 href={link.href}
-                                className={`relative px-4 py-1.5 rounded-full transition-colors duration-200 ${isActive ? "text-foreground font-semibold" : "text-foreground/80 hover:text-foreground"
-                                    }`}
+                                className={`group relative inline-flex items-center justify-center h-9 px-4 rounded-full text-sm font-semibold transition-all duration-300 ${
+                                    isActive
+                                        ? "text-primary"
+                                        : "text-muted-foreground hover:text-foreground"
+                                }`}
                             >
-                                {isActive && (
-                                    <div className="absolute inset-0 h-full w-full rounded-full bg-foreground/10 ring-1 ring-foreground/20"></div>
+                                {isActive ? (
+                                    <div className="absolute inset-0 rounded-full bg-primary/10 border border-primary/25 shadow-sm shadow-primary/10" />
+                                ) : (
+                                    <div className="absolute inset-0 rounded-full bg-muted/70 dark:bg-muted/50 border border-border/50 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out" />
                                 )}
-                                <span className="relative z-20">{link.label}</span>
+                                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/15 to-emerald-400/15 opacity-0 blur-xs group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                                <span className="relative z-10 flex items-center justify-center gap-1.5 transition-transform duration-200 group-hover:scale-[1.02] leading-none">
+                                    {link.label}
+                                </span>
                             </Link>
                         );
                     })}
@@ -87,10 +97,10 @@ export default function Header() {
                     href="https://github.com/pphatdev/registry"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center justify-center text-foreground hover:text-primary transition-colors hover:scale-110"
+                    className="flex items-center justify-center w-8 h-8 rounded-full bg-muted text-foreground hover:bg-primary/10 hover:text-primary transition-all duration-200 hover:scale-105"
                     title="GitHub"
                 >
-                    <GithubIcon width={24} height={24} />
+                    <GithubIcon width={16} height={16} />
                 </a>
             </div>
         </header>
