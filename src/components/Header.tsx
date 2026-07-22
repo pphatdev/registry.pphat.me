@@ -41,14 +41,14 @@ export default function Header() {
                 <Link href="/" className="flex flex-col items-center justify-center group leading-none">
                     <div className="relative h-14 shrink-0 flex items-center justify-center pb-2">
                         <img
-                            src="https://pphat.me/assets/logo/logo-transparent-dark-mode.png"
+                            src="/logo-dark.png"
                             alt="pphat.me logo"
                             width={32}
                             height={32}
                             className="w-14 h-14 object-contain hidden dark:block"
                         />
                         <img
-                            src="https://pphat.me/assets/logo/logo-transparent-light-mode.png"
+                            src="/logo-light.png"
                             alt="pphat.me logo"
                             width={32}
                             height={32}
