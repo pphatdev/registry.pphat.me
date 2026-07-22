@@ -1,14 +1,6 @@
 {
   "name": "Default configuration",
   "icons": {
-    "nuxtjs": {
-      "dir": "src/components/icons",
-      "use": true
-    },
-    "svg": {
-      "dir": "public/icons",
-      "use": true
-    },
     "nextjs": {
       "dir": "src/components/icons",
       "use": true
