@@ -8,16 +8,16 @@ async function fetchIcons() {
             fetch("https://raw.githubusercontent.com/pphatdev/icons/main/regular.json", { next: { revalidate: 3600 } }).catch(() => null)
         ]);
         
-        let allIcons: Record<string, unknown>[] = [];
+        let allIcons: { name: string; svgContent?: string; target?: string; category?: string; [key: string]: unknown }[] = [];
 
         if (brandsRes.ok) {
             const brands = await brandsRes.json();
-            allIcons = [...allIcons, ...brands.map((b: Record<string, unknown>) => ({ ...b, category: 'Brands' }))];
+            allIcons = [...allIcons, ...brands.map((b: { name: string; svgContent?: string; target?: string; [key: string]: unknown }) => ({ ...b, category: 'Brands' }))];
         }
 
         if (regularRes && regularRes.ok) {
             const regular = await regularRes.json();
-            allIcons = [...allIcons, ...regular.map((r: Record<string, unknown>) => ({ ...r, category: 'Regular' }))];
+            allIcons = [...allIcons, ...regular.map((r: { name: string; svgContent?: string; target?: string; [key: string]: unknown }) => ({ ...r, category: 'Regular' }))];
         }
 
         return allIcons;
