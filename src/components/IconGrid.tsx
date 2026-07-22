@@ -4,8 +4,8 @@ import ClientIconGrid from "./ClientIconGrid";
 async function fetchIcons() {
     try {
         const [brandsRes, regularRes] = await Promise.all([
-            fetch("https://raw.githubusercontent.com/pphatdev/icons/main/brands.json", { next: { revalidate: 3600 } }),
-            fetch("https://raw.githubusercontent.com/pphatdev/icons/main/regular.json", { next: { revalidate: 3600 } }).catch(() => null)
+            fetch("https://raw.githubusercontent.com/pphatdev/icons/main/brands.json", { next: { revalidate: 3600 } } as unknown as RequestInit),
+            fetch("https://raw.githubusercontent.com/pphatdev/icons/main/regular.json", { next: { revalidate: 3600 } } as unknown as RequestInit).catch(() => null)
         ]);
         
         let allIcons: { name: string; svgContent?: string; target?: string; category?: string; [key: string]: unknown }[] = [];
