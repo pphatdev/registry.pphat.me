@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import CopyDrawer from "./CopyDrawer";
 
-const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, onCopy }: { icon: { svgContent?: string; target?: string; name?: string; category?: string; [key: string]: unknown }, size: number, strokeWidth: number, color: string, onCopy: (icon: Record<string, unknown>) => void }) {
+const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, onCopy }: { icon: { name: string; svgContent?: string; target?: string; category?: string; [key: string]: unknown }, size: number, strokeWidth: number, color: string, onCopy: (icon: { name: string; svgContent?: string; target?: string; [key: string]: unknown }) => void }) {
     const [svg, setSvg] = useState<string>("");
     const [loading, setLoading] = useState(true);
 
@@ -117,7 +117,7 @@ const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, 
     );
 });
 
-export default function ClientIconGrid({ icons }: { icons: Record<string, unknown>[] }) {
+export default function ClientIconGrid({ icons }: { icons: { name: string; svgContent?: string; target?: string; category?: string; [key: string]: unknown }[] }) {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -199,7 +199,7 @@ export default function ClientIconGrid({ icons }: { icons: Record<string, unknow
     }, [globalSize, globalStrokeWidth, globalColor, searchQuery, filter]);
 
     // Drawer State
-    const [selectedIconForCopy, setSelectedIconForCopy] = useState<Record<string, unknown> | null>(null);
+    const [selectedIconForCopy, setSelectedIconForCopy] = useState<{ name: string; svgContent?: string; target?: string; [key: string]: unknown } | null>(null);
 
     const filteredIcons = icons.filter((icon) => {
         const name = typeof icon.name === "string" ? icon.name : "";
@@ -261,7 +261,7 @@ export default function ClientIconGrid({ icons }: { icons: Record<string, unknow
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
-    const handleIconClick = (icon: Record<string, unknown>) => {
+    const handleIconClick = (icon: { name: string; svgContent?: string; target?: string; [key: string]: unknown }) => {
         setSelectedIconForCopy(icon);
     };
 
