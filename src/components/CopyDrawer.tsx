@@ -5,14 +5,14 @@ import React, { useState, useEffect, useRef } from "react";
 interface CopyDrawerProps {
     isOpen: boolean;
     onClose: () => void;
-    icon: any; // Using any to avoid type errors with string properties
+    icon: { name: string; svgContent?: string; target?: string; [key: string]: unknown } | null;
     size: number;
     strokeWidth: number;
     color: string;
 }
 
 export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, color }: CopyDrawerProps) {
-    const [renderedIcon, setRenderedIcon] = useState<Record<string, unknown> | null>(null);
+    const [renderedIcon, setRenderedIcon] = useState<{ name: string; svgContent?: string; target?: string; [key: string]: unknown } | null>(null);
     const [svgContent, setSvgContent] = useState<string>("");
     const [loading, setLoading] = useState(false);
     const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
