@@ -54,7 +54,7 @@ const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, 
     return (
         <div
             onClick={() => onCopy(icon)}
-            className="group relative flex flex-col items-center justify-between p-4 gap-3 rounded-2xl bg-background/80 dark:bg-[#0d1117]/90 border border-border/60 hover:border-primary/60 shadow-xs hover:shadow-[0_12px_35px_rgba(var(--primary),0.2)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-hidden backdrop-blur-xl"
+            className="group relative flex flex-col items-center justify-between p-1.5 gap-2 rounded-xl bg-background/80 dark:bg-[#0d1117]/90 border border-border/60 hover:border-primary/60 shadow-xs hover:shadow-[0_12px_35px_rgba(var(--primary),0.2)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-hidden backdrop-blur-xl"
         >
             {/* Ambient Radial Backlight Glow on Hover */}
             <div className="absolute -top-12 -left-12 w-32 h-32 bg-primary/15 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -62,9 +62,9 @@ const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, 
 
             {/* Top Badge Row */}
             <div className="w-full flex items-center justify-between text-[10px] font-mono z-10">
-                <span className="px-2 py-0.5 rounded-full bg-muted/60 text-muted-foreground border border-border/40 font-semibold uppercase tracking-wider group-hover:border-primary/30 group-hover:text-primary transition-colors">
+                {/* <span className="px-2 py-0.5 rounded-full bg-muted/60 text-muted-foreground border border-border/40 font-semibold uppercase tracking-wider group-hover:border-primary/30 group-hover:text-primary transition-colors">
                     {icon.category || 'Vector'}
-                </span>
+                </span> */}
                 <span className="text-muted-foreground/60 group-hover:text-muted-foreground text-[9px] font-mono transition-colors">
                     {size}px
                 </span>

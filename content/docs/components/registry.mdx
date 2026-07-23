@@ -1,7 +1,23 @@
-# Registry Blocks
+# Registry Maintenance & Building
 
-Explore the robust pre-built registry blocks available for your app.
+Learn how the static registry is generated and updated for contributors and maintainers.
 
 ---
 
-Coming soon.
+## Building the Registry Locally
+
+The icons and components are hosted on a GitHub repository and parsed into a lightweight `registry/index.json`. To rebuild the registry locally:
+
+### 1. Generate GitHub Token
+
+Generate a GitHub Personal Access Token to avoid GitHub API rate limits.
+
+### 2. Run Build Script
+
+Linux / macOS:
+<CopyCode code='GITHUB_TOKEN="your_token" npm run build:registry' />
+
+Windows (PowerShell):
+<CopyCode code='$env:GITHUB_TOKEN="your_token"; npm run build:registry' />
+
+> **Note**: An automated GitHub Actions workflow runs automatically whenever a new GitHub **Release** is published, ensuring the registry stays up to date!

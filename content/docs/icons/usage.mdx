@@ -1,37 +1,45 @@
 # Using Icons
 
-Users can easily download and install icons from this project via the `@pphatdev/registry` package CLI.
+Download and manage custom vector icons directly in your frontend project using the `@pphatdev/registry` CLI.
 
-## Installation 
+---
 
-### Registry Packages Requirements
+## Quick Start
 
-```bash
-# Local
-npm install -D @pphatdev/registry
+### 1. Initialize Configuration
 
-# Global
-npm install -g @pphatdev/registry
+<CopyCode code="npx pphat init" />
 
+Select **Icons** and choose your preferred formats (`svg`, `nextjs`, or `nuxtjs`) and destination paths.
 
-# verify installation
-pphat --version
-# or
-@pphatdev/registry --version
-# or
-pphatdev --version
+### 2. Browse Available Icons
 
+<CopyCode code="npx pphat list icons" />
 
-# Init configuration
-pphat init ## Choose what you need to use (icon or other in the future)
-```
+### 3. Add Icons
 
-### Icons Installation
+Download one or multiple icons using `add-icon` (or `add`):
 
-```bash
-# Install icons
-pphat add <iconname> -f <format:{svg|nextjs|nuxtjs}>
+<CopyCode code="npx pphat add-icon react vue github" />
 
-# Example
-pphat add f
-```
+---
+
+## Format & Directory Overrides
+
+To download an icon into a specific folder or format without updating `pphatdev.json`:
+
+### Download as Next.js (.tsx) Component
+
+<CopyCode code="npx pphat add-icon github -f nextjs" />
+
+### Download as Nuxt.js (.vue) Component
+
+<CopyCode code="npx pphat add-icon github -f nuxtjs" />
+
+### Download as Raw SVG
+
+<CopyCode code="npx pphat add-icon github -f svg" />
+
+### Custom Output Directory
+
+<CopyCode code="npx pphat add-icon react vue -d src/assets/icons" />

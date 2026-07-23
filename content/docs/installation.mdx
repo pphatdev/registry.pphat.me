@@ -1,44 +1,82 @@
-# Installation
+# Installation & Quick Start
 
-A quick start guide to using the **@pphatdev/registry** CLI tool.
+A quick start guide to using the **@pphatdev/registry** CLI.
 
 ---
 
 ## Usage via npx (Recommended)
 
-You don't even need to install it! You can run it directly using `npx`:
+You don't need to install anything. Run the CLI directly using `npx`:
 
-<CopyCode code="npx @pphatdev/registry init" />
+<CopyCode code="npx pphat init" />
 
-## Global Installation (Alternative)
+The CLI supports multiple convenient aliases (prefixes), so you can use any of the following interchangeably:
 
-Install the registry CLI tool globally on your machine to access it from anywhere without needing to use `npx` every time.
+<CopyCode code="npx pphat <command>" />
+<CopyCode code="npx pphatdev <command>" />
+<CopyCode code="npx @pphatdev/registry <command>" />
+
+## Global Installation (Optional)
+
+If you plan to use the CLI frequently across many projects, install it globally on your machine:
 
 <CopyCode code="npm install -g @pphatdev/registry" />
 
-> **Getting an EEXIST error?** This happens if an old version's binary is stuck in your npm cache. Simply run `npm install -g @pphatdev/registry --force` to overwrite it.
+Then use the short commands anywhere:
+
+<CopyCode code="pphat init" />
 
 ---
 
-## 1. Initialize your project
+## Step-by-Step Workflow
 
-Run the `init` command to set up your preferences. It will ask you where you want to save your items and what format you prefer (SVG, Next.js, or Nuxt.js).
+### 1. Initialize your project
 
-Using npx:
-<CopyCode code="npx @pphatdev/registry init" />
+Run the `init` command to set up your preferences. It interactively prompts you for configuration and writes a `pphatdev.json` file at the root of your project:
 
-Using global install:
-<CopyCode code="pphat init" />
+<CopyCode code="npx pphat init" />
 
-## 2. Add components & icons
+*Example interactive setup:*
 
-Search for your desired items in the registry and add them directly to your codebase. You can optionally force a specific format using the `-f` flag.
+```text
+? What is name of config ? › Default configuration
+? What do you want to use ? (required must select one) › Icons
 
-Using npx:
-<CopyCode code="npx @pphatdev/registry add <iconname> -f <format>" />
+? Which directory you want to use ? (required must select one) › Nextjs format (.tsx)
+? Where do you store icon of nextjs ? › components/icons
 
-Using global install:
-<CopyCode code="pphat add <iconname> -f <format>" />
+Success! Configuration saved to pphatdev.json.
+```
 
-Example:
-<CopyCode code="pphat add icons/brands/github -f nextjs" />
+### 2. View & Manage Configuration
+
+View or update your stored configuration anytime using the `config` command:
+
+<CopyCode code="npx pphat config" />
+
+Or fetch / set specific keys:
+
+<CopyCode code="npx pphat config get" />
+<CopyCode code="npx pphat config get icons.nextjs.dir" />
+<CopyCode code="npx pphat config set icons.nextjs.use true" />
+
+### 3. Discover Items in the Registry
+
+Browse available icons or components using the `list` (or `ls`) command with pagination:
+
+<CopyCode code="npx pphat list icons" />
+<CopyCode code="npx pphat ls components" />
+
+### 4. Add Icons or Components
+
+Download icons or components directly into your project:
+
+<CopyCode code="npx pphat add-icon react vue github" />
+<CopyCode code="npx pphat add-component button card modal" />
+
+#### Custom target directory or format
+
+Override your default configuration on the fly using `-d` (`--dir`) or `-f` (`--format`):
+
+<CopyCode code="npx pphat add-icon react vue -d src/assets/icons" />
+<CopyCode code="npx pphat add-component button -f nextjs -d src/components/ui" />

@@ -16,10 +16,10 @@ export function HeroSection({
     copiedCommand,
 }: HeroSectionProps) {
     const installCmd = heroPkgManager === 'npm'
-        ? "npm install @pphatdev/registry"
+        ? "npm install -g @pphatdev/registry"
         : heroPkgManager === 'pnpm'
-        ? "pnpm add @pphatdev/registry"
-        : "bun add @pphatdev/registry";
+        ? "pnpm add -g @pphatdev/registry"
+        : "bun add -g @pphatdev/registry";
 
     return (
         <section className="relative pt-16 sm:pt-28 pb-16 sm:pb-20 md:pb-24 overflow-hidden flex flex-col justify-center min-h-115 md:min-h-130">
@@ -71,7 +71,7 @@ export function HeroSection({
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                             </span>
-                            @pphatdev/registry v1.1.0
+                            @pphatdev/registry v1.2.0
                         </div>
 
                         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.12] text-foreground mt-1">
