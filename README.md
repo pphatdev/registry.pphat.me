@@ -4,7 +4,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@pphatdev/registry.svg?style=flat-square)](https://npmjs.org/package/@pphatdev/registry)
 [![license](https://img.shields.io/npm/l/@pphatdev/registry.svg?style=flat-square)](https://npmjs.org/package/@pphatdev/registry)
-[![Build & Test](https://github.com/pphatdev/icons/actions/workflows/ci.yml/badge.svg)](https://github.com/pphatdev/icons/actions/workflows/ci.yml)
+[![Build & Test](https://github.com/pphatdev/registry.pphat.me/actions/workflows/ci.yml/badge.svg)](https://github.com/pphatdev/icons/actions/workflows/ci.yml)
 
 A powerful and extremely fast CLI tool to instantly download and manage custom UI components and icons for your frontend projects.
 
