@@ -16,16 +16,17 @@ export function TerminalShowcase({
     const terminalViewportRef = React.useRef<HTMLDivElement>(null);
 
     const installCmd = heroPkgManager === 'npm'
-        ? "npm install @pphatdev/registry"
+        ? "npm install -g @pphatdev/registry"
         : heroPkgManager === 'pnpm'
-        ? "pnpm add @pphatdev/registry"
-        : "bun add @pphatdev/registry";
+        ? "pnpm add -g @pphatdev/registry"
+        : "bun add -g @pphatdev/registry";
 
     const cliSteps = React.useMemo(() => [
         installCmd,
         "pphat",
         "pphat init",
-        "pphat add nextjs"
+        "pphat list icons",
+        "pphat add react -f nextjs"
     ], [installCmd]);
 
     const [currentCmdIndex, setCurrentCmdIndex] = useState<number>(0);
@@ -49,7 +50,7 @@ export function TerminalShowcase({
         if (!isTerminalPlaying) return;
 
         // Auto Replay After Completion (5s reading buffer)
-        if (completedStepCount >= 4) {
+        if (completedStepCount >= 5) {
             const autoReplayTimer = setTimeout(() => {
                 setCurrentCmdIndex(0);
                 setTypedChars(0);
@@ -91,24 +92,19 @@ export function TerminalShowcase({
                 return () => clearTimeout(submitTimer);
             }
 
-            // SubStep 1: Selecting "Icons" (↓ Arrow down -> Space select -> Enter submit)
+            // SubStep 1: Selecting "Icons" (select = single-select: ↓ Arrow down -> Enter submit)
             if (initSubStep === 1) {
                 if (activeOptionIndex === 0) {
                     const arrowDownTimer = setTimeout(() => {
                         setActiveOptionIndex(1);
                     }, 450);
                     return () => clearTimeout(arrowDownTimer);
-                } else if (!selectOptionChecked) {
-                    const spaceSelectTimer = setTimeout(() => {
-                        setSelectOptionChecked(true);
-                    }, 450);
-                    return () => clearTimeout(spaceSelectTimer);
                 } else {
                     const enterSubmitTimer = setTimeout(() => {
                         setInitSubStep(2);
                         setActiveOptionIndex(0);
                         setSelectOptionChecked(false);
-                    }, 600);
+                    }, 700);
                     return () => clearTimeout(enterSubmitTimer);
                 }
             }
@@ -141,7 +137,7 @@ export function TerminalShowcase({
                 return () => clearTimeout(submitTimer);
             }
 
-            // SubStep 4: Success Message -> Advance to next command
+            // SubStep 4: Success Message -> Advance to `pphat list icons`
             if (initSubStep === 4) {
                 const nextCmdDelayTimer = setTimeout(() => {
                     setCurrentCmdIndex(3);
@@ -322,13 +318,32 @@ export function TerminalShowcase({
                                 <div className="text-zinc-300 text-[11px] mt-1">
                                     <span className="text-amber-400 font-bold">Commands:</span>
                                     <br />
-                                    {"  "}<span className="text-emerald-400 font-bold">add [options] [name]</span>  Download and copy an item (icon or component) into your project
+                                    {"  "}<span className="text-emerald-400 font-bold">add-icon|add [options] [names...]</span>       Download and copy icons or components into your project
                                     <br />
-                                    {"  "}<span className="text-emerald-400 font-bold">init</span>                  Initialize configuration (pphatdev.json) and set up your project preferences
+                                    {"  "}<span className="text-emerald-400 font-bold">add-component [options] [names...]</span>      Download and copy components into your project
                                     <br />
-                                    {"  "}<span className="text-emerald-400 font-bold">list|ls &lt;type&gt;</span>        List all available items in the registry (icons or components)
+                                    {"  "}<span className="text-emerald-400 font-bold">init</span>                                    Initialize configuration (pphatdev.json) and set up your project preferences
                                     <br />
-                                    {"  "}<span className="text-emerald-400 font-bold">help [command]</span>        display help for command
+                                    {"  "}<span className="text-emerald-400 font-bold">list|ls &lt;type&gt;</span>                          List all available items in the registry (icons or components)
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">config [command]</span>                        Manage @pphatdev/registry configuration
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">help [command]</span>                          display help for command
+                                </div>
+                                <div className="text-zinc-300 text-[11px] mt-1">
+                                    <span className="text-amber-400 font-bold">Examples:</span>
+                                    <br />
+                                    {"  "}$ pphat init
+                                    <br />
+                                    {"  "}$ pphat add-icon react vue github
+                                    <br />
+                                    {"  "}$ pphat add-icon react -f nextjs -d src/components/icons
+                                    <br />
+                                    {"  "}$ pphat add-component button card
+                                    <br />
+                                    {"  "}$ pphat list icons
+                                    <br />
+                                    {"  "}$ pphat config get icons.nextjs.dir
                                 </div>
                             </div>
                         )}
@@ -383,22 +398,22 @@ export function TerminalShowcase({
                                         </div>
                                     )}
 
-                                    {/* Question 2 */}
+                                    {/* Question 2 — @inquirer/prompts `select` (single choice) */}
                                     {initSubStep === 1 && (
                                         <div className="flex flex-col gap-1 text-cyan-400 font-bold animate-in fade-in py-0.5">
                                             <div><span className="text-amber-400 font-bold">?</span> What do you want to use ? <span className="text-zinc-400 font-normal">(required must select one)</span></div>
                                             <div className="pl-3 font-mono flex flex-col gap-0.5 text-zinc-400">
                                                 <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 0 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-3.75'}`}>
-                                                    {activeOptionIndex === 0 && <span>❯</span>} <span>◯</span> Components
+                                                    {activeOptionIndex === 0 && <span>❯</span>} Components
                                                 </div>
                                                 <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 1 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-3.75'}`}>
-                                                    {activeOptionIndex === 1 && <span>❯</span>} <span className="transition-all duration-200">{activeOptionIndex === 1 && selectOptionChecked ? '◉' : '◯'}</span> <span className={activeOptionIndex === 1 ? 'underline decoration-emerald-400 underline-offset-2' : ''}>Icons</span>
+                                                    {activeOptionIndex === 1 && <span>❯</span>} <span className={activeOptionIndex === 1 ? 'underline decoration-emerald-400 underline-offset-2' : ''}>Icons</span>
                                                 </div>
                                                 <div className={`flex items-center gap-1.5 transition-colors duration-150 ${activeOptionIndex === 2 ? 'text-emerald-400 font-bold' : 'opacity-60 pl-3.75'}`}>
-                                                    {activeOptionIndex === 2 && <span>❯</span>} <span>◯</span> Both Components and Icons
+                                                    {activeOptionIndex === 2 && <span>❯</span>} Both Components and Icons
                                                 </div>
                                             </div>
-                                            <div className="text-zinc-500 text-[10px] font-normal pl-3 mt-0.5">↑↓ navigate • space select • a all • i invert • ⏎ submit</div>
+                                            <div className="text-zinc-500 text-[10px] font-normal pl-3 mt-0.5">(Use arrow keys)</div>
                                         </div>
                                     )}
                                     {initSubStep >= 2 && (
@@ -407,7 +422,7 @@ export function TerminalShowcase({
                                         </div>
                                     )}
 
-                                    {/* Question 3 */}
+                                    {/* Question 3 — @inquirer/prompts `checkbox` (multi choice) */}
                                     {initSubStep === 2 && (
                                         <div className="flex flex-col gap-1 text-cyan-400 font-bold animate-in fade-in py-0.5">
                                             <div><span className="text-amber-400 font-bold">?</span> Which directory you want to use ? <span className="text-zinc-400 font-normal">(required must select one)</span></div>
@@ -422,7 +437,7 @@ export function TerminalShowcase({
                                                     {activeOptionIndex === 2 && <span>❯</span>} <span>◯</span> Nuxtjs format (.vue)
                                                 </div>
                                             </div>
-                                            <div className="text-zinc-500 text-[10px] font-normal pl-3 mt-0.5">↑↓ navigate • space select • a all • i invert • ⏎ submit</div>
+                                            <div className="text-zinc-500 text-[10px] font-normal pl-3 mt-0.5">(Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to invert selection, and &lt;enter&gt; to proceed)</div>
                                         </div>
                                     )}
                                     {initSubStep >= 3 && (
@@ -456,7 +471,7 @@ export function TerminalShowcase({
                     </div>
                 )}
 
-                {/* LINE BLOCK 4: pphat add nextjs */}
+                {/* LINE BLOCK 4: pphat list icons */}
                 {completedStepCount >= 3 && currentCmdIndex >= 3 && (
                     <div className="flex flex-col gap-2 pt-4 border-t border-zinc-800/60 transition-all duration-300">
                         <div className="flex items-center justify-between font-bold">
@@ -483,15 +498,55 @@ export function TerminalShowcase({
                         </div>
 
                         {completedStepCount >= 4 && (
+                            <div className="flex flex-col gap-0.5 text-[11px] animate-in fade-in duration-300 font-mono">
+                                <div className="text-blue-400 font-extrabold mt-1">Available Brands Icons:</div>
+                                <div className="text-zinc-200 pl-2">- <span className="text-emerald-400">github</span></div>
+                                <div className="text-zinc-200 pl-2">- <span className="text-emerald-400">nextjs</span></div>
+                                <div className="text-zinc-200 pl-2">- <span className="text-emerald-400">nuxtjs</span></div>
+                                <div className="text-zinc-200 pl-2">- <span className="text-emerald-400">react</span></div>
+                                <div className="text-zinc-200 pl-2">- <span className="text-emerald-400">tailwind</span></div>
+                                <div className="text-zinc-200 pl-2">- <span className="text-emerald-400">vue</span></div>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {/* LINE BLOCK 5: pphat add react -f nextjs */}
+                {completedStepCount >= 4 && currentCmdIndex >= 4 && (
+                    <div className="flex flex-col gap-2 pt-4 border-t border-zinc-800/60 transition-all duration-300">
+                        <div className="flex items-center justify-between font-bold">
+                            <div className="flex items-center gap-2">
+                                <span className="text-cyan-400 font-bold">~project</span>
+                                <span className="text-emerald-400 font-bold">$</span>
+                                <code className="text-zinc-100 font-bold select-all">
+                                    {completedStepCount >= 5
+                                        ? cliSteps[4]
+                                        : cliSteps[4].slice(0, currentCmdIndex === 4 ? typedChars : 0)}
+                                    {currentCmdIndex === 4 && completedStepCount === 4 && (
+                                        <span className="inline-block w-2 h-4 bg-emerald-400 animate-pulse ml-0.5 align-middle" />
+                                    )}
+                                </code>
+                            </div>
+                            {completedStepCount >= 5 && (
+                                <button
+                                    onClick={() => copyToClipboard(cliSteps[4], 'term-cmd-5')}
+                                    className="px-2 py-0.5 rounded bg-zinc-800/80 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 text-[10px] font-bold transition-colors cursor-pointer"
+                                >
+                                    {copiedCommand === 'term-cmd-5' ? 'Copied' : 'Copy'}
+                                </button>
+                            )}
+                        </div>
+
+                        {completedStepCount >= 5 && (
                             <div className="text-emerald-400 text-[11px] font-bold animate-in fade-in duration-300">
-                                ✔ Successfully downloaded nextjs into src/components/icons directory for format: nextjs
+                                ✔ Successfully downloaded <span className="text-zinc-100">react</span> into <span className="text-zinc-100">components/icons</span> directory for format: nextjs
                             </div>
                         )}
                     </div>
                 )}
 
                 {/* FINAL COMPLETED PROMPT CURSOR */}
-                {completedStepCount >= 4 && (
+                {completedStepCount >= 5 && (
                     <div className="flex items-center gap-2 pt-2 text-emerald-400 font-bold animate-in fade-in duration-300">
                         <span className="text-cyan-400 font-bold">~project</span>
                         <span className="text-emerald-400 font-bold">$</span>

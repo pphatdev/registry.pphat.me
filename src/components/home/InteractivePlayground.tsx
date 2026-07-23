@@ -21,7 +21,7 @@ export function InteractivePlayground({
     const [colorTheme, setColorTheme] = useState<string>('currentColor');
 
     const getCliCommand = () => {
-        return `npx @pphatdev/registry add ${selectedIcon} --type ${selectedFormat}`;
+        return `pphat add-icon ${selectedIcon} -f ${selectedFormat}`;
     };
 
     const getCodeSnippet = () => {
@@ -132,7 +132,7 @@ export function InteractivePlayground({
                                 <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
                                 <span className="text-xs font-mono font-bold text-muted-foreground uppercase tracking-wider ml-1">@pphatdev/registry</span>
                             </div>
-                            <span className="text-[10px] font-mono text-muted-foreground bg-muted/60 px-2.5 py-0.5 rounded-full">v1.1.0 Playground</span>
+                            <span className="text-[10px] font-mono text-muted-foreground bg-muted/60 px-2.5 py-0.5 rounded-full">v1.2.0 Playground</span>
                         </div>
 
                         {/* 2-SIDE GRID LAYOUT (EQUAL HEIGHT STRETCH) */}

@@ -9,10 +9,10 @@ export default function Hero() {
     const [heroPkgManager, setHeroPkgManager] = useState<'npm' | 'pnpm' | 'bun'>('npm');
 
     const installCmd = heroPkgManager === 'npm'
-        ? "npx @pphatdev/registry add <iconname>"
+        ? "npx pphatdev add-icon <iconname>"
         : heroPkgManager === 'pnpm'
-        ? "pnpm dlx @pphatdev/registry add <iconname>"
-        : "bunx @pphatdev/registry add <iconname>";
+        ? "pnpm dlx pphatdev add-icon <iconname>"
+        : "bunx pphatdev add-icon <iconname>";
 
     const copyToClipboard = async (text: string, id: string) => {
         try {
@@ -78,7 +78,7 @@ export default function Hero() {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                         </span>
-                        @pphatdev/registry v1.1.0
+                        @pphatdev/registry v1.2.0
                     </div>
 
                     {/* Headline Title */}
