@@ -1,37 +1,87 @@
 # Configuration
 
-Learn how to customize your preferences using **config.json**.
+Learn how to customize and manage your project preferences using **pphatdev.json**.
 
 ---
 
-## Persistent Config
+## Persistent Configuration (`pphatdev.json`)
 
-When you run `pphat init`, a tiny `config.json` file is saved to your project root. The CLI automatically reads this file on subsequent runs, meaning you don't have to repeatedly type out the framework flag (`-f nextjs`) or output directory path.
+When you run `pphat init`, a `pphatdev.json` file is generated at your project root. The CLI reads this configuration on subsequent runs so you don't need to specify output directories or framework formats each time.
 
-### Example `config.json`
+Formats and sections you don't select during initialization are written with `"use": false` and default directories, so you can easily enable them later by changing the flag or using CLI commands.
+
+### Example `pphatdev.json`
 
 ```json
 {
-    "name": "Default configuration",
-    "icons": {
-        "svg": {
-            "dir": "assets/icons",
-            "use": false
-        },
-        "nextjs": {
-            "dir": "src/components/icons",
-            "use": true
-        },
-        "nuxtjs": {
-            "dir": "components/icons",
-            "use": false
-        }
+  "name": "Default configuration",
+  "icons": {
+    "svg": {
+      "dir": "public/icons",
+      "use": false
+    },
+    "nextjs": {
+      "dir": "components/icons",
+      "use": true
+    },
+    "nuxtjs": {
+      "dir": "components/icons",
+      "use": false
     }
+  },
+  "components": {
+    "nextjs": {
+      "dir": "components/ui",
+      "use": false
+    },
+    "nuxtjs": {
+      "dir": "components/ui",
+      "use": false
+    }
+  }
 }
 ```
 
-## Bypassing Configuration
+---
 
-If you need to quickly override your saved configuration for a single component, you can pass explicit flags directly into the command line which will take precedence over the config file:
+## Configuration Fields
 
-<CopyCode code="pphat add icons/brands/github -f svg" />
+- **`name`**: The display name for your configuration preset.
+- **`icons`**: Configuration settings for downloading vector icons.
+  - **`svg`**: Directory (`dir`) and toggle (`use`) for outputting raw `.svg` files.
+  - **`nextjs`**: Directory (`dir`) and toggle (`use`) for outputting React `.tsx` components.
+  - **`nuxtjs`**: Directory (`dir`) and toggle (`use`) for outputting Vue `.vue` components.
+- **`components`**: Configuration settings for downloading UI components.
+  - **`nextjs`**: Directory (`dir`) and toggle (`use`) for Next.js / React component files.
+  - **`nuxtjs`**: Directory (`dir`) and toggle (`use`) for Nuxt.js / Vue component files.
+
+---
+
+## Managing Configuration via CLI
+
+You can inspect or modify your `pphatdev.json` file directly via the `config` command:
+
+### Interactive Update
+
+<CopyCode code="npx pphat config" />
+
+### Inspect All Settings
+
+<CopyCode code="npx pphat config get" />
+
+### Get a Specific Field
+
+<CopyCode code="npx pphat config get icons.nextjs.dir" />
+
+### Update a Specific Field
+
+<CopyCode code="npx pphat config set icons.nextjs.use true" />
+
+---
+
+## Dynamic Command Overrides
+
+You can temporarily override your saved configuration for a single command by passing `-d` (`--dir`) or `-f` (`--format`):
+
+<CopyCode code="npx pphat add-icon react -d src/custom/icons" />
+<CopyCode code="npx pphat add-component button -f nextjs" />

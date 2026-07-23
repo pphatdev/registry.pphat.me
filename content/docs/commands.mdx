@@ -1,0 +1,86 @@
+# CLI Commands
+
+A complete reference for every command exposed by the **@pphatdev/registry** CLI.
+
+You can run the CLI via global installation (`pphat`) or directly via `npx`. The following invocations are equivalent:
+
+<CopyCode code="npx pphat <command>" />
+<CopyCode code="npx pphatdev <command>" />
+<CopyCode code="npx pphatdev <command>" />
+
+---
+
+## `init`
+
+Interactively initializes project preferences and generates a `pphatdev.json` file in the project root.
+
+<CopyCode code="npx pphat init" />
+
+Prompts will guide you through selecting resource types (icons, components), formats (SVG, Next.js, Nuxt.js), and storage paths.
+
+---
+
+## `config`
+
+View and update configuration settings interactively or programmatically.
+
+### Interactive Configuration
+
+<CopyCode code="npx pphat config" />
+
+### Get Configuration
+
+<CopyCode code="npx pphat config get" />
+<CopyCode code="npx pphat config get icons.nextjs.dir" />
+
+### Set Configuration
+
+<CopyCode code="npx pphat config set icons.nextjs.use true" />
+
+---
+
+## `list` / `ls`
+
+Lists available icons or components in the registry with interactive page-by-page browsing.
+
+<CopyCode code="npx pphat list icons" />
+<CopyCode code="npx pphat ls components" />
+
+---
+
+## `add-icon` / `add`
+
+Downloads one or multiple icons from the registry into your project.
+
+<CopyCode code="npx pphat add-icon react vue github" />
+
+### Options
+
+| Flag | Long Flag | Description |
+| --- | --- | --- |
+| `-f` | `--format <fmt>` | Specify output format (`svg`, `nextjs`, `nuxtjs`) |
+| `-d` | `--dir <path>` | Specify destination directory |
+
+### Examples
+
+<CopyCode code="npx pphat add-icon react vue -d src/assets/icons" />
+<CopyCode code="npx pphat add-icon github -f nextjs" />
+
+---
+
+## `add-component` / `add-comp`
+
+Downloads one or multiple UI components from the registry.
+
+<CopyCode code="npx pphat add-component button card modal" />
+
+### Options
+
+| Flag | Long Flag | Description |
+| --- | --- | --- |
+| `-f` | `--format <fmt>` | Specify output format (`nextjs`, `nuxtjs`) |
+| `-d` | `--dir <path>` | Specify destination directory |
+
+### Examples
+
+<CopyCode code="npx pphat add-component button -f nextjs -d src/components/ui" />

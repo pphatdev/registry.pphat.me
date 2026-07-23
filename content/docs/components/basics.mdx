@@ -1,7 +1,33 @@
 # Component Basics
 
-Introduction to using custom components from the registry.
+Download and integrate custom UI components from the registry into your project using `@pphatdev/registry`.
 
 ---
 
-Coming soon.
+## Quick Start
+
+### 1. Initialize Project
+
+Make sure your project is initialized with component support enabled:
+
+<CopyCode code="npx pphat init" />
+
+### 2. List Available Components
+
+Browse available UI components in the registry:
+
+<CopyCode code="npx pphat list components" />
+
+### 3. Add Components
+
+Download one or more components using `add-component` (or `add-comp`):
+
+<CopyCode code="npx pphat add-component button card modal" />
+
+---
+
+## Command Overrides
+
+Override default component output settings using flags:
+
+<CopyCode code="npx pphat add-component button -f nextjs -d src/components/ui" />
