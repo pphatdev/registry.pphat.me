@@ -15,6 +15,7 @@ export async function generateStaticParams() {
 }
 
 export const dynamicParams = false;
+export const dynamic = "force-static";
 
 export async function generateMetadata({
     params,
