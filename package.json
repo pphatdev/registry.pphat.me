@@ -33,5 +33,13 @@
     "postcss": "^8.5.10",
     "sharp": "^0.35.0"
   },
-  "packageManager": "pnpm@11.15.1"
+  "packageManager": "pnpm@11.15.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "unrs-resolver",
+      "esbuild",
+      "workerd",
+      "sharp"
+    ]
+  }
 }
