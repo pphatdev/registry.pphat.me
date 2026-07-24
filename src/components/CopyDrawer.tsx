@@ -262,18 +262,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
 
     const copyToClipboard = async (text: string, format: string) => {
         try {
-            if (navigator.clipboard && window.isSecureContext) {
-                await navigator.clipboard.writeText(text);
-            } else {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                textArea.style.position = "absolute";
-                textArea.style.left = "-999999px";
-                document.body.prepend(textArea);
-                textArea.select();
-                document.execCommand("copy");
-                textArea.remove();
-            }
+            await navigator.clipboard.writeText(text);
             setCopiedFormat(format);
             setTimeout(() => setCopiedFormat(null), 2000);
         } catch (err) {

@@ -90,25 +90,9 @@ export default function IconCustomizerSidebar({ icon, isOpen, onClose }: IconCus
 
     const handleCopy = async (type: "svg" | "jsx") => {
         const textToCopy = type === "svg" ? getFinalSvgForCopy() : getJsxForCopy();
-        
+
         try {
-            if (navigator.clipboard && window.isSecureContext) {
-                await navigator.clipboard.writeText(textToCopy);
-            } else {
-                const textArea = document.createElement("textarea");
-                textArea.value = textToCopy;
-                textArea.style.position = "absolute";
-                textArea.style.left = "-999999px";
-                document.body.prepend(textArea);
-                textArea.select();
-                try {
-                    document.execCommand("copy");
-                } catch (error) {
-                    console.error(error);
-                } finally {
-                    textArea.remove();
-                }
-            }
+            await navigator.clipboard.writeText(textToCopy);
             setCopied(type);
             setTimeout(() => setCopied(null), 2000);
         } catch (err) {

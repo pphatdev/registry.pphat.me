@@ -112,22 +112,56 @@ export default async function DocsPage({
 }) {
     const resolvedParams = await params;
     const slug = resolvedParams.slug ? resolvedParams.slug.join("/") : "index";
-    
+
     const contentPath = path.join(process.cwd(), "content", "docs", `${slug}.mdx`);
-    
+
     if (!fs.existsSync(contentPath)) {
         notFound();
     }
 
     const source = fs.readFileSync(contentPath, "utf8");
+    const dateModified = fs.statSync(contentPath).mtime.toISOString();
 
     // Pagination links logic
     const currentIndex = FLAT_DOCS.findIndex((item) => item.slug === slug);
     const prevDoc = currentIndex > 0 ? FLAT_DOCS[currentIndex - 1] : null;
     const nextDoc = currentIndex < FLAT_DOCS.length - 1 ? FLAT_DOCS[currentIndex + 1] : null;
+    const currentDoc = FLAT_DOCS[currentIndex];
+    const canonicalUrl = `https://registry.pphat.me${currentDoc?.href ?? "/docs"}`;
+
+    const techArticleJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        headline: `${currentDoc?.title ?? "Introduction"} — @pphatdev/registry Docs`,
+        description: `Documentation for ${currentDoc?.title ?? "@pphatdev/registry"}.`,
+        url: canonicalUrl,
+        mainEntityOfPage: canonicalUrl,
+        inLanguage: "en",
+        datePublished: "2026-07-18",
+        dateModified,
+        author: {
+            "@type": "Person",
+            name: "Sophat LEAT (PPhat)",
+            url: "https://pphat.me",
+        },
+        publisher: {
+            "@type": "Person",
+            name: "Sophat LEAT (PPhat)",
+            url: "https://pphat.me",
+        },
+        image: "https://registry.pphat.me/docs.png",
+        isPartOf: { "@id": "https://registry.pphat.me/#website" },
+        about: { "@id": "https://registry.pphat.me/#app" },
+    };
 
     return (
         <div className="animate-[fade-up_0.5s_forwards] max-w-3xl pb-20">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(techArticleJsonLd).replace(/</g, "\\u003c"),
+                }}
+            />
             {/* Top Breadcrumb */}
             <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground mb-6">
                 <Link href="/docs" className="hover:text-primary transition-colors">Docs</Link>

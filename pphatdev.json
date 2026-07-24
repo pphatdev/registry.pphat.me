@@ -1,4 +1,5 @@
 {
+  "$schema": "https://registry.pphat.me/schema.json",
   "name": "Default configuration",
   "icons": {
     "nextjs": {
