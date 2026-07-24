@@ -450,11 +450,12 @@ export function InteractivePlayground({
                                             </div>
                                         ) : (
                                             <div
+                                                role="status"
                                                 aria-label={selectedIconName ? `Loading ${selectedIconName}` : 'Loading registry'}
                                                 className="flex items-center justify-center"
                                                 style={{ width: iconSize, height: iconSize }}
                                             >
-                                                <div className="w-6 h-6 rounded-none border-2 border-primary/20 border-t-primary animate-spin" />
+                                                <div aria-hidden="true" className="w-6 h-6 rounded-none border-2 border-primary/20 border-t-primary animate-spin" />
                                             </div>
                                         )}
                                     </div>

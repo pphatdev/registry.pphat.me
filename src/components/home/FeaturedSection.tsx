@@ -242,7 +242,7 @@ export function FeaturedSection({ copyToClipboard, copiedCommand }: FeaturedSect
                                                     if (!dyn.loaded) {
                                                         return (
                                                             <span
-                                                                aria-label={`Loading ${f.id} count`}
+                                                                aria-hidden="true"
                                                                 className="text-[10px] font-mono font-bold bg-background/60 border border-border/40 rounded-none px-2 py-0.5 min-w-10 h-4 animate-pulse"
                                                             />
                                                         );
