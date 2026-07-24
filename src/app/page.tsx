@@ -30,7 +30,7 @@ export default function RegistryHomePage() {
     };
 
     return (
-        <div className="flex-1 w-full flex flex-col gap-0">
+        <main className="flex-1 w-full flex flex-col gap-0">
             {/* HERO SECTION */}
             <HeroSection
                 heroPkgManager={heroPkgManager}
@@ -44,6 +44,6 @@ export default function RegistryHomePage() {
                 copyToClipboard={copyToClipboard}
                 copiedCommand={copiedCommand}
             />
-        </div>
+        </main>
     );
 }

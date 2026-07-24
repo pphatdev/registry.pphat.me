@@ -295,11 +295,17 @@ export function InteractivePlayground({
                                                     <button
                                                         key={c}
                                                         onClick={() => setColorTheme(c)}
-                                                        className={`w-3.5 h-3.5 rounded-full transition-transform cursor-pointer ${colorTheme === c ? 'scale-125 ring-2 ring-primary/60' : 'hover:scale-110 opacity-80 hover:opacity-100'
-                                                            }`}
-                                                        style={{ backgroundColor: c === 'currentColor' ? 'var(--foreground)' : c }}
+                                                        className="group w-6 h-6 flex items-center justify-center rounded-full cursor-pointer"
                                                         title={c}
-                                                    />
+                                                        aria-label={`Color ${c === 'currentColor' ? 'current' : c}`}
+                                                        aria-pressed={colorTheme === c}
+                                                    >
+                                                        <span
+                                                            aria-hidden="true"
+                                                            className={`block w-3.5 h-3.5 rounded-full transition-transform ${colorTheme === c ? 'scale-125 ring-2 ring-primary/60' : 'opacity-80 group-hover:opacity-100 group-hover:scale-110'}`}
+                                                            style={{ backgroundColor: c === 'currentColor' ? 'var(--foreground)' : c }}
+                                                        />
+                                                    </button>
                                                 ))}
                                             </div>
                                         </div>
