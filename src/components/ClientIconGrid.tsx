@@ -65,7 +65,7 @@ const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, 
                 {/* <span className="px-2 py-0.5 rounded-full bg-muted/60 text-muted-foreground border border-border/40 font-semibold uppercase tracking-wider group-hover:border-primary/30 group-hover:text-primary transition-colors">
                     {icon.category || 'Vector'}
                 </span> */}
-                <span className="text-muted-foreground/60 group-hover:text-muted-foreground text-[9px] font-mono transition-colors">
+                <span className="text-muted-foreground/80 group-hover:text-foreground text-[9px] font-mono transition-colors">
                     {size}px
                 </span>
             </div>
@@ -381,10 +381,11 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                     {/* Size Control */}
                                     <div className="space-y-2.5 px-4">
                                         <div className="flex justify-between items-center text-xs font-mono">
-                                            <label className="text-muted-foreground font-bold">Size</label>
+                                            <label htmlFor="global-size" className="text-muted-foreground font-bold">Size</label>
                                             <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">{globalSize}px</span>
                                         </div>
                                         <input
+                                            id="global-size"
                                             type="range"
                                             min="16"
                                             max="96"
@@ -415,10 +416,11 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                     {filter !== "Brands" && (
                                         <div className="space-y-2.5 px-4">
                                             <div className="flex justify-between items-center text-xs font-mono">
-                                                <label className="text-muted-foreground font-bold">Stroke</label>
+                                                <label htmlFor="global-stroke" className="text-muted-foreground font-bold">Stroke</label>
                                                 <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">{globalStrokeWidth}px</span>
                                             </div>
                                             <input
+                                                id="global-stroke"
                                                 type="range"
                                                 min="0.5"
                                                 max="3"
@@ -449,7 +451,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                     {/* Color Control */}
                                     <div className="space-y-2.5 px-4 pb-5">
                                         <div className="flex justify-between items-center text-xs font-mono">
-                                            <label className="text-muted-foreground font-bold">Color Theme</label>
+                                            <label htmlFor="global-color" className="text-muted-foreground font-bold">Color Theme</label>
                                             <button
                                                 onClick={() => setGlobalColor("#037d5a")}
                                                 className="text-[9px] text-muted-foreground hover:text-primary transition-colors underline"
@@ -460,6 +462,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                         <div className="flex items-center gap-2">
                                             <div className="relative w-8 h-8 rounded-xl overflow-hidden border border-border shrink-0 shadow-xs cursor-pointer hover:scale-105 transition-transform">
                                                 <input
+                                                    id="global-color"
                                                     type="color"
                                                     value={globalColor}
                                                     onChange={(e) => setGlobalColor(e.target.value)}
@@ -468,6 +471,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                             </div>
                                             <input
                                                 type="text"
+                                                aria-label="Color hex value"
                                                 value={globalColor}
                                                 onChange={(e) => setGlobalColor(e.target.value)}
                                                 className="flex-1 px-3 py-1.5 text-xs bg-background border border-border/80 rounded-xl focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none uppercase font-mono text-foreground font-bold"

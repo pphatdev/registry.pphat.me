@@ -405,14 +405,6 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                             SVG 2.0 Ready
                         </div>
-                        <button 
-                            onClick={onClose}
-                            className="rounded-full p-2 text-muted-foreground hover:bg-muted hover:text-foreground transition-all duration-200 border border-transparent hover:border-border"
-                            aria-label="Close Inspector"
-                            title="Close (Esc)"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                        </button>
                     </div>
                 </div>
 
@@ -586,7 +578,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-1.5">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
-                                            <h4 className="text-[11px] font-bold uppercase tracking-wider text-foreground">Install via CLI</h4>
+                                            <h3 className="text-[11px] font-bold uppercase tracking-wider text-foreground">Install via CLI</h3>
                                         </div>
                                     </div>
 
@@ -624,7 +616,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-1.5">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                                            <h4 className="text-[11px] font-bold uppercase tracking-wider text-foreground">Component Source</h4>
+                                            <h3 className="text-[11px] font-bold uppercase tracking-wider text-foreground">Component Source</h3>
                                         </div>
                                     </div>
 
@@ -697,7 +689,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-1.5">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
-                                            <h4 className="text-[11px] font-bold uppercase tracking-wider text-foreground">Example Usage</h4>
+                                            <h3 className="text-[11px] font-bold uppercase tracking-wider text-foreground">Example Usage</h3>
                                         </div>
                                     </div>
 

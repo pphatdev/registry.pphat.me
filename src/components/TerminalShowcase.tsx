@@ -259,7 +259,7 @@ export function TerminalShowcase({
                         <div className="text-zinc-400 text-[11px] leading-relaxed animate-in fade-in duration-300">
                             added 2 packages, changed 14 packages, and audited 531 packages in 15s
                             <br />
-                            <span className="text-zinc-500">253 packages are looking for funding</span>
+                            <span className="text-zinc-400">253 packages are looking for funding</span>
                         </div>
                     )}
                 </div>
@@ -292,7 +292,7 @@ export function TerminalShowcase({
 
                         {completedStepCount >= 2 && (
                             <div className="flex flex-col gap-2 animate-in fade-in duration-300">
-                                <pre className="text-primary font-extrabold text-[10px] sm:text-xs leading-tight select-none my-1">
+                                <pre className="text-emerald-400 font-extrabold text-[10px] sm:text-xs leading-tight select-none my-1">
 {`  ____  ____  _   _    _  _____ 
  |  _ \\|  _ \\| | | |  / \\|_   _|
  | |_) | |_) | |_| | / _ \\ | |  
@@ -413,7 +413,7 @@ export function TerminalShowcase({
                                                     {activeOptionIndex === 2 && <span>❯</span>} Both Components and Icons
                                                 </div>
                                             </div>
-                                            <div className="text-zinc-500 text-[10px] font-normal pl-3 mt-0.5">(Use arrow keys)</div>
+                                            <div className="text-zinc-400 text-[10px] font-normal pl-3 mt-0.5">(Use arrow keys)</div>
                                         </div>
                                     )}
                                     {initSubStep >= 2 && (
@@ -437,7 +437,7 @@ export function TerminalShowcase({
                                                     {activeOptionIndex === 2 && <span>❯</span>} <span>◯</span> Nuxtjs format (.vue)
                                                 </div>
                                             </div>
-                                            <div className="text-zinc-500 text-[10px] font-normal pl-3 mt-0.5">(Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to invert selection, and &lt;enter&gt; to proceed)</div>
+                                            <div className="text-zinc-400 text-[10px] font-normal pl-3 mt-0.5">(Press &lt;space&gt; to select, &lt;a&gt; to toggle all, &lt;i&gt; to invert selection, and &lt;enter&gt; to proceed)</div>
                                         </div>
                                     )}
                                     {initSubStep >= 3 && (
@@ -550,7 +550,7 @@ export function TerminalShowcase({
                     <div className="flex items-center gap-2 pt-2 text-emerald-400 font-bold animate-in fade-in duration-300">
                         <span className="text-cyan-400 font-bold">~project</span>
                         <span className="text-emerald-400 font-bold">$</span>
-                        <span className="text-zinc-500 text-[11px] font-mono font-normal">
+                        <span className="text-zinc-400 text-[11px] font-mono font-normal">
                             session complete — ready for commands <span className="inline-block w-2 h-4 bg-emerald-400 animate-pulse ml-1 align-middle" />
                         </span>
                     </div>
