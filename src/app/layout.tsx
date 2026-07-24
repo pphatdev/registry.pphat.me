@@ -19,6 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://registry.pphat.me"),
     title: {
         default: "@pphatdev/registry • Component & Icon Registry",
         template: "%s | @pphatdev/registry",
