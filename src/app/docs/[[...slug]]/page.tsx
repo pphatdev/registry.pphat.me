@@ -8,6 +8,15 @@ import CopyCode from "@/components/CopyCode";
 import { FLAT_DOCS } from "@/config/docs";
 import type { Metadata } from "next";
 
+export async function generateStaticParams() {
+    return FLAT_DOCS.map((doc) => ({
+        slug: doc.slug === "index" ? [] : doc.slug.split("/"),
+    }));
+}
+
+export const dynamicParams = false;
+export const dynamic = "force-static";
+
 export async function generateMetadata({
     params,
 }: {

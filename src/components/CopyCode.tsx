@@ -18,10 +18,10 @@ export default function CopyCode({ code }: { code: string }) {
     return (
         <div 
             onClick={handleCopy}
-            className="flex items-center w-full justify-start gap-3 bg-background border mt-7 border-border p-2 pl-5 rounded-xl w-full max-w-md mx-auto group hover:border-primary/50 transition-all cursor-pointer active:scale-[0.98] hover:shadow-[0_0_20px_rgba(var(--primary),0.15)]"
+            className="flex items-center w-full justify-start gap-3 bg-background border mt-7 border-border p-2 pl-5 rounded-xl max-w-md mx-auto group hover:border-primary/50 transition-all cursor-pointer active:scale-[0.98] hover:shadow-[0_0_20px_rgba(var(--primary),0.15)]"
         >
             <span className="text-primary font-mono select-none font-bold">❯</span>
-            <code className="text-foreground text-sm font-mono flex-1 text-left overflow-x-auto whitespace-nowrap [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <code className="text-foreground text-sm font-mono flex-1 text-left overflow-x-auto whitespace-nowrap scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 {code}
             </code>
             <button

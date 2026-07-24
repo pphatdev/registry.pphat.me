@@ -5,10 +5,10 @@
 :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 11%;
-    --primary: 163 96% 25%;
+    --primary: 163 96% 20%;
     --primary-foreground: 0 0% 100%;
     --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 4% 32%;
+    --muted-foreground: 240 5% 28%;
     --border: 240 5.9% 90%;
     --destructive: 0 84.2% 60.2%;
 

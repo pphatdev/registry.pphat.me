@@ -5,9 +5,6 @@ overrides:
   postcss: ^8.5.10
   sharp: ^0.35.0
 
-allowBuilds:
-  sharp: false
-  unrs-resolver: false
 
 minimumReleaseAgeExclude:
   - '@next/env@16.2.11'
@@ -21,3 +18,11 @@ minimumReleaseAgeExclude:
   - '@next/swc-win32-x64-msvc@16.2.11'
   - next@16.2.11
   - '@pphatdev/registry@1.2.0'
+  - miniflare@4.20260722.0
+  - wrangler@4.114.0
+
+allowBuilds:
+  esbuild: true
+  workerd: true
+  unrs-resolver: true
+  sharp: true
