@@ -28,22 +28,27 @@ export default function Footer() {
                         <a
                             href="https://pphat.me"
                             target="_blank"
-                            rel="noreferrer"
+                            rel="author noreferrer"
                             className="relative flex items-center gap-3 p-1.5 pr-5 rounded-full bg-background/50 border border-border/60 hover:bg-background/80 hover:border-primary/40 transition-all duration-300 backdrop-blur-xl shadow-xs"
                         >
                             <p className="text-xs text-muted-foreground absolute -top-5 left-1/2 -translate-x-1/2 font-medium">Created by</p>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
-                                src="https://github.com/pphatdev.png"
-                                alt="PPhat"
+                                src="https://pphat.me/_next/image?url=%2Fassets%2Favatars%2Fkrate-1.webp&w=100&q=45"
+                                alt="Sophat LEAT (PPhat)"
                                 className="w-10 h-10 rounded-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
                             />
                             <div className="flex flex-col text-left">
-                                <span className="text-sm font-bold text-foreground leading-none flex items-center gap-1.5">PPhat</span>
+                                <span className="text-sm font-bold text-foreground leading-none flex items-center gap-1.5">
+                                    <span className="sr-only">Sophat LEAT (</span> PPhat <span className="sr-only">)</span>
+                                </span>
                                 <span className="text-[11px] mt-1 text-muted-foreground">Senior Front End Developer</span>
                             </div>
                         </a>
                     </div>
+                    <p className="mt-6 text-xs text-muted-foreground text-center sr-only max-w-md">
+                        <span className="font-mono font-semibold text-foreground">@pphatdev/registry</span> was created by{" "} PPhat.
+                    </p>
                 </div>
             </div>
         </footer>

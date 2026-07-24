@@ -2,9 +2,8 @@ import { MetadataRoute } from "next";
 import { FLAT_DOCS } from "@/config/docs";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.BASE_URL || "https://pphat.me";
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.BASE_URL || "https://registry.pphat.me";
 
-    // Base routes
     const routes: MetadataRoute.Sitemap = [
         {
             url: baseUrl,
@@ -12,9 +11,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: "weekly",
             priority: 1,
         },
+        {
+            url: `${baseUrl}/icons`,
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/llms.txt`,
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/llms-full.txt`,
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.7,
+        },
     ];
 
-    // Documentation routes
     const docsRoutes: MetadataRoute.Sitemap = FLAT_DOCS.map((doc) => ({
         url: `${baseUrl}${doc.href}`,
         lastModified: new Date(),
