@@ -118,7 +118,7 @@ export default function FaqPage() {
                 {faqs.map((f, i) => (
                     <article
                         key={i}
-                        className="rounded-2xl border border-border/60 bg-background/40 p-5 sm:p-6 backdrop-blur-sm"
+                        className="rounded-none border border-border/60 bg-background/40 p-5 sm:p-6 backdrop-blur-sm"
                     >
                         <h2 className="text-base sm:text-lg font-bold text-foreground mb-2 leading-snug">
                             {f.question}

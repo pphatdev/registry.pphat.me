@@ -229,7 +229,7 @@ export default function CommandPalette() {
 
             {/* Command Palette Card */}
             <div 
-                className="relative w-full max-w-xl bg-background dark:bg-[#0d1117] ring-1 ring-border/80 rounded-2xl shadow-2xl shadow-black/60 overflow-hidden flex flex-col max-h-[75vh] z-10 outline-none"
+                className="relative w-full max-w-xl bg-background dark:bg-[#0d1117] ring-1 ring-border/80 rounded-none shadow-2xl shadow-black/60 overflow-hidden flex flex-col max-h-[75vh] z-10 outline-none"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Search Input Bar */}
@@ -249,7 +249,7 @@ export default function CommandPalette() {
                     />
                     <button
                         onClick={() => setIsOpen(false)}
-                        className="px-2 py-1 text-[10px] font-mono bg-muted/60 hover:bg-muted ring-1 ring-border/60 rounded-lg text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none"
+                        className="px-2 py-1 text-[10px] font-mono bg-muted/60 hover:bg-muted ring-1 ring-border/60 rounded-none text-muted-foreground hover:text-foreground transition-colors cursor-pointer outline-none"
                     >
                         ESC
                     </button>
@@ -280,7 +280,7 @@ export default function CommandPalette() {
                                                 key={item.id}
                                                 onClick={() => handleSelect(item)}
                                                 onMouseEnter={() => setSelectedIndex(globalIndex)}
-                                                className={`px-3 py-2.5 rounded-xl text-xs font-mono cursor-pointer flex items-center gap-3 transition-colors duration-150 ease-out outline-none ${
+                                                className={`px-3 py-2.5 rounded-nonetext-xs font-mono cursor-pointer flex items-center gap-3 transition-colors duration-150 ease-out outline-none ${
                                                     isSelected
                                                         ? "bg-primary text-primary-foreground font-bold shadow-xs ring-1 ring-primary/40"
                                                         : "text-foreground hover:bg-muted/50"
@@ -339,14 +339,14 @@ export default function CommandPalette() {
             {/* Search Trigger Pill Button */}
             <button
                 onClick={() => setIsOpen(true)}
-                className="relative flex items-center w-full px-3.5 py-2 text-xs font-mono bg-background/80 dark:bg-[#0d1117]/80 ring-1 ring-border/80 hover:ring-primary/50 rounded-xl hover:bg-muted/40 transition-all text-muted-foreground group outline-none focus:ring-2 focus:ring-primary/50 shadow-xs cursor-pointer"
+                className="relative flex items-center w-full px-3.5 py-2 text-xs font-mono bg-background/80 dark:bg-[#0d1117]/80 ring-1 ring-border/80 hover:ring-primary/50 rounded-nonehover:bg-muted/40 transition-all text-muted-foreground group outline-none focus:ring-2 focus:ring-primary/50 shadow-xs cursor-pointer"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-primary shrink-0">
                     <circle cx="11" cy="11" r="8" />
                     <path d="m21 21-4.3-4.3" />
                 </svg>
                 <span className="flex-1 whitespace-nowrap text-left">Search docs & features...</span>
-                <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono bg-muted/60 border border-border/60 rounded-md text-muted-foreground group-hover:border-primary/30 group-hover:text-foreground transition-colors">
+                <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono bg-muted/60 border border-border/60 rounded-none text-muted-foreground group-hover:border-primary/30 group-hover:text-foreground transition-colors">
                     <span className="text-[11px]">⌘</span>K
                 </kbd>
             </button>

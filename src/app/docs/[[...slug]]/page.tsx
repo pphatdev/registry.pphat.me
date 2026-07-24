@@ -92,12 +92,12 @@ const components = {
         return <code className="relative rounded bg-muted/60 px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold text-foreground border border-border/40" {...props} />;
     },
     pre: (props: React.HTMLAttributes<HTMLPreElement>) => (
-        <div className="relative mt-6 mb-6 rounded-xl overflow-hidden bg-[#09090b] border border-border/40 shadow-sm font-mono">
+        <div className="relative mt-6 mb-6 rounded-noneoverflow-hidden bg-[#09090b] border border-border/40 shadow-sm font-mono">
             <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-800/80 bg-[#18181b] text-xs text-zinc-400">
                 <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+                    <div className="w-2.5 h-2.5 rounded-none bg-[#ff5f56]" />
+                    <div className="w-2.5 h-2.5 rounded-none bg-[#ffbd2e]" />
+                    <div className="w-2.5 h-2.5 rounded-none bg-[#27c93f]" />
                 </div>
             </div>
             <pre className="p-4 overflow-x-auto text-sm text-zinc-50 font-mono leading-relaxed select-text scrollbar-none" {...props} />
@@ -188,7 +188,7 @@ export default async function DocsPage({
                 {prevDoc ? (
                     <Link
                         href={prevDoc.href}
-                        className="w-full sm:w-auto px-4 py-3 rounded-2xl bg-muted/30 hover:bg-muted/60 border border-border/60 hover:border-primary/40 transition-all flex items-center gap-3 group text-left cursor-pointer"
+                        className="w-full sm:w-auto px-4 py-3 rounded-none bg-muted/30 hover:bg-muted/60 border border-border/60 hover:border-primary/40 transition-all flex items-center gap-3 group text-left cursor-pointer"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground group-hover:text-primary group-hover:-translate-x-0.5 transition-transform">
                             <line x1="19" y1="12" x2="5" y2="12" />
@@ -204,7 +204,7 @@ export default async function DocsPage({
                 {nextDoc ? (
                     <Link
                         href={nextDoc.href}
-                        className="w-full sm:w-auto px-4 py-3 rounded-2xl bg-muted/30 hover:bg-muted/60 border border-border/60 hover:border-primary/40 transition-all flex items-center gap-3 group text-right justify-end ml-auto cursor-pointer"
+                        className="w-full sm:w-auto px-4 py-3 rounded-none bg-muted/30 hover:bg-muted/60 border border-border/60 hover:border-primary/40 transition-all flex items-center gap-3 group text-right justify-end ml-auto cursor-pointer"
                     >
                         <div>
                             <span className="block text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Next</span>

@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import { HeroSection } from "@/components/home/HeroSection";
+import { FeaturedSection } from "@/components/home/FeaturedSection";
 import { InteractivePlayground } from "@/components/home/InteractivePlayground";
+import { FaqSection } from "@/components/home/FaqSection";
 
 export default function RegistryHomePage() {
     const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
@@ -28,11 +30,20 @@ export default function RegistryHomePage() {
                 copiedCommand={copiedCommand}
             />
 
+            {/* FEATURED ASSETS SECTION */}
+            <FeaturedSection
+                copyToClipboard={copyToClipboard}
+                copiedCommand={copiedCommand}
+            />
+
             {/* DEDICATED INTERACTIVE PLAYGROUND SECTION */}
             <InteractivePlayground
                 copyToClipboard={copyToClipboard}
                 copiedCommand={copiedCommand}
             />
+
+            {/* FAQ SECTION */}
+            <FaqSection />
         </main>
     );
 }

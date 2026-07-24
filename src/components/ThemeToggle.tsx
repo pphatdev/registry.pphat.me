@@ -13,13 +13,13 @@ export default function ThemeToggle() {
     }, []);
 
     if (!mounted) {
-        return <div className="w-8 h-8 rounded-full bg-muted"></div>;
+        return <div className="w-8 h-8 rounded-none bg-muted"></div>;
     }
 
     return (
         <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="flex items-center justify-center w-8 h-8 rounded-full bg-muted text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+            className="flex items-center justify-center w-8 h-8 rounded-none bg-muted text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
             title="Toggle theme"
         >
             {theme === "dark" ? (

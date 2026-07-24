@@ -361,7 +361,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
                 onPointerCancel={handlePointerUp}
-                className={`relative z-10 bg-background/95 backdrop-blur-xl border-t border-border/80 rounded-t-[20px] shadow-2xl flex flex-col items-center w-full max-h-[92vh] overflow-y-auto md:overflow-hidden pb-6 touch-none select-none`}
+                className={`relative z-10 bg-background/95 backdrop-blur-xl border-t border-border/80 shadow-2xl flex flex-col items-center w-full max-h-[92vh] overflow-y-auto md:overflow-hidden pb-6 touch-none select-none`}
                 style={{
                     transform: isVisible ? `translateY(${isDragging && dragY > 0 ? dragY : 0}px)` : "translateY(100%)",
                     transition: isDragging ? "none" : "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
@@ -369,13 +369,13 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
             >
                 {/* Swipe Handle Bar */}
                 <div className="w-full flex items-center justify-center pt-3 pb-1 cursor-grab active:cursor-grabbing" onClick={onClose}>
-                    <div className="h-1.5 w-12 rounded-full bg-muted-foreground/30 hover:bg-muted-foreground/50 transition-colors" />
+                    <div className="h-1.5 w-12 rounded-none bg-muted-foreground/30 hover:bg-muted-foreground/50 transition-colors" />
                 </div>
 
                 {/* Studio Inspector Header */}
                 <div className="w-full max-w-6xl px-6 py-2 border-b border-border/40 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 text-primary">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-none bg-primary/10 border border-primary/20 text-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
                         </div>
                         <div className="flex flex-col">
@@ -390,8 +390,8 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
 
                     {/* Header Action Badges & Close Button */}
                     <div className="flex items-center gap-2">
-                        <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-muted/50 border border-border/50 text-[11px] font-mono text-muted-foreground">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-none bg-muted/50 border border-border/50 text-[11px] font-mono text-muted-foreground">
+                            <span className="w-1.5 h-1.5 rounded-none bg-emerald-500 animate-pulse" />
                             SVG 2.0 Ready
                         </div>
                     </div>
@@ -403,7 +403,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                     {/* Left Column: Canvas Viewport (7 cols) */}
                     <div className="md:col-span-7 flex flex-col w-full h-full min-h-95 md:min-h-115">
                         {/* Artboard Frame & Viewport */}
-                        <div className="relative flex-1 flex flex-col items-center justify-center rounded-2xl border border-border/80 bg-[#f8f9fa] dark:bg-[#090a0f] overflow-hidden shadow-inner group">
+                        <div className="relative flex-1 flex flex-col items-center justify-center rounded-none border border-border/80 bg-[#f8f9fa] dark:bg-[#090a0f] overflow-hidden shadow-inner group">
                             
                             {/* Canvas Pattern Layer */}
                             <div 
@@ -414,24 +414,24 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                             {/* Canvas Floating Toolbar */}
                             <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-20 pointer-events-auto">
                                 {/* Canvas Background Selector */}
-                                <div className="flex items-center p-1 rounded-lg bg-background/80 backdrop-blur-md border border-border/60 shadow-sm text-xs gap-1">
+                                <div className="flex items-center p-1 rounded-none bg-background/80 backdrop-blur-md border border-border/60 shadow-sm text-xs gap-1">
                                     <button 
                                         onClick={() => setCanvasBg('dots')}
-                                        className={`px-2 py-1 rounded-md transition-all font-medium ${canvasBg === 'dots' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
+                                        className={`px-2 py-1 rounded-none transition-all font-medium ${canvasBg === 'dots' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
                                         title="Dot Grid Pattern"
                                     >
                                         Dots
                                     </button>
                                     <button 
                                         onClick={() => setCanvasBg('checker')}
-                                        className={`px-2 py-1 rounded-md transition-all font-medium ${canvasBg === 'checker' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
+                                        className={`px-2 py-1 rounded-none transition-all font-medium ${canvasBg === 'checker' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
                                         title="Transparent Checkerboard"
                                     >
                                         Grid
                                     </button>
                                     <button 
                                         onClick={() => setCanvasBg('solid')}
-                                        className={`px-2 py-1 rounded-md transition-all font-medium ${canvasBg === 'solid' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
+                                        className={`px-2 py-1 rounded-none transition-all font-medium ${canvasBg === 'solid' ? 'bg-primary text-primary-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground'}`}
                                         title="Clean Solid Background"
                                     >
                                         Solid
@@ -439,22 +439,22 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                 </div>
 
                                 {/* Canvas Zoom Controls */}
-                                <div className="flex items-center p-1 rounded-lg bg-background/80 backdrop-blur-md border border-border/60 shadow-sm text-xs gap-1">
+                                <div className="flex items-center p-1 rounded-none bg-background/80 backdrop-blur-md border border-border/60 shadow-sm text-xs gap-1">
                                     <button 
                                         onClick={() => setZoom(1)}
-                                        className={`px-2 py-1 rounded-md font-mono text-[11px] transition-all ${zoom === 1 ? 'bg-primary/10 text-primary font-bold' : 'text-muted-foreground hover:text-foreground'}`}
+                                        className={`px-2 py-1 rounded-none font-mono text-[11px] transition-all ${zoom === 1 ? 'bg-primary/10 text-primary font-bold' : 'text-muted-foreground hover:text-foreground'}`}
                                     >
                                         1.0x
                                     </button>
                                     <button 
                                         onClick={() => setZoom(1.5)}
-                                        className={`px-2 py-1 rounded-md font-mono text-[11px] transition-all ${zoom === 1.5 ? 'bg-primary/10 text-primary font-bold' : 'text-muted-foreground hover:text-foreground'}`}
+                                        className={`px-2 py-1 rounded-none font-mono text-[11px] transition-all ${zoom === 1.5 ? 'bg-primary/10 text-primary font-bold' : 'text-muted-foreground hover:text-foreground'}`}
                                     >
                                         1.5x
                                     </button>
                                     <button 
                                         onClick={() => setZoom(2)}
-                                        className={`px-2 py-1 rounded-md font-mono text-[11px] transition-all ${zoom === 2 ? 'bg-primary/10 text-primary font-bold' : 'text-muted-foreground hover:text-foreground'}`}
+                                        className={`px-2 py-1 rounded-none font-mono text-[11px] transition-all ${zoom === 2 ? 'bg-primary/10 text-primary font-bold' : 'text-muted-foreground hover:text-foreground'}`}
                                     >
                                         2.0x
                                     </button>
@@ -464,13 +464,13 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                             {/* Canvas Center Stage */}
                             {loading ? (
                                 <div className="relative z-10 flex flex-col items-center gap-3">
-                                    <div className="w-8 h-8 rounded-full border-2 border-primary/20 border-t-primary animate-spin"></div>
+                                    <div className="w-8 h-8 rounded-none border-2 border-primary/20 border-t-primary animate-spin"></div>
                                     <span className="text-xs font-mono text-muted-foreground animate-pulse">Rendering Vector...</span>
                                 </div>
                             ) : (
                                 <div className="relative flex flex-col items-center justify-center z-10 transition-transform duration-300">
                                     {/* Bounding Box / Designer Artboard */}
-                                    <div className="relative p-10 rounded-2xl border border-dashed border-primary/40 bg-background/60 backdrop-blur-md shadow-lg transition-all duration-300 group-hover:border-primary/80 group-hover:shadow-primary/5">
+                                    <div className="relative p-10 rounded-none border border-dashed border-primary/40 bg-background/60 backdrop-blur-md shadow-lg transition-all duration-300 group-hover:border-primary/80 group-hover:shadow-primary/5">
                                         
                                         {/* Precision Anchor Handles (Figma style) */}
                                         <div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 border-2 border-primary bg-background rounded-xs shadow-xs" />
@@ -479,10 +479,10 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                         <div className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 w-2.5 h-2.5 border-2 border-primary bg-background rounded-xs shadow-xs" />
                                         
                                         {/* Center Target Indicator */}
-                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 border border-primary/20 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 border border-primary/20 rounded-none pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
 
                                         {/* Top Dimension Pill */}
-                                        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-primary text-primary-foreground text-[10px] font-mono rounded-full shadow-md flex items-center gap-1 font-semibold tracking-wider">
+                                        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-primary text-primary-foreground text-[10px] font-mono rounded-none shadow-md flex items-center gap-1 font-semibold tracking-wider">
                                             <span>{size}px</span>
                                             <span className="opacity-60">×</span>
                                             <span>{size}px</span>
@@ -501,9 +501,9 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                     </div>
 
                                     {/* Bottom Canvas Layer Specs */}
-                                    <div className="mt-6 flex items-center gap-3 text-[11px] text-muted-foreground font-mono bg-background/90 px-3 py-1.5 rounded-full border border-border/60 shadow-sm backdrop-blur-md">
+                                    <div className="mt-6 flex items-center gap-3 text-[11px] text-muted-foreground font-mono bg-background/90 px-3 py-1.5 rounded-none border border-border/60 shadow-sm backdrop-blur-md">
                                         <div className="flex items-center gap-1.5">
-                                            <div className="w-2.5 h-2.5 rounded-full border border-border/80 shadow-xs" style={{ backgroundColor: color === 'currentColor' ? 'var(--foreground)' : color }} />
+                                            <div className="w-2.5 h-2.5 rounded-none border border-border/80 shadow-xs" style={{ backgroundColor: color === 'currentColor' ? 'var(--foreground)' : color }} />
                                             <span className="font-semibold text-foreground">{color}</span>
                                         </div>
                                         <span className="opacity-30">|</span>
@@ -526,7 +526,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                         
                         <div className="flex flex-col gap-4">
                             {/* Format Pill Tabs Selector */}
-                            <div className="inline-flex h-9 items-center justify-center rounded-xl bg-muted/70 p-1 text-muted-foreground w-full border border-border/60 shadow-inner backdrop-blur-md">
+                            <div className="inline-flex h-9 items-center justify-center rounded-nonebg-muted/70 p-1 text-muted-foreground w-full border border-border/60 shadow-inner backdrop-blur-md">
                                 {[
                                     { 
                                         id: 'svg', 
@@ -547,7 +547,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                     <button
                                         key={tab.id}
                                         onClick={() => setActiveTab(tab.id as 'svg' | 'nextjs' | 'nuxtjs')}
-                                         className={`inline-flex items-center justify-center whitespace-nowrap rounded-lg px-3 py-1 text-[11px] font-bold transition-all duration-200 w-full h-full cursor-pointer gap-1.5 ${
+                                         className={`inline-flex items-center justify-center whitespace-nowrap rounded-none px-3 py-1 text-[11px] font-bold transition-all duration-200 w-full h-full cursor-pointer gap-1.5 ${
                                             activeTab === tab.id 
                                                 ? 'bg-background dark:bg-zinc-800 text-foreground shadow-sm border border-primary/30' 
                                                 : 'hover:bg-muted/80 hover:text-foreground opacity-70 hover:opacity-100'
@@ -574,7 +574,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                     <div className="flex items-center gap-1.5">
                                         <code 
                                             onClick={() => copyToClipboard(getCliCommand(), 'CLI')}
-                                            className="group/cli relative rounded-lg bg-muted/80 dark:bg-zinc-950/90 px-3 font-mono text-[11px] flex-1 text-foreground border border-border/80 flex items-center h-8.5 overflow-x-auto shadow-inner cursor-pointer hover:border-primary/60 hover:shadow-primary/5 transition-all select-all"
+                                            className="group/cli relative rounded-none bg-muted/80 dark:bg-zinc-950/90 px-3 font-mono text-[11px] flex-1 text-foreground border border-border/80 flex items-center h-8.5 overflow-x-auto shadow-inner cursor-pointer hover:border-primary/60 hover:shadow-primary/5 transition-all select-all"
                                             title="Click to copy CLI command"
                                         >
                                             <span className="text-primary font-bold mr-1.5 select-none">$</span>
@@ -583,7 +583,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                         <button
                                             type="button"
                                             onClick={() => copyToClipboard(getCliCommand(), 'CLI')}
-                                            className={`inline-flex items-center justify-center rounded-lg transition-all duration-200 h-8.5 w-8.5 shrink-0 active:scale-[0.95] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                                            className={`inline-flex items-center justify-center rounded-none transition-all duration-200 h-8.5 w-8.5 shrink-0 active:scale-[0.95] cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                                                 copiedFormat === 'CLI' 
                                                     ? 'bg-emerald-500 text-white shadow-emerald-500/30 ring-2 ring-emerald-400/40 scale-105' 
                                                     : 'bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-105 shadow-primary/20'
@@ -610,15 +610,15 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                     </div>
 
                                     {showCodePreview && (
-                                        <div className="relative rounded-xl border border-border/70 bg-[#0d1117] text-[#c9d1d9] font-mono text-[11px] overflow-hidden shadow-xs group/code">
+                                        <div className="relative rounded-noneborder border-border/70 bg-[#0d1117] text-[#c9d1d9] font-mono text-[11px] overflow-hidden shadow-xs group/code">
                                             
                                             {/* Editor Header Bar */}
                                             <div className="flex items-center justify-between px-3 py-1.5 bg-[#161b22] border-b border-border/50 text-[10px] text-[#8b949e]">
                                                 <div className="flex items-center gap-2">
                                                     <div className="flex items-center gap-1.5" aria-hidden="true">
-                                                        <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 inline-block" />
-                                                        <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 inline-block" />
-                                                        <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 inline-block" />
+                                                        <span className="w-2.5 h-2.5 rounded-none bg-zinc-700 inline-block" />
+                                                        <span className="w-2.5 h-2.5 rounded-none bg-zinc-700 inline-block" />
+                                                        <span className="w-2.5 h-2.5 rounded-none bg-zinc-700 inline-block" />
                                                     </div>
                                                     <span className="text-[#30363d]">|</span>
                                                     <span className="flex items-center gap-1.5 text-zinc-300 font-medium">
@@ -682,7 +682,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                         </div>
                                     </div>
 
-                                    <div className="relative rounded-xl border border-border/70 bg-[#0d1117] text-[#c9d1d9] font-mono text-[11px] overflow-hidden shadow-xs group/code">
+                                    <div className="relative rounded-noneborder border-border/70 bg-[#0d1117] text-[#c9d1d9] font-mono text-[11px] overflow-hidden shadow-xs group/code">
 
                                         {/* Editor Header Bar */}
                                         <div className="flex items-center justify-between px-3 py-1.5 bg-[#161b22] border-b border-border/50 text-[10px] text-[#8b949e]">
@@ -732,7 +732,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                 <div className="flex items-center justify-end pt-1">
                                     <button
                                         onClick={downloadFile}
-                                        className="group relative inline-flex items-center justify-center whitespace-nowrap rounded-lg text-[11px] font-extrabold transition-all duration-200 bg-primary hover:bg-primary/90 text-primary-foreground h-8.5 px-3.5 active:scale-[0.97] cursor-pointer shadow-xs hover:shadow-sm overflow-hidden"
+                                        className="group relative inline-flex items-center justify-center whitespace-nowrap rounded-none text-[11px] font-extrabold transition-all duration-200 bg-primary hover:bg-primary/90 text-primary-foreground h-8.5 px-3.5 active:scale-[0.97] cursor-pointer shadow-xs hover:shadow-sm overflow-hidden"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mr-1.5 transition-transform group-hover:translate-y-0.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                                         <span>Download SVG</span>
@@ -748,7 +748,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                 <div className="w-full px-6 mt-4 md:hidden">
                     <button 
                         onClick={onClose} 
-                        className="w-full inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-semibold transition-all hover:bg-muted hover:text-foreground text-muted-foreground h-11 px-4 border border-border/50 active:scale-[0.98] cursor-pointer"
+                        className="w-full inline-flex items-center justify-center whitespace-nowrap rounded-none text-sm font-semibold transition-all hover:bg-muted hover:text-foreground text-muted-foreground h-11 px-4 border border-border/50 active:scale-[0.98] cursor-pointer"
                     >
                         Cancel
                     </button>
