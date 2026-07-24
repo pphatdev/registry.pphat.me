@@ -7,23 +7,7 @@ export default function CopyCode({ code }: { code: string }) {
 
     const handleCopy = async () => {
         try {
-            if (navigator.clipboard && window.isSecureContext) {
-                await navigator.clipboard.writeText(code);
-            } else {
-                const textArea = document.createElement("textarea");
-                textArea.value = code;
-                textArea.style.position = "absolute";
-                textArea.style.left = "-999999px";
-                document.body.prepend(textArea);
-                textArea.select();
-                try {
-                    document.execCommand("copy");
-                } catch (error) {
-                    console.error(error);
-                } finally {
-                    textArea.remove();
-                }
-            }
+            await navigator.clipboard.writeText(code);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         } catch (err) {
