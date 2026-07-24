@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { FramedContainer } from "./FramedContainer";
 
 interface FeaturedSectionProps {
     copyToClipboard: (text: string, id: string) => void;
@@ -180,22 +181,31 @@ export function FeaturedSection({ copyToClipboard, copiedCommand }: FeaturedSect
     };
 
     return (
-        <section className="relative py-16 md:py-24 bg-background overflow-hidden">
+        <section className="relative py-16 md:py-24 overflow-hidden bg-muted/25 dark:bg-muted/15">
+            {/* Radial dot texture — "showcase surface" */}
+            <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none -z-10 bg-[radial-gradient(hsl(var(--border))_1.2px,transparent_1.2px)] bg-size-[24px_24px] opacity-70"
+            />
+            {/* Top / bottom fade so the pattern melts into neighboring sections */}
+            <div aria-hidden className="absolute inset-x-0 top-0 h-24 pointer-events-none -z-10 bg-linear-to-b from-background to-transparent" />
+            <div aria-hidden className="absolute inset-x-0 bottom-0 h-24 pointer-events-none -z-10 bg-linear-to-t from-background to-transparent" />
             {/* Ambient glow */}
             <div className="absolute inset-0 pointer-events-none -z-10">
-                <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-200 h-100 bg-primary/10 rounded-full blur-[120px] opacity-40" />
+                <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-200 h-100 bg-primary/10 rounded-none blur-[120px] opacity-40" />
             </div>
 
             <div className="container mx-auto max-w-6xl px-4 sm:px-6">
+                <FramedContainer>
                 <div className="flex flex-col gap-12">
 
                     {/* SECTION HEADER (centered, best-practice pattern) */}
                     <div className="flex flex-col items-center text-center gap-4 max-w-2xl mx-auto">
                         {/* Eyebrow badge */}
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1 text-xs text-primary font-bold font-mono bg-primary/10 rounded-full border border-primary/20 shadow-xs backdrop-blur-md">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1 text-xs text-primary font-bold font-mono bg-primary/10 rounded-none border border-primary/20 shadow-xs backdrop-blur-md">
                             <span className="relative flex h-1.5 w-1.5">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary" />
+                                <span className="relative inline-flex rounded-none h-1.5 w-1.5 bg-primary" />
                             </span>
                             What&apos;s inside
                         </div>
@@ -215,7 +225,7 @@ export function FeaturedSection({ copyToClipboard, copiedCommand }: FeaturedSect
                             const cardBody = (
                                 <>
                                     {/* hover glow */}
-                                    <div className={`absolute -top-16 -right-16 w-40 h-40 rounded-full bg-linear-to-br ${f.glow} blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                                    <div className={`absolute -top-16 -right-16 w-40 h-40 rounded-none bg-linear-to-br ${f.glow} blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
                                     {/* accent bar (top) */}
                                     <div className={`absolute top-0 left-6 right-6 h-px bg-linear-to-r from-transparent via-current to-transparent ${f.accent} opacity-0 group-hover:opacity-60 transition-opacity`} />
@@ -223,7 +233,7 @@ export function FeaturedSection({ copyToClipboard, copiedCommand }: FeaturedSect
                                     <div className="relative flex flex-col gap-4 h-full">
                                         {/* Top row: icon + stat */}
                                         <div className="flex items-start justify-between">
-                                            <div className={`shrink-0 p-2.5 rounded-xl bg-background/60 border border-border/40 ring-1 ${f.ring} ${f.accent} transition-transform duration-300 group-hover:scale-105`}>
+                                            <div className={`shrink-0 p-2.5 rounded-nonebg-background/60 border border-border/40 ring-1 ${f.ring} ${f.accent} transition-transform duration-300 group-hover:scale-105`}>
                                                 {f.icon}
                                             </div>
                                             {(() => {
@@ -233,13 +243,13 @@ export function FeaturedSection({ copyToClipboard, copiedCommand }: FeaturedSect
                                                         return (
                                                             <span
                                                                 aria-label={`Loading ${f.id} count`}
-                                                                className="text-[10px] font-mono font-bold bg-background/60 border border-border/40 rounded-full px-2 py-0.5 min-w-10 h-4 animate-pulse"
+                                                                className="text-[10px] font-mono font-bold bg-background/60 border border-border/40 rounded-none px-2 py-0.5 min-w-10 h-4 animate-pulse"
                                                             />
                                                         );
                                                     }
                                                     if (dyn.value && dyn.value > 0) {
                                                         return (
-                                                            <span className={`text-[10px] font-mono font-bold ${f.accent} bg-background/60 border border-border/40 rounded-full px-2 py-0.5`}>
+                                                            <span className={`text-[10px] font-mono font-bold ${f.accent} bg-background/60 border border-border/40 rounded-none px-2 py-0.5`}>
                                                                 {dyn.value}
                                                             </span>
                                                         );
@@ -248,7 +258,7 @@ export function FeaturedSection({ copyToClipboard, copiedCommand }: FeaturedSect
                                                 }
                                                 if (f.stat) {
                                                     return (
-                                                        <span className={`text-[10px] font-mono font-bold ${f.accent} bg-background/60 border border-border/40 rounded-full px-2 py-0.5`}>
+                                                        <span className={`text-[10px] font-mono font-bold ${f.accent} bg-background/60 border border-border/40 rounded-none px-2 py-0.5`}>
                                                             {f.stat}
                                                         </span>
                                                     );
@@ -289,7 +299,7 @@ export function FeaturedSection({ copyToClipboard, copiedCommand }: FeaturedSect
                             );
 
                             const spanCls = [f.colSpan, f.rowSpan].filter(Boolean).join(' ');
-                            const className = `group relative p-6 rounded-4xl glass-panel border-border/40 hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col${spanCls ? ` ${spanCls}` : ''}`;
+                            const className = `group relative p-6 rounded-none glass-panel border-border/40 hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col${spanCls ? ` ${spanCls}` : ''}`;
 
                             return f.href ? (
                                 <Link key={f.id} href={f.href} className={className}>
@@ -298,8 +308,8 @@ export function FeaturedSection({ copyToClipboard, copiedCommand }: FeaturedSect
                             ) : (
                                 <div key={f.id} className={className}>
                                     {f.id === 'components' && (
-                                        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 rounded-4xl bg-background/60 backdrop-blur-sm pointer-events-none">
-                                            <span className="text-[10px] font-mono font-bold text-emerald-500 dark:text-emerald-400 bg-emerald-400/10 border border-emerald-400/25 rounded-full px-3 py-1 uppercase tracking-widest">
+                                        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 rounded-none bg-background/60 backdrop-blur-sm pointer-events-none">
+                                            <span className="text-[10px] font-mono font-bold text-emerald-500 dark:text-emerald-400 bg-emerald-400/10 border border-emerald-400/25 rounded-none px-3 py-1 uppercase tracking-widest">
                                                 Coming Soon
                                             </span>
                                             <p className="text-xs text-muted-foreground text-center max-w-[12rem]">
@@ -314,20 +324,20 @@ export function FeaturedSection({ copyToClipboard, copiedCommand }: FeaturedSect
                     </div>
 
                     {/* CLOSING CTA ROW */}
-                    <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl glass-panel border-border/40">
+                    <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-none glass-panel border-border/40">
                         <div className="flex flex-col gap-1 min-w-0">
                             <span className="text-[10px] font-mono font-bold text-muted-foreground uppercase tracking-widest">Try it now</span>
                             <p className="text-sm font-medium text-foreground">Add your first icon in one command.</p>
                         </div>
 
                         <div className="flex items-center gap-3 shrink-0 w-full sm:w-auto">
-                            <div className="flex items-center gap-3 bg-background/60 backdrop-blur-xl border border-border/60 py-2 pl-4 pr-2 rounded-2xl flex-1 sm:flex-initial min-w-0">
+                            <div className="flex items-center gap-3 bg-background/60 backdrop-blur-xl border border-border/60 py-2 pl-4 pr-2 rounded-none flex-1 sm:flex-initial min-w-0">
                                 <span className="text-primary font-mono select-none font-bold text-xs shrink-0">$</span>
                                 <code className="text-primary text-xs font-mono font-bold select-all truncate">{cliCmd}</code>
                                 <button
                                     onClick={() => copyToClipboard(cliCmd, 'featured-cta')}
                                     title="Copy command"
-                                    className="p-1.5 flex items-center justify-center bg-muted/50 hover:bg-muted rounded-lg transition-all border border-border/40 text-muted-foreground hover:text-foreground shrink-0 cursor-pointer active:scale-95"
+                                    className="p-1.5 flex items-center justify-center bg-muted/50 hover:bg-muted rounded-none transition-all border border-border/40 text-muted-foreground hover:text-foreground shrink-0 cursor-pointer active:scale-95"
                                 >
                                     {copiedCommand === 'featured-cta' ? (
                                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
@@ -343,7 +353,7 @@ export function FeaturedSection({ copyToClipboard, copiedCommand }: FeaturedSect
                             </div>
                             <Link
                                 href="/docs"
-                                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-primary text-primary-foreground text-xs font-mono font-bold hover:bg-primary/90 transition-colors shrink-0 shadow-xs"
+                                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-none bg-primary text-primary-foreground text-xs font-mono font-bold hover:bg-primary/90 transition-colors shrink-0 shadow-xs"
                             >
                                 Read docs
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -355,6 +365,7 @@ export function FeaturedSection({ copyToClipboard, copiedCommand }: FeaturedSect
                     </div>
 
                 </div>
+                </FramedContainer>
             </div>
         </section>
     );

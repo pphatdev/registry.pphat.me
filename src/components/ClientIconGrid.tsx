@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import CopyDrawer from "./CopyDrawer";
+import { FramedContainer } from "./home/FramedContainer";
 
 const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, onCopy }: { icon: { name: string; svgContent?: string; target?: string; category?: string; [key: string]: unknown }, size: number, strokeWidth: number, color: string, onCopy: (icon: { name: string; svgContent?: string; target?: string; [key: string]: unknown }) => void }) {
     const [svg, setSvg] = useState<string>("");
@@ -54,15 +55,15 @@ const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, 
     return (
         <div
             onClick={() => onCopy(icon)}
-            className="group relative flex flex-col items-center justify-between p-1.5 gap-2 rounded-xl bg-background/80 dark:bg-[#0d1117]/90 border border-border/60 hover:border-primary/60 shadow-xs hover:shadow-[0_12px_35px_rgba(var(--primary),0.2)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-hidden backdrop-blur-xl"
+            className="group relative flex flex-col items-center justify-between p-1.5 gap-2 rounded-none bg-background/80 dark:bg-[#0d1117]/90 border border-border/60 hover:border-primary/60 shadow-xs hover:shadow-[0_12px_35px_rgba(var(--primary),0.2)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-hidden backdrop-blur-xl"
         >
             {/* Ambient Radial Backlight Glow on Hover */}
-            <div className="absolute -top-12 -left-12 w-32 h-32 bg-primary/15 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-            <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            <div className="absolute -top-12 -left-12 w-32 h-32 bg-primary/15 rounded-none blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-emerald-500/10 rounded-none blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
             {/* Top Badge Row */}
             <div className="w-full flex items-center justify-between text-[10px] font-mono z-10">
-                {/* <span className="px-2 py-0.5 rounded-full bg-muted/60 text-muted-foreground border border-border/40 font-semibold uppercase tracking-wider group-hover:border-primary/30 group-hover:text-primary transition-colors">
+                {/* <span className="px-2 py-0.5 rounded-none bg-muted/60 text-muted-foreground border border-border/40 font-semibold uppercase tracking-wider group-hover:border-primary/30 group-hover:text-primary transition-colors">
                     {icon.category || 'Vector'}
                 </span> */}
                 <span className="text-muted-foreground/80 group-hover:text-foreground text-[9px] font-mono transition-colors">
@@ -71,13 +72,13 @@ const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, 
             </div>
 
             {/* Icon CAD/Artboard Canvas Stage */}
-            <div className="w-full min-h-24 rounded-xl bg-muted/20 dark:bg-zinc-950/70 border border-border/40 group-hover:border-primary/40 flex items-center justify-center relative transition-all duration-300 p-3 z-10 group-hover:bg-primary/5">
+            <div className="w-full min-h-24 rounded-none bg-muted/20 dark:bg-zinc-950/70 border border-border/40 group-hover:border-primary/40 flex items-center justify-center relative transition-all duration-300 p-3 z-10 group-hover:bg-primary/5">
                 <div
                     className="text-foreground/80 group-hover:text-primary transition-all duration-300 group-hover:scale-110 transform flex items-center justify-center"
                     style={{ color: color }}
                 >
                     {loading ? (
-                        <div className="w-6 h-6 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
+                        <div className="w-6 h-6 rounded-none border-2 border-primary/20 border-t-primary animate-spin" />
                     ) : (
                         <div dangerouslySetInnerHTML={{ __html: getCustomizedSvg() }} />
                     )}
@@ -96,7 +97,7 @@ const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, 
                         e.stopPropagation();
                         onCopy(icon);
                     }}
-                    className="px-2 py-1 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground border border-primary/20 text-[10px] font-mono font-bold transition-all shrink-0 active:scale-95 shadow-xs flex items-center gap-1 cursor-pointer"
+                    className="px-2 py-1 rounded-none bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground border border-primary/20 text-[10px] font-mono font-bold transition-all shrink-0 active:scale-95 shadow-xs flex items-center gap-1 cursor-pointer"
                     title="Get Icon Code"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -279,11 +280,12 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
 
             <section id="explore" className="py-20 relative" ref={sectionRef}>
                 <div className="container mx-auto max-w-6xl px-4">
+                    <FramedContainer>
 
                     {/* Section Header */}
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4 pb-4">
                         <div className="flex items-center gap-3">
-                            <div className="p-2.5 bg-primary/10 rounded-2xl border border-primary/20 text-primary shadow-xs">
+                            <div className="p-2.5 bg-primary/10 rounded-none border border-primary/20 text-primary shadow-xs">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect width="7" height="7" x="3" y="3" rx="1" />
                                     <rect width="7" height="7" x="14" y="3" rx="1" />
@@ -294,7 +296,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                             <div>
                                 <div className="flex items-center gap-2">
                                     <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">Explore Icons</h2>
-                                    <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-primary/10 text-primary border border-primary/20">
+                                    <span className="px-2.5 py-0.5 rounded-none text-xs font-mono font-bold bg-primary/10 text-primary border border-primary/20">
                                         {filteredIcons.length}
                                     </span>
                                 </div>
@@ -314,7 +316,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                 placeholder="Search icons by name..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2 text-xs font-mono rounded-2xl bg-background border border-border/80 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all shadow-xs"
+                                className="w-full pl-10 pr-4 py-2 text-xs font-mono rounded-none bg-background border border-border/80 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all shadow-xs"
                             />
                         </div>
                     </div>
@@ -326,9 +328,9 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                         <div className="w-full lg:w-72 shrink-0">
                             <div className="sticky top-24 space-y-5">
                                 {/* Filter Card */}
-                                <div className="rounded-2xl bg-background/80 dark:bg-[#0d1117]/80 border border-border/60 space-y-3.5 dark:shadow-xl backdrop-blur-xl">
+                                <div className="rounded-none bg-background/80 dark:bg-[#0d1117]/80 border border-border/60 space-y-3.5 dark:shadow-xl backdrop-blur-xl">
                                     <div className="flex px-5 pt-2.5 items-center gap-2 pb-2 border-b border-border/30">
-                                        <div className="p-1.5 rounded-lg bg-primary/10 text-primary border border-primary/20">
+                                        <div className="p-1.5 rounded-none bg-primary/10 text-primary border border-primary/20">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                 <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
                                             </svg>
@@ -345,14 +347,14 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                             <button
                                                 key={f.id}
                                                 onClick={() => setFilter(f.id)}
-                                                className={`w-full px-3 py-2 text-xs font-mono rounded-xl transition-all cursor-pointer flex items-center justify-between ${
+                                                className={`w-full px-3 py-2 text-xs font-mono rounded-nonetransition-all cursor-pointer flex items-center justify-between ${
                                                     filter === f.id
                                                         ? "bg-primary/10 text-primary border border-primary/30 font-bold shadow-xs"
                                                         : "bg-muted/30 hover:bg-muted/60 text-muted-foreground hover:text-foreground border border-transparent"
                                                 }`}
                                             >
                                                 <span>{f.label}</span>
-                                                <span className={`px-2 py-0.5 rounded-full text-[10px] ${filter === f.id ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"}`}>
+                                                <span className={`px-2 py-0.5 rounded-none text-[10px] ${filter === f.id ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"}`}>
                                                     {f.count}
                                                 </span>
                                             </button>
@@ -361,10 +363,10 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                 </div>
 
                                 {/* Customize Card */}
-                                <div className="rounded-2xl bg-background/80 dark:bg-[#0d1117]/80 border border-border/60  gap-3 grid dark:shadow-xl backdrop-blur-xl">
+                                <div className="rounded-none bg-background/80 dark:bg-[#0d1117]/80 border border-border/60  gap-3 grid dark:shadow-xl backdrop-blur-xl">
                                     <div className="flex items-center justify-between border-b border-border/30">
                                         <div className="flex px-4 py-2.5 items-center gap-2">
-                                            <div className="p-1.5 rounded-lg bg-primary/10 text-primary border border-primary/20">
+                                            <div className="p-1.5 rounded-none bg-primary/10 text-primary border border-primary/20">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                     <line x1="4" x2="20" y1="21" y2="21" />
                                                     <line x1="4" x2="20" y1="14" y2="14" />
@@ -382,7 +384,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                     <div className="space-y-2.5 px-4">
                                         <div className="flex justify-between items-center text-xs font-mono">
                                             <label htmlFor="global-size" className="text-muted-foreground font-bold">Size</label>
-                                            <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">{globalSize}px</span>
+                                            <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-none border border-primary/20">{globalSize}px</span>
                                         </div>
                                         <input
                                             id="global-size"
@@ -392,7 +394,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                             step="4"
                                             value={globalSize}
                                             onChange={(e) => setGlobalSize(Number(e.target.value))}
-                                            className="w-full accent-primary cursor-pointer h-1.5 rounded-lg bg-muted"
+                                            className="w-full accent-primary cursor-pointer h-1.5 rounded-none bg-muted"
                                         />
                                         {/* Size Presets */}
                                         <div className="flex items-center gap-1 pt-1 overflow-x-auto scrollbar-none">
@@ -400,7 +402,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                                 <button
                                                     key={s}
                                                     onClick={() => setGlobalSize(s)}
-                                                    className={`px-2 py-0.5 text-[10px] font-mono rounded-lg transition-all ${
+                                                    className={`px-2 py-0.5 text-[10px] font-mono rounded-none transition-all ${
                                                         globalSize === s
                                                             ? "bg-primary text-primary-foreground font-bold"
                                                             : "bg-muted/50 text-muted-foreground hover:bg-muted"
@@ -417,7 +419,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                         <div className="space-y-2.5 px-4">
                                             <div className="flex justify-between items-center text-xs font-mono">
                                                 <label htmlFor="global-stroke" className="text-muted-foreground font-bold">Stroke</label>
-                                                <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">{globalStrokeWidth}px</span>
+                                                <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-none border border-primary/20">{globalStrokeWidth}px</span>
                                             </div>
                                             <input
                                                 id="global-stroke"
@@ -427,7 +429,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                                 step="0.25"
                                                 value={globalStrokeWidth}
                                                 onChange={(e) => setGlobalStrokeWidth(Number(e.target.value))}
-                                                className="w-full accent-primary cursor-pointer h-1.5 rounded-lg bg-muted"
+                                                className="w-full accent-primary cursor-pointer h-1.5 rounded-none bg-muted"
                                             />
                                             {/* Stroke Presets */}
                                             <div className="flex items-center gap-1 pt-1">
@@ -435,7 +437,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                                     <button
                                                         key={sw}
                                                         onClick={() => setGlobalStrokeWidth(sw)}
-                                                        className={`px-2 py-0.5 text-[10px] font-mono rounded-lg transition-all ${
+                                                        className={`px-2 py-0.5 text-[10px] font-mono rounded-none transition-all ${
                                                             globalStrokeWidth === sw
                                                                 ? "bg-primary text-primary-foreground font-bold"
                                                                 : "bg-muted/50 text-muted-foreground hover:bg-muted"
@@ -460,13 +462,13 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                             </button>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <div className="relative w-8 h-8 rounded-xl overflow-hidden border border-border shrink-0 shadow-xs cursor-pointer hover:scale-105 transition-transform">
+                                            <div className="relative w-6 h-6 rounded-noneoverflow-hidden border border-border shrink-0 shadow-xs cursor-pointer hover:scale-105 transition-transform">
                                                 <input
                                                     id="global-color"
                                                     type="color"
                                                     value={globalColor}
                                                     onChange={(e) => setGlobalColor(e.target.value)}
-                                                    className="absolute -top-2 -left-2 w-12 h-12 cursor-pointer"
+                                                    className="absolute -top-2 -left-2 w-9.5 h-9.5 cursor-pointer"
                                                 />
                                             </div>
                                             <input
@@ -474,7 +476,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                                 aria-label="Color hex value"
                                                 value={globalColor}
                                                 onChange={(e) => setGlobalColor(e.target.value)}
-                                                className="flex-1 px-3 py-1.5 text-xs bg-background border border-border/80 rounded-xl focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none uppercase font-mono text-foreground font-bold"
+                                                className="flex-1 px-3 py-1.5 text-xs bg-background border border-border/80 rounded-nonefocus:border-primary focus:ring-1 focus:ring-primary/30 outline-none uppercase font-mono text-foreground font-bold"
                                             />
                                         </div>
                                         <div className="flex flex-wrap gap-1.5 pt-1">
@@ -482,7 +484,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                                 <button
                                                     key={preset}
                                                     onClick={() => setGlobalColor(preset)}
-                                                    className={`w-6 h-6 rounded-lg border transition-all cursor-pointer shadow-xs ${
+                                                    className={`w-6 h-6 rounded-none border transition-all cursor-pointer shadow-xs ${
                                                         globalColor.toLowerCase() === preset.toLowerCase()
                                                             ? "ring-2 ring-primary ring-offset-2 ring-offset-background scale-110 border-primary"
                                                             : "border-border/60 hover:scale-105 opacity-85 hover:opacity-100"
@@ -514,8 +516,8 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
 
                             {/* Empty Search / Filter State */}
                             {filteredIcons.length === 0 && (
-                                <div className="col-span-full flex flex-col items-center justify-center py-16 px-4 rounded-3xl bg-background/50 border border-border/40 text-center gap-3">
-                                    <div className="p-3 bg-muted/50 rounded-2xl border border-border/40 text-muted-foreground">
+                                <div className="col-span-full flex flex-col items-center justify-center py-16 px-4 rounded-none bg-background/50 border border-border/40 text-center gap-3">
+                                    <div className="p-3 bg-muted/50 rounded-none border border-border/40 text-muted-foreground">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                             <circle cx="11" cy="11" r="8" />
                                             <path d="m21 21-4.3-4.3" />
@@ -528,7 +530,7 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                     {searchQuery && (
                                         <button
                                             onClick={() => setSearchQuery("")}
-                                            className="px-3.5 py-1.5 rounded-xl bg-primary text-primary-foreground text-xs font-mono font-bold hover:bg-primary/90 transition-all shadow-xs cursor-pointer mt-1"
+                                            className="px-3.5 py-1.5 rounded-nonebg-primary text-primary-foreground text-xs font-mono font-bold hover:bg-primary/90 transition-all shadow-xs cursor-pointer mt-1"
                                         >
                                             Clear Search
                                         </button>
@@ -541,10 +543,10 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                                 <div ref={loadMoreRef} className="mt-8 flex justify-center py-6">
                                     <button
                                         onClick={() => setVisibleCount((prev) => Math.min(prev + 24, filteredIcons.length))}
-                                        className="flex items-center gap-2.5 px-5 py-2.5 rounded-2xl bg-muted/40 hover:bg-muted/80 text-foreground/80 hover:text-foreground border border-border/60 hover:border-primary/40 transition-all text-xs font-mono font-bold cursor-pointer shadow-xs active:scale-95 group"
+                                        className="flex items-center gap-2.5 px-5 py-2.5 rounded-none bg-muted/40 hover:bg-muted/80 text-foreground/80 hover:text-foreground border border-border/60 hover:border-primary/40 transition-all text-xs font-mono font-bold cursor-pointer shadow-xs active:scale-95 group"
                                         title="Click to load more icons manually"
                                     >
-                                        <div className="w-3.5 h-3.5 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
+                                        <div className="w-3.5 h-3.5 rounded-none border-2 border-primary/30 border-t-primary animate-spin" />
                                         <span>Load More Icons ({displayedIcons.length} of {filteredIcons.length})</span>
                                     </button>
                                 </div>
@@ -552,13 +554,14 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
                         </div>
 
                     </div>
+                    </FramedContainer>
                 </div>
             </section>
 
             {/* Floating Scroll To Top Button */}
             <button
                 onClick={scrollToTop}
-                className={`fixed bottom-6 right-6 z-40 p-3 rounded-2xl bg-primary text-primary-foreground border border-primary/30 shadow-[0_0_25px_rgba(var(--primary),0.35)] transition-all duration-300 cursor-pointer flex items-center justify-center backdrop-blur-xl active:scale-95 group ${
+                className={`fixed bottom-6 right-6 z-40 p-3 rounded-none bg-primary text-primary-foreground border border-primary/30 shadow-[0_0_25px_rgba(var(--primary),0.35)] transition-all duration-300 cursor-pointer flex items-center justify-center backdrop-blur-xl active:scale-95 group ${
                     showScrollTop
                         ? "opacity-100 translate-y-0 pointer-events-auto"
                         : "opacity-0 translate-y-6 pointer-events-none"

@@ -121,7 +121,7 @@ export default function IconCustomizerSidebar({ icon, isOpen, onClose }: IconCus
                     <h3 className="text-xl font-semibold capitalize">{icon?.name || "Customize Icon"}</h3>
                     <button 
                         onClick={onClose}
-                        className="p-2 hover:bg-muted rounded-full transition-colors"
+                        className="p-2 hover:bg-muted rounded-none transition-colors"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -134,9 +134,9 @@ export default function IconCustomizerSidebar({ icon, isOpen, onClose }: IconCus
                 <div className="flex-1 overflow-y-auto p-6 space-y-8">
                     
                     {/* Preview Area */}
-                    <div className="flex items-center justify-center p-8 bg-muted/30 rounded-2xl border border-border/50 min-h-50">
+                    <div className="flex items-center justify-center p-8 bg-muted/30 rounded-none border border-border/50 min-h-50">
                         {loading ? (
-                            <div className="w-8 h-8 rounded-full border-2 border-primary/20 border-t-primary animate-spin"></div>
+                            <div className="w-8 h-8 rounded-none border-2 border-primary/20 border-t-primary animate-spin"></div>
                         ) : (
                             <div 
                                 style={{ color: color }}
@@ -152,7 +152,7 @@ export default function IconCustomizerSidebar({ icon, isOpen, onClose }: IconCus
                         <div className="space-y-3">
                             <div className="flex justify-between items-center">
                                 <label className="text-sm font-medium text-foreground">Size</label>
-                                <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-md">{size}px</span>
+                                <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-none">{size}px</span>
                             </div>
                             <input 
                                 type="range" 
@@ -169,7 +169,7 @@ export default function IconCustomizerSidebar({ icon, isOpen, onClose }: IconCus
                         <div className="space-y-3">
                             <div className="flex justify-between items-center">
                                 <label className="text-sm font-medium text-foreground">Stroke Width</label>
-                                <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-md">{strokeWidth}px</span>
+                                <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-none">{strokeWidth}px</span>
                             </div>
                             <input 
                                 type="range" 
@@ -186,7 +186,7 @@ export default function IconCustomizerSidebar({ icon, isOpen, onClose }: IconCus
                         <div className="space-y-3">
                             <label className="text-sm font-medium text-foreground block">Color</label>
                             <div className="flex items-center gap-3">
-                                <div className="relative w-10 h-10 rounded-full overflow-hidden border border-border shrink-0 shadow-sm cursor-pointer hover:scale-105 transition-transform">
+                                <div className="relative w-10 h-10 rounded-none overflow-hidden border border-border shrink-0 shadow-sm cursor-pointer hover:scale-105 transition-transform">
                                     <input 
                                         type="color" 
                                         value={color}
@@ -198,7 +198,7 @@ export default function IconCustomizerSidebar({ icon, isOpen, onClose }: IconCus
                                     type="text" 
                                     value={color}
                                     onChange={(e) => setColor(e.target.value)}
-                                    className="flex-1 px-3 py-2 text-sm bg-background border border-border rounded-xl focus:ring-1 focus:ring-primary outline-none"
+                                    className="flex-1 px-3 py-2 text-sm bg-background border border-border rounded-nonefocus:ring-1 focus:ring-primary outline-none"
                                 />
                             </div>
                             <div className="flex gap-2 pt-2">
@@ -206,7 +206,7 @@ export default function IconCustomizerSidebar({ icon, isOpen, onClose }: IconCus
                                     <button
                                         key={preset}
                                         onClick={() => setColor(preset)}
-                                        className="w-6 h-6 rounded-full border border-border hover:scale-110 transition-transform shadow-sm"
+                                        className="w-6 h-6 rounded-none border border-border hover:scale-110 transition-transform shadow-sm"
                                         style={{ backgroundColor: preset }}
                                     />
                                 ))}
@@ -219,7 +219,7 @@ export default function IconCustomizerSidebar({ icon, isOpen, onClose }: IconCus
                 <div className="p-6 border-t border-border bg-muted/10 grid grid-cols-2 gap-3">
                     <button 
                         onClick={() => handleCopy("svg")}
-                        className="flex items-center justify-center gap-2 py-2.5 px-4 bg-background border border-border hover:bg-muted hover:border-muted-foreground/30 rounded-xl transition-all font-medium text-sm shadow-sm"
+                        className="flex items-center justify-center gap-2 py-2.5 px-4 bg-background border border-border hover:bg-muted hover:border-muted-foreground/30 rounded-nonetransition-all font-medium text-sm shadow-sm"
                     >
                         {copied === "svg" ? (
                             <>
@@ -235,7 +235,7 @@ export default function IconCustomizerSidebar({ icon, isOpen, onClose }: IconCus
                     </button>
                     <button 
                         onClick={() => handleCopy("jsx")}
-                        className="flex items-center justify-center gap-2 py-2.5 px-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl transition-all font-medium text-sm shadow-md"
+                        className="flex items-center justify-center gap-2 py-2.5 px-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-nonetransition-all font-medium text-sm shadow-md"
                     >
                         {copied === "jsx" ? (
                             <>

@@ -177,20 +177,20 @@ export function TerminalShowcase({
     }, [heroPkgManager]);
 
     return (
-        <div className="w-full rounded-3xl bg-[#0d1117] border border-border/80 shadow-2xl overflow-hidden flex flex-col font-mono text-xs max-w-4xl mx-auto">
+        <div className="w-full rounded-none bg-[#0d1117] border border-border/80 shadow-2xl overflow-hidden flex flex-col font-mono text-xs max-w-4xl mx-auto">
             {/* Window Header Bar */}
             <div className="flex items-center justify-between px-4 sm:px-5 py-2.5 bg-[#161b22] border-b border-zinc-800/80">
                 <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-                    <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-                    <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
+                    <span className="w-3 h-3 rounded-none bg-[#ff5f56]" />
+                    <span className="w-3 h-3 rounded-none bg-[#ffbd2e]" />
+                    <span className="w-3 h-3 rounded-none bg-[#27c93f]" />
                     <span className="text-xs text-zinc-400 font-bold ml-2">bash — pphat CLI Session</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                     {/* Play / Pause Toggle Button */}
                     <button
                         onClick={() => setIsTerminalPlaying(!isTerminalPlaying)}
-                        className={`p-1.5 rounded-lg border transition-all cursor-pointer flex items-center justify-center active:scale-95 shadow-xs ${
+                        className={`p-1.5 rounded-none border transition-all cursor-pointer flex items-center justify-center active:scale-95 shadow-xs ${
                             isTerminalPlaying
                                 ? "text-emerald-400 bg-emerald-500/15 border-emerald-500/30 hover:bg-emerald-500/25"
                                 : "text-amber-400 bg-amber-500/15 border-amber-500/30 hover:bg-amber-500/25"
@@ -207,7 +207,7 @@ export function TerminalShowcase({
                     {/* Replay Stream Button */}
                     <button
                         onClick={replayTerminalSession}
-                        className="p-1.5 rounded-lg text-zinc-400 hover:text-white bg-zinc-800/80 hover:bg-zinc-700/80 border border-zinc-700/60 transition-all cursor-pointer flex items-center justify-center active:scale-95 shadow-xs"
+                        className="p-1.5 rounded-none text-zinc-400 hover:text-white bg-zinc-800/80 hover:bg-zinc-700/80 border border-zinc-700/60 transition-all cursor-pointer flex items-center justify-center active:scale-95 shadow-xs"
                         title="Replay Terminal Stream"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
@@ -220,9 +220,9 @@ export function TerminalShowcase({
                     >
                         <div className="relative flex items-center justify-center w-2 h-2">
                             {isTerminalPlaying && (
-                                <span className="absolute inline-flex w-4 h-4 rounded-full bg-emerald-400/50 animate-ping" />
+                                <span className="absolute inline-flex w-4 h-4 rounded-none bg-emerald-400/50 animate-ping" />
                             )}
-                            <span className={`relative inline-flex w-2 h-2 rounded-full ${isTerminalPlaying ? "bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" : "bg-amber-400"}`} />
+                            <span className={`relative inline-flex w-2 h-2 rounded-none ${isTerminalPlaying ? "bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" : "bg-amber-400"}`} />
                         </div>
                     </div>
                 </div>
@@ -462,7 +462,7 @@ export function TerminalShowcase({
 
                                 {/* Final Config Success Banner */}
                                 {initSubStep >= 4 && (
-                                    <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-[11px] mt-1 animate-in fade-in duration-300">
+                                    <div className="p-2.5 rounded-nonebg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-[11px] mt-1 animate-in fade-in duration-300">
                                         Success! Configuration saved to pphatdev.json. Your items will be saved to your configured directories.
                                     </div>
                                 )}

@@ -28,8 +28,8 @@ export default function Hero() {
         <section className="relative pt-16 sm:pt-24 md:pt-28 pb-12 sm:pb-16 overflow-hidden flex flex-col justify-center">
             {/* Background Ambient Glows & Floating Random Vector Icons */}
             <div className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center overflow-hidden select-none">
-                <div className="absolute top-1/4 left-1/3 w-137.5 h-137.5 bg-primary/20 rounded-full blur-[110px] opacity-40 mix-blend-screen animate-pulse-slow"></div>
-                <div className="absolute top-1/2 right-1/4 w-112.5 h-112.5 bg-emerald-500/15 rounded-full blur-[90px] opacity-30 mix-blend-screen animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute top-1/4 left-1/3 w-137.5 h-137.5 bg-primary/20 rounded-none blur-[110px] opacity-40 mix-blend-screen animate-pulse-slow"></div>
+                <div className="absolute top-1/2 right-1/4 w-112.5 h-112.5 bg-emerald-500/15 rounded-none blur-[90px] opacity-30 mix-blend-screen animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
                 <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/30 to-transparent"></div>
 
                 {/* Floating Random Vector Background Icons */}
@@ -62,7 +62,7 @@ export default function Hero() {
             <div className="container mx-auto max-w-5xl px-4 sm:px-6 relative z-10">
                 <div className="flex flex-col items-center text-center gap-3.5 max-w-3xl mx-auto">
                     {/* Version Badge Pill */}
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1 text-xs text-primary font-bold font-mono bg-primary/10 rounded-full border border-primary/20 shadow-xs backdrop-blur-md">
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1 text-xs text-primary font-bold font-mono bg-primary/10 rounded-none border border-primary/20 shadow-xs backdrop-blur-md">
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -84,12 +84,12 @@ export default function Hero() {
                     {/* PACKAGE MANAGER SWITCHER & QUICK COPY CLI COMMAND BOX */}
                     <div className="w-full max-w-md mx-auto flex flex-col gap-2.5 mt-2">
                         {/* Package Manager Switcher Pills */}
-                        <div className="flex items-center gap-1 bg-muted/50 p-1 rounded-xl border border-border/40 w-fit mx-auto shadow-xs">
+                        <div className="flex items-center gap-1 bg-muted/50 p-1 rounded-noneborder border-border/40 w-fit mx-auto shadow-xs">
                             {(['npm', 'pnpm', 'bun'] as const).map(pkg => (
                                 <button
                                     key={pkg}
                                     onClick={() => setHeroPkgManager(pkg)}
-                                    className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                                    className={`px-3 py-1 rounded-none text-xs font-mono font-bold transition-all cursor-pointer ${
                                         heroPkgManager === pkg
                                             ? 'bg-background text-foreground shadow-xs'
                                             : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
@@ -101,7 +101,7 @@ export default function Hero() {
                         </div>
 
                         {/* Quick Copy CLI Command Box */}
-                        <div className="flex items-center gap-3 bg-background/60 backdrop-blur-xl border border-border/60 p-2 pl-4 rounded-2xl w-full group hover:border-primary/50 transition-colors shadow-xs">
+                        <div className="flex items-center gap-3 bg-background/60 backdrop-blur-xl border border-border/60 p-2 pl-4 rounded-none w-full group hover:border-primary/50 transition-colors shadow-xs">
                             <span className="text-primary font-mono select-none font-bold">$</span>
                             <code className="text-primary text-xs sm:text-sm font-mono flex-1 text-left font-bold select-all">
                                 {installCmd}
@@ -109,7 +109,7 @@ export default function Hero() {
                             <button
                                 onClick={() => copyToClipboard(installCmd, 'hero-cli')}
                                 title="Copy installation command"
-                                className="p-2 flex items-center justify-center bg-muted/50 hover:bg-muted rounded-xl transition-all border border-border/40 text-muted-foreground hover:text-foreground shrink-0 cursor-pointer active:scale-95"
+                                className="p-2 flex items-center justify-center bg-muted/50 hover:bg-muted rounded-none transition-all border border-border/40 text-muted-foreground hover:text-foreground shrink-0 cursor-pointer active:scale-95"
                             >
                                 {copiedCommand === 'hero-cli' ? (
                                     <span className="text-[10px] whitespace-nowrap leading-tight pt-0 font-mono font-bold text-primary px-1">Copied</span>

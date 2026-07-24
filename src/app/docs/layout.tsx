@@ -9,8 +9,8 @@ export default function DocsLayout({
         <div className="relative pt-24 pb-16 min-h-screen overflow-x-clip">
             {/* Background Ambient Glows */}
             <div className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center overflow-hidden select-none">
-                <div className="absolute top-1/4 left-1/4 w-125 h-125 bg-primary/15 rounded-full blur-[120px] opacity-40 mix-blend-screen animate-pulse-slow" />
-                <div className="absolute top-1/2 right-1/4 w-100 h-100 bg-emerald-500/10 rounded-full blur-[100px] opacity-30 mix-blend-screen animate-pulse-slow" style={{ animationDelay: "1s" }} />
+                <div className="absolute top-1/4 left-1/4 w-125 h-125 bg-primary/15 rounded-none blur-[120px] opacity-40 mix-blend-screen animate-pulse-slow" />
+                <div className="absolute top-1/2 right-1/4 w-100 h-100 bg-emerald-500/10 rounded-none blur-[100px] opacity-30 mix-blend-screen animate-pulse-slow" style={{ animationDelay: "1s" }} />
                 <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/30 to-transparent" />
             </div>
 

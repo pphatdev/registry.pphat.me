@@ -1,6 +1,7 @@
 import React from "react";
 import { TerminalShowcase } from "@/components/TerminalShowcase";
 import { renderMiniIcon } from "./VectorIcons";
+import { FramedContainer } from "./FramedContainer";
 
 interface HeroSectionProps {
     heroPkgManager: 'npm' | 'pnpm' | 'bun';
@@ -66,7 +67,7 @@ export function HeroSection({
 
                     {/* Top Hero Headline Banner */}
                     <div className="flex flex-col items-center text-center gap-3.5 max-w-3xl mx-auto">
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1 text-xs text-primary font-bold font-mono bg-primary/10 rounded-full border border-primary/20 shadow-xs backdrop-blur-md">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1 text-xs text-primary font-bold font-mono bg-primary/10 rounded-none border border-primary/20 shadow-xs backdrop-blur-md">
                             <span className="relative flex h-2 w-2">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -85,12 +86,12 @@ export function HeroSection({
                         {/* HERO INSTALLATION PACKAGE MANAGER SWITCHER & QUICK COPY */}
                         <div className="w-full max-w-md mx-auto flex flex-col gap-2.5 mt-2">
                             {/* Package Manager Switcher Pills */}
-                            <div className="flex items-center gap-1 bg-muted/50 p-1 rounded-xl border border-border/40 w-fit mx-auto shadow-xs">
+                            <div className="flex items-center gap-1 bg-muted/50 p-1 rounded-noneborder border-border/40 w-fit mx-auto shadow-xs">
                                 {(['npm', 'pnpm', 'bun'] as const).map(pkg => (
                                     <button
                                         key={pkg}
                                         onClick={() => setHeroPkgManager(pkg)}
-                                        className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                                        className={`px-3 py-1 rounded-none text-xs font-mono font-bold transition-all cursor-pointer ${
                                             heroPkgManager === pkg
                                                 ? 'bg-background text-foreground shadow-xs'
                                                 : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
@@ -102,7 +103,7 @@ export function HeroSection({
                             </div>
 
                             {/* Quick Copy CLI Command Box */}
-                            <div className="flex items-center gap-3 bg-background/60 backdrop-blur-xl border border-border/60 p-2 pl-4 rounded-2xl w-full group hover:border-primary/50 transition-colors shadow-xs">
+                            <div className="flex items-center gap-3 bg-background/60 backdrop-blur-xl border border-border/60 p-2 pl-4 rounded-none w-full group hover:border-primary/50 transition-colors shadow-xs">
                                 <span className="text-primary font-mono select-none font-bold">$</span>
                                 <code className="text-primary text-xs sm:text-sm font-mono flex-1 text-left font-bold select-all">
                                     {installCmd}
@@ -110,7 +111,7 @@ export function HeroSection({
                                 <button
                                     onClick={() => copyToClipboard(installCmd, 'hero-cli')}
                                     title="Copy installation command"
-                                    className="p-2 flex items-center justify-center bg-muted/50 hover:bg-muted rounded-xl transition-all border border-border/40 text-muted-foreground hover:text-foreground shrink-0 cursor-pointer active:scale-95"
+                                    className="p-2 flex items-center justify-center bg-muted/50 hover:bg-muted rounded-none transition-all border border-border/40 text-muted-foreground hover:text-foreground shrink-0 cursor-pointer active:scale-95"
                                 >
                                     {copiedCommand === 'hero-cli' ? (
                                         <span className="text-[10px] whitespace-nowrap leading-tight pt-0 font-mono font-bold text-primary px-1">Copied</span>
@@ -126,11 +127,13 @@ export function HeroSection({
                     </div>
 
                     {/* HERO REAL-LIFE ANIMATED TERMINAL STREAM WINDOW */}
-                    <TerminalShowcase
-                        heroPkgManager={heroPkgManager}
-                        copyToClipboard={copyToClipboard}
-                        copiedCommand={copiedCommand}
-                    />
+                    <FramedContainer>
+                        <TerminalShowcase
+                            heroPkgManager={heroPkgManager}
+                            copyToClipboard={copyToClipboard}
+                            copiedCommand={copiedCommand}
+                        />
+                    </FramedContainer>
 
                 </div>
             </div>

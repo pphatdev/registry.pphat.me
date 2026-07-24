@@ -23,7 +23,7 @@ The application utilizes a dark/light responsive color palette defined with HSL 
 
 ### C. Visual Effects & Glassmorphic Utilities
 - **Glass Panels**: `.glass-panel` utility applies backdrop blur (`backdrop-blur-xl`), subtle borders, and glassmorphic translucency.
-- **Ambient Radial Backlight Glow**: Components feature multi-layered radial blur glows (`bg-primary/15 rounded-full blur-2xl`) lighting up on hover.
+- **Ambient Radial Backlight Glow**: Components feature multi-layered radial blur glows (`bg-primary/15 rounded-none blur-2xl`) lighting up on hover.
 - **Animations**:
   - `animate-ripple`: Concentric expanding ripple rings (`scale(0.8)` to `scale(2)`).
   - `animate-ping`: Live status indicator dot pulsing effect.
