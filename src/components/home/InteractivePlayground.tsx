@@ -1,44 +1,236 @@
-import React, { useState } from "react";
-import { IconType, renderVectorPath, renderMiniIcon, getIconSvgPaths } from "./VectorIcons";
+"use client";
+
+import React, { useEffect, useState } from "react";
 
 interface InteractivePlaygroundProps {
     copyToClipboard: (text: string, id: string) => void;
     copiedCommand: string | null;
 }
 
+type RegistryIcon = {
+    name: string;
+    svgContent?: string;
+    target?: string;
+    category?: 'Brands' | 'Regular' | string;
+};
+
+const ICONS_BASE = "https://raw.githubusercontent.com/pphatdev/icons/main";
+const PILL_LIMIT = 10;
+
+async function loadIconSvg(icon: RegistryIcon, signal: AbortSignal): Promise<string> {
+    if (icon.svgContent) return icon.svgContent;
+    if (!icon.target) return '';
+    try {
+        const res = await fetch(`${ICONS_BASE}/${icon.target}`, { signal, cache: 'force-cache' });
+        if (!res.ok) return '';
+        const data = await res.json();
+        return data?.files?.[0]?.content || '';
+    } catch {
+        return '';
+    }
+}
+
+function customizeSvg(raw: string, size: number, color: string): string {
+    if (!raw) return '';
+    let out = raw;
+    out = /width="[^"]*"/.test(out)
+        ? out.replace(/width="[^"]*"/, `width="${size}"`)
+        : out.replace(/<svg\b/, `<svg width="${size}"`);
+    out = /height="[^"]*"/.test(out)
+        ? out.replace(/height="[^"]*"/, `height="${size}"`)
+        : out.replace(/<svg\b/, `<svg height="${size}"`);
+    if (color && color !== 'currentColor') {
+        out = out.replace(/currentColor/g, color);
+    }
+    return out;
+}
+
+function extractInner(raw: string): string {
+    const m = raw.match(/<svg[^>]*>([\s\S]*?)<\/svg>/i);
+    return m ? m[1].trim() : '';
+}
+
+function extractViewBox(raw: string): string {
+    const m = raw.match(/viewBox="([^"]+)"/);
+    return m ? m[1] : '0 0 24 24';
+}
+
+function extractSvgAttr(raw: string, attr: string): string | null {
+    const re = new RegExp(`\\b${attr}="([^"]+)"`);
+    const m = raw.match(re);
+    return m ? m[1] : null;
+}
+
+function toReactAttrs(inner: string): string {
+    return inner
+        .replace(/stroke-width=/g, 'strokeWidth=')
+        .replace(/stroke-linecap=/g, 'strokeLinecap=')
+        .replace(/stroke-linejoin=/g, 'strokeLinejoin=')
+        .replace(/stroke-dasharray=/g, 'strokeDasharray=')
+        .replace(/stroke-dashoffset=/g, 'strokeDashoffset=')
+        .replace(/fill-rule=/g, 'fillRule=')
+        .replace(/clip-rule=/g, 'clipRule=')
+        .replace(/clip-path=/g, 'clipPath=');
+}
+
+function toPascalCase(str: string): string {
+    return str.replace(/(^\w|[-_]\w)/g, s => s.replace(/[-_]/, '').toUpperCase());
+}
+
 export function InteractivePlayground({
     copyToClipboard,
     copiedCommand,
 }: InteractivePlaygroundProps) {
-    const [selectedIcon, setSelectedIcon] = useState<IconType>('arrow-right');
+    const [selectedIconName, setSelectedIconName] = useState<string>('');
     const [selectedFormat, setSelectedFormat] = useState<'nextjs' | 'nuxtjs' | 'svg'>('nextjs');
     const [canvasBg, setCanvasBg] = useState<'dots' | 'checker' | 'cad'>('cad');
 
     // Interactive Playground Sliders & Toggles
     const [iconSize, setIconSize] = useState<number>(32);
-    const [strokeWidth] = useState<number>(2);
     const [rotationAngle, setRotationAngle] = useState<number>(0);
     const [colorTheme, setColorTheme] = useState<string>('currentColor');
 
+    // Registry-backed icon state
+    const [icons, setIcons] = useState<RegistryIcon[]>([]);
+    const [iconsLoading, setIconsLoading] = useState<boolean>(true);
+    const [svgCache, setSvgCache] = useState<Record<string, string>>({});
+
+    // Fetch icon registry on mount (same source as ClientIconGrid)
+    useEffect(() => {
+        const ctrl = new AbortController();
+        (async () => {
+            try {
+                const [brandsRes, regularRes] = await Promise.all([
+                    fetch(`${ICONS_BASE}/brands.json`, { signal: ctrl.signal, cache: 'force-cache' }),
+                    fetch(`${ICONS_BASE}/regular.json`, { signal: ctrl.signal, cache: 'force-cache' }).catch(() => null),
+                ]);
+                let all: RegistryIcon[] = [];
+                if (brandsRes.ok) {
+                    const brands = await brandsRes.json();
+                    if (Array.isArray(brands)) all = all.concat(brands.map((b: RegistryIcon) => ({ ...b, category: 'Brands' })));
+                }
+                if (regularRes && regularRes.ok) {
+                    const regular = await regularRes.json();
+                    if (Array.isArray(regular)) all = all.concat(regular.map((r: RegistryIcon) => ({ ...r, category: 'Regular' })));
+                }
+                if (ctrl.signal.aborted) return;
+                setIcons(all);
+                if (all.length > 0) setSelectedIconName(all[0].name);
+                setIconsLoading(false);
+            } catch {
+                if (!ctrl.signal.aborted) setIconsLoading(false);
+            }
+        })();
+        return () => ctrl.abort();
+    }, []);
+
+    // Lazy-load SVG content for the selected icon when missing
+    useEffect(() => {
+        if (!selectedIconName || svgCache[selectedIconName] !== undefined) return;
+        const icon = icons.find(i => i.name === selectedIconName);
+        if (!icon) return;
+        const ctrl = new AbortController();
+        loadIconSvg(icon, ctrl.signal).then(svg => {
+            if (ctrl.signal.aborted) return;
+            setSvgCache(prev => ({ ...prev, [selectedIconName]: svg }));
+        });
+        return () => ctrl.abort();
+    }, [selectedIconName, icons, svgCache]);
+
+    // Prefetch SVG content for the pill row so glyphs actually render
+    // (many brand entries only carry a `target`, not inline `svgContent`)
+    useEffect(() => {
+        if (iconsLoading || icons.length === 0) return;
+        const ctrl = new AbortController();
+        const toLoad = icons
+            .slice(0, PILL_LIMIT)
+            .filter(i => !i.svgContent && svgCache[i.name] === undefined);
+        if (toLoad.length === 0) return;
+        Promise.all(
+            toLoad.map(async icon => [icon.name, await loadIconSvg(icon, ctrl.signal)] as const)
+        ).then(pairs => {
+            if (ctrl.signal.aborted) return;
+            setSvgCache(prev => {
+                const next = { ...prev };
+                for (const [name, svg] of pairs) next[name] = svg;
+                return next;
+            });
+        });
+        return () => ctrl.abort();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [iconsLoading, icons]);
+
+    const selectedSvg = selectedIconName ? svgCache[selectedIconName] : undefined;
+    const selectedSvgLoaded = selectedSvg !== undefined && selectedSvg.length > 0;
+    const selectedCategory = icons.find(i => i.name === selectedIconName)?.category;
+    const pillIcons = icons.slice(0, PILL_LIMIT);
+
     const getCliCommand = () => {
-        return `pphat add-icon ${selectedIcon} -f ${selectedFormat}`;
+        if (!selectedIconName) return `pphat add-icon <name> -f ${selectedFormat}`;
+        return `pphat add-icon ${selectedIconName} -f ${selectedFormat}`;
     };
 
     const getCodeSnippet = () => {
-        const componentName = `${selectedIcon.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('')}Icon`;
-        const innerPaths = getIconSvgPaths(selectedIcon);
+        if (!selectedSvgLoaded) {
+            return selectedIconName
+                ? `// Loading ${selectedIconName}...`
+                : `// Loading registry...`;
+        }
+        const raw = selectedSvg as string;
+        const viewBox = extractViewBox(raw);
+        const innerRaw = extractInner(raw);
+        const isBrand = selectedCategory === 'Brands';
 
-        const colorProp = colorTheme !== 'currentColor' ? ` color="${colorTheme}"` : '';
+        // Detect fill/stroke defaults from source; fall back to sensible defaults per category
+        const srcFill = extractSvgAttr(raw, 'fill');
+        const srcStroke = extractSvgAttr(raw, 'stroke');
+        const srcStrokeWidth = extractSvgAttr(raw, 'stroke-width');
+        const fillAttr = srcFill ?? (isBrand ? 'currentColor' : 'none');
+        const strokeAttr = srcStroke ?? (isBrand ? undefined : 'currentColor');
+        const strokeWidthAttr = srcStrokeWidth ?? (isBrand ? undefined : '2');
+
+        const componentName = `${toPascalCase(selectedIconName)}Icon`;
         const rotateStyle = rotationAngle !== 0 ? ` style={{ transform: 'rotate(${rotationAngle}deg)' }}` : '';
         const rotateAttr = rotationAngle !== 0 ? ` transform="rotate(${rotationAngle})"` : '';
+        const colorProp = colorTheme !== 'currentColor' ? ` color="${colorTheme}"` : '';
 
         if (selectedFormat === 'nextjs') {
-            return `import React, { forwardRef } from 'react';\n\nexport const ${componentName} = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => (\n    <svg ref={ref} width="${iconSize}" height="${iconSize}" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"${colorProp}${rotateStyle} strokeLinecap="round" strokeLinejoin="round" {...props}>\n        ${innerPaths}\n    </svg>\n));`;
-        } else if (selectedFormat === 'nuxtjs') {
-            const vueRotateStyle = rotationAngle !== 0 ? ` :style="{ transform: 'rotate(${rotationAngle}deg)' }"` : '';
-            return `<template>\n    <svg width="${iconSize}" height="${iconSize}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"${colorProp}${vueRotateStyle} stroke-linecap="round" stroke-linejoin="round">\n        ${innerPaths}\n    </svg>\n</template>`;
+            const innerJsx = toReactAttrs(innerRaw);
+            const attrs = [
+                `ref={ref}`,
+                `width="${iconSize}"`,
+                `height="${iconSize}"`,
+                `viewBox="${viewBox}"`,
+                `fill="${fillAttr}"`,
+                strokeAttr ? `stroke="${strokeAttr}"` : null,
+                strokeWidthAttr ? `strokeWidth="${strokeWidthAttr}"` : null,
+                `strokeLinecap="round"`,
+                `strokeLinejoin="round"`,
+            ].filter(Boolean).join(' ');
+            return `import React, { forwardRef } from 'react';\n\nexport const ${componentName} = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => (\n    <svg ${attrs}${colorProp}${rotateStyle} {...props}>\n        ${innerJsx}\n    </svg>\n));`;
         }
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="${iconSize}" height="${iconSize}" viewBox="0 0 24 24" fill="none" stroke="${colorTheme === 'currentColor' ? 'currentColor' : colorTheme}" stroke-width="2"${rotateAttr} stroke-linecap="round" stroke-linejoin="round">\n    ${innerPaths}\n</svg>`;
+
+        if (selectedFormat === 'nuxtjs') {
+            const vueRotateStyle = rotationAngle !== 0 ? ` :style="{ transform: 'rotate(${rotationAngle}deg)' }"` : '';
+            const attrs = [
+                `width="${iconSize}"`,
+                `height="${iconSize}"`,
+                `viewBox="${viewBox}"`,
+                `fill="${fillAttr}"`,
+                strokeAttr ? `stroke="${strokeAttr}"` : null,
+                strokeWidthAttr ? `stroke-width="${strokeWidthAttr}"` : null,
+                `stroke-linecap="round"`,
+                `stroke-linejoin="round"`,
+            ].filter(Boolean).join(' ');
+            return `<template>\n    <svg ${attrs}${colorProp}${vueRotateStyle}>\n        ${innerRaw}\n    </svg>\n</template>`;
+        }
+
+        // Raw SVG — patch the source directly (preserves everything)
+        const patched = customizeSvg(raw, iconSize, colorTheme);
+        if (rotationAngle !== 0) {
+            return patched.replace(/<svg\b/, `<svg${rotateAttr}`);
+        }
+        return patched;
     };
 
     const getHighlightedCodeHtml = () => {
@@ -70,20 +262,9 @@ export function InteractivePlayground({
         });
     };
 
-    const iconList: { id: IconType; label: string }[] = [
-        { id: 'arrow-right', label: 'Arrow' },
-        { id: 'search', label: 'Search' },
-        { id: 'code', label: 'Code' },
-        { id: 'sparkles', label: 'Sparkles' },
-        { id: 'command', label: 'Cmd' },
-        { id: 'zap', label: 'Zap' },
-        { id: 'shield', label: 'Shield' },
-        { id: 'globe', label: 'Globe' }
-    ];
-
     return (
         <section className="relative py-4 md:py-6 pt-12 bg-background">
-            <div className="container mx-auto max-w-7xl px-4 sm:px-6">
+            <div className="container mx-auto max-w-6xl px-4 sm:px-6">
                 <div className="flex flex-col gap-4">
                     {/* Section Header Title & Description */}
                     <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-4 pb-2">
@@ -148,23 +329,51 @@ export function InteractivePlayground({
                                     <span className="text-[10px] font-mono text-muted-foreground">Stage: <strong className="text-foreground">{iconSize}×{iconSize}px</strong></span>
                                 </div>
 
-                                {/* Vector Asset Selector Row */}
-                                <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-1">
-                                    {iconList.map(item => (
-                                        <button
-                                            key={item.id}
-                                            onClick={() => setSelectedIcon(item.id)}
-                                            className={`px-2.5 py-1.5 rounded-xl text-xs font-mono transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${selectedIcon === item.id
-                                                    ? 'bg-primary/10 text-primary border border-primary/30 font-bold shadow-xs scale-[1.02]'
-                                                    : 'bg-muted/40 text-muted-foreground hover:text-foreground hover:bg-muted/70 border border-transparent'
-                                                }`}
-                                        >
-                                            <span className={`${selectedIcon === item.id ? 'text-primary' : 'text-muted-foreground'}`}>
-                                                {renderMiniIcon(item.id)}
-                                            </span>
-                                            <span>{item.label}</span>
-                                        </button>
+                                {/* Vector Asset Selector Row (real registry icons) */}
+                                <div className="flex items-center gap-1.5 p-1 overflow-x-auto scrollbar-none">
+                                    {iconsLoading && Array.from({ length: 6 }).map((_, i) => (
+                                        <div key={`sk-${i}`} className="h-7 w-20 rounded-xl bg-muted/40 animate-pulse shrink-0" />
                                     ))}
+                                    {!iconsLoading && pillIcons.map(item => {
+                                        const isSelected = selectedIconName === item.name;
+                                        const pillSvg = item.svgContent ?? svgCache[item.name];
+                                        const pillReady = typeof pillSvg === 'string' && pillSvg.length > 0;
+                                        return (
+                                            <button
+                                                key={item.name}
+                                                onClick={() => setSelectedIconName(item.name)}
+                                                title={item.name}
+                                                className={`px-2.5 py-1.5 rounded-xl text-xs font-mono transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${isSelected
+                                                        ? 'bg-primary/10 text-primary border border-primary/30 font-bold shadow-xs scale-[1.02]'
+                                                        : 'bg-muted/40 text-muted-foreground hover:text-foreground hover:bg-muted/70 border border-transparent'
+                                                    }`}
+                                            >
+                                                <span className={`shrink-0 inline-flex w-5 h-5 items-center justify-center ${isSelected ? 'text-primary' : 'text-muted-foreground'}`}>
+                                                    {pillReady ? (
+                                                        <span
+                                                            aria-hidden
+                                                            className="inline-flex items-center justify-center [&_svg]:w-5 [&_svg]:h-5"
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: customizeSvg(pillSvg as string, 20, 'currentColor'),
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <span aria-hidden className="w-2.5 h-2.5 rounded-full bg-current opacity-40" />
+                                                    )}
+                                                </span>
+                                                <span className="max-w-20 truncate">{item.name}</span>
+                                            </button>
+                                        );
+                                    })}
+                                    {!iconsLoading && icons.length > PILL_LIMIT && (
+                                        <a
+                                            href="/icons"
+                                            className="px-2.5 py-1.5 rounded-xl text-xs font-mono transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap bg-muted/40 hover:bg-muted/70 text-muted-foreground hover:text-foreground border border-transparent shrink-0"
+                                            title={`Browse all ${icons.length} icons`}
+                                        >
+                                            <span>+{icons.length - PILL_LIMIT} more →</span>
+                                        </a>
+                                    )}
                                 </div>
 
                                 {/* Vector Artboard Viewport Canvas */}
@@ -199,18 +408,46 @@ export function InteractivePlayground({
                                     <div className="absolute bottom-2 left-2 w-2 h-2 rounded-full border border-primary bg-primary/20 shadow-xs" />
                                     <div className="absolute bottom-2 right-2 w-2 h-2 rounded-full border border-primary bg-primary/20 shadow-xs" />
 
-                                    {/* Center Vector Graphic */}
+                                    {/* Center Vector Graphic (real registry icon) */}
                                     <div className="relative p-6 border border-primary/40 rounded-2xl bg-primary/10 dark:bg-primary/5 flex items-center justify-center transition-all duration-200 shadow-inner backdrop-blur-xs">
                                         <div className="absolute -top-3 px-2 py-0.2 whitespace-nowrap rounded-full bg-primary text-primary-foreground font-mono text-[9px] font-bold shadow-xs">
-                                            {iconSize}px Asset
+                                            {selectedIconName ? `${selectedIconName} · ${iconSize}px` : `${iconSize}px Asset`}
                                         </div>
-                                        {renderVectorPath({
-                                            selectedIcon,
-                                            iconSize,
-                                            strokeWidth,
-                                            rotationAngle,
-                                            colorTheme
-                                        })}
+                                        {selectedSvgLoaded ? (
+                                            <div
+                                                className="inline-flex items-center justify-center"
+                                                style={{
+                                                    color: colorTheme === 'currentColor' ? 'var(--foreground)' : colorTheme,
+                                                    width: iconSize,
+                                                    height: iconSize,
+                                                }}
+                                            >
+                                                <span
+                                                    aria-hidden
+                                                    className="inline-flex items-center justify-center [&_svg]:block"
+                                                    style={{
+                                                        width: iconSize,
+                                                        height: iconSize,
+                                                        transform: `rotate(${rotationAngle}deg)`,
+                                                        transformOrigin: 'center',
+                                                        transition: 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                                                        willChange: 'transform',
+                                                        lineHeight: 0,
+                                                    }}
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: customizeSvg(selectedSvg as string, iconSize, colorTheme),
+                                                    }}
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div
+                                                aria-label={selectedIconName ? `Loading ${selectedIconName}` : 'Loading registry'}
+                                                className="flex items-center justify-center"
+                                                style={{ width: iconSize, height: iconSize }}
+                                            >
+                                                <div className="w-6 h-6 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
+                                            </div>
+                                        )}
                                     </div>
 
                                     {/* Bottom Status Overlay */}
@@ -316,7 +553,7 @@ export function InteractivePlayground({
                                         <div className="flex items-center justify-between px-3.5 py-2 bg-[#161b22] border-b border-zinc-800/80 text-[10px] shrink-0">
                                             <span className="text-zinc-300 font-mono font-medium flex items-center gap-1.5">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                                {selectedIcon}.{selectedFormat === 'nextjs' ? 'tsx' : selectedFormat === 'nuxtjs' ? 'vue' : 'svg'}
+                                                {selectedIconName || 'icon'}.{selectedFormat === 'nextjs' ? 'tsx' : selectedFormat === 'nuxtjs' ? 'vue' : 'svg'}
                                             </span>
                                             <button
                                                 onClick={() => copyToClipboard(getCodeSnippet(), "playground-code")}

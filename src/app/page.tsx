@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { HeroSection } from "@/components/home/HeroSection";
+import { FeaturedSection } from "@/components/home/FeaturedSection";
 import { InteractivePlayground } from "@/components/home/InteractivePlayground";
 
 export default function RegistryHomePage() {
@@ -24,6 +25,12 @@ export default function RegistryHomePage() {
             <HeroSection
                 heroPkgManager={heroPkgManager}
                 setHeroPkgManager={setHeroPkgManager}
+                copyToClipboard={copyToClipboard}
+                copiedCommand={copiedCommand}
+            />
+
+            {/* FEATURED ASSETS SECTION */}
+            <FeaturedSection
                 copyToClipboard={copyToClipboard}
                 copiedCommand={copiedCommand}
             />
