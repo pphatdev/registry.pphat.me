@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "pages:preview": "wrangler pages dev ./out",
-    "pages:deploy": "wrangler pages deploy ./out"
+    "pages:deploy": "next build && wrangler pages deploy ./out"
   },
   "dependencies": {
     "@pphatdev/registry": "^1.2.0",
