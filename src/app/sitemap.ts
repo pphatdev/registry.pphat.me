@@ -1,6 +1,8 @@
 import { MetadataRoute } from "next";
 import { FLAT_DOCS } from "@/config/docs";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.BASE_URL || "https://registry.pphat.me";
 
