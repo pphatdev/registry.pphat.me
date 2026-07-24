@@ -2,8 +2,6 @@ import Hero from "@/components/Hero";
 import IconGrid from "@/components/IconGrid";
 import { Metadata } from "next";
 
-export const runtime = "edge";
-
 export const metadata: Metadata = {
     title: "Icon Studio",
     description: "Search, customize, and explore hundreds of enterprise-grade vector icons.",
