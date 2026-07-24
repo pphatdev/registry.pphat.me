@@ -1,0 +1,173 @@
+# @pphatdev/registry
+
+> Enterprise UI component and vector icon registry CLI for frontend projects. Ships an interactive Next.js web studio, a vector icon library, a component registry, and an on-demand CLI to install components and icons into consumer projects with zero bundle bloat.
+
+## Documentation & Official Site
+
+For complete documentation, interactive guides, live icon studio, and CLI usage, visit:
+
+👉 **Official Website**: [https://registry.pphat.me](https://registry.pphat.me)  
+👉 **Documentation Guides**: [https://registry.pphat.me/docs](https://registry.pphat.me/docs)  
+👉 **Icon Studio**: [https://registry.pphat.me/icons](https://registry.pphat.me/icons)  
+👉 **Full Agent Context**: [https://registry.pphat.me/llms-full.txt](https://registry.pphat.me/llms-full.txt)
+
+## Facts
+
+- **Name**: @pphatdev/registry
+- **Website**: https://registry.pphat.me
+- **Documentation**: https://registry.pphat.me/docs
+- **Full LLM Context**: https://registry.pphat.me/llms-full.txt
+- **npm**: https://www.npmjs.com/package/@pphatdev/registry
+- **Repository (Site & CLI)**: https://github.com/pphatdev/registry.pphat.me
+- **Icon Source Repository**: https://github.com/pphatdev/icons
+- **System Architecture & Flow**: https://github.com/pphatdev/registry/blob/master/registry.flow.md
+- **Author**: Sophat LEAT (PPhat) — https://pphat.me
+- **Created**: 2026-07-18
+- **License**: MIT
+- **CLI Command Aliases**: `pphat`, `pphatdev`, `@pphatdev/registry`
+- **Supported Formats**: Raw SVG (`.svg`), Next.js / React (`.tsx`), Nuxt.js / Vue (`.vue`)
+
+## What it does (Architecture & Flow Purpose)
+
+Based on the [System Architecture & Workflow (`registry.flow.md`)](https://github.com/pphatdev/registry/blob/master/registry.flow.md) and [CLI README](https://github.com/pphatdev/registry#readme):
+
+1. **On-Demand Fetching & Zero Bundle Bloat**: Rather than bundling thousands of heavy vector icons into consumer `node_modules`, the CLI dynamically fetches only the specific components and icons needed on demand from GitHub Raw CDN.
+2. **Interactive Project Setup (`pphat init`)**: Interactively prompts developers to select target frameworks (React TSX, Vue SFC, raw SVG) and destination paths, saving preferences into a persistent `pphatdev.json` file.
+3. **Automated Conversion & Code Formatting**: When `pphat add-icon` or `pphat add-component` runs, the CLI core fetches asset JSON data from the remote catalog, compiles SVGs into framework-native React (`.tsx`) or Vue (`.vue`) components, and runs an XML formatter that aligns tags and preserves keyframes.
+4. **CDN-Backed Static Registry**: Reads catalog indices (`index.json`) and vector assets directly from GitHub Raw CDN for high speed and zero API rate limits.
+5. **Interactive Web Studio & Docs**: Ships a Next.js web application ([registry.pphat.me](https://registry.pphat.me)) featuring an Icon Studio (`/icons`) with live color, stroke, and size controls, export drawers, and complete CLI documentation (`/docs`).
+
+## Installation & Execution
+
+Run directly on-demand via `npx` (no permanent install required):
+
+```bash
+npx pphat <command>
+# or using full package name / alternative aliases:
+npx pphatdev <command>
+npx @pphatdev/registry <command>
+```
+
+Or install globally / dev dependency:
+
+```bash
+# Global installation
+npm install -g @pphatdev/registry
+
+# Local dev dependency
+npm install -D @pphatdev/registry
+
+# Verify installation
+pphat --version
+# or
+pphatdev --version
+# or
+@pphatdev/registry --version
+```
+
+## Quick Start & CLI Workflow
+
+### 1. Initialize Configuration (`init`)
+
+Generate a `pphatdev.json` configuration file at your project root to store default directory and format preferences:
+
+```bash
+npx pphat init
+```
+
+### 2. Add Icons (`add-icon` / `add`)
+
+Fetch and format vector icons from the icon source registry (`pphatdev/icons`):
+
+```bash
+# Add icons using default pphatdev.json preferences
+npx pphat add-icon react vue github
+
+# Add icon with explicit format (svg, nextjs, or nuxtjs)
+npx pphat add-icon react -f nextjs
+
+# Add icon with custom output directory
+npx pphat add-icon github -f svg -d src/assets/icons
+```
+
+### 3. Add Components (`add-component` / `add-comp`)
+
+Download UI components into your project:
+
+```bash
+npx pphat add-component button card modal -f nextjs -d src/components/ui
+```
+
+### 4. Browse Registry (`list` / `ls`)
+
+Interactively browse available icons and components:
+
+```bash
+npx pphat list icons
+npx pphat ls components
+```
+
+### 5. Manage Configuration (`config`)
+
+View or update stored preferences:
+
+```bash
+# Interactive setup
+npx pphat config
+
+# Inspect configuration values
+npx pphat config get
+npx pphat config get icons.nextjs.dir
+
+# Set specific key
+npx pphat config set icons.nextjs.use true
+```
+
+## System Flow Architecture
+
+```
+💻 Developer Environment           ⚡ @pphatdev/registry CLI            ☁️ Remote Registry (GitHub CDN)
+ ┌──────────────────────┐           ┌────────────────────────┐           ┌───────────────────────────┐
+ │ npx pphat init       ├──────────►│ Reads/Writes           │           │                           │
+ │ pphatdev.json        │◄──────────┤ pphatdev.json          │           │                           │
+ │                      │           │                        │           │                           │
+ │ npx pphat add-icon   ├──────────►│ 1. Read config         │           │                           │
+ │                      │           │ 2. Fetch catalog ──────┼──────────►│ index.json Catalog        │
+ │                      │           │ 3. Fetch item data ────┼──────────►│ Icon & Component Assets   │
+ │                      │           │ 4. Compiler & XML      │           │                           │
+ │ Output files         │◄──────────┤    Formatter           │           │                           │
+ │ (.tsx, .vue, .svg)   │           └────────────────────────┘           └───────────────────────────┘
+ └──────────────────────┘
+```
+
+## Persistent Configuration (`pphatdev.json`)
+
+```json
+{
+  "name": "Default configuration",
+  "icons": {
+    "svg": { "dir": "public/icons", "use": false },
+    "nextjs": { "dir": "components/icons", "use": true },
+    "nuxtjs": { "dir": "components/icons", "use": false }
+  },
+  "components": {
+    "nextjs": { "dir": "components/ui", "use": false },
+    "nuxtjs": { "dir": "components/ui", "use": false }
+  }
+}
+```
+
+## Key Web Pages & Features
+
+- [Home](https://registry.pphat.me): Hero showcase, CLI quickstart, interactive playground.
+- [Icon Studio](https://registry.pphat.me/icons): Search and customize hundreds of icons with live controls (size, stroke width, color) and export to SVG, TSX, or Vue.
+- [Docs](https://registry.pphat.me/docs): Comprehensive guides for installation, CLI commands, and project configuration.
+- [Full Agent Context](https://registry.pphat.me/llms-full.txt): Complete reference specification for AI search agents and LLMs.
+
+## For AI Agents
+
+- Website content is fully server-rendered and structured (`WebSite` and `SoftwareApplication` JSON-LD in `<head>`).
+- Robots policy permits major AI crawlers (`GPTBot`, `ClaudeBot`, `PerplexityBot`, `Google-Extended`).
+- Official documentation site: [https://registry.pphat.me](https://registry.pphat.me)
+- Full context URL: [https://registry.pphat.me/llms-full.txt](https://registry.pphat.me/llms-full.txt)
+- Public repositories: Website/CLI on GitHub (`pphatdev/registry.pphat.me`), Flow spec (`registry.flow.md`), and Icon source assets (`pphatdev/icons`).
