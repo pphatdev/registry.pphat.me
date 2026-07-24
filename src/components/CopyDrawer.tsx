@@ -243,18 +243,18 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
         const tokenRegex = /("[\s\S]*?"|'[\s\S]*?')|(&lt;\/?[a-zA-Z0-9_-]+)|(&gt;|\/&gt;)|(\b(?:import|from|export|const|default|function|return|template|ref|setup|script)\b)|(\b(?:React|forwardRef|SVGProps|SVGSVGElement|displayName|[A-Z][a-zA-Z0-9]*Icon)\b)|(\b[a-zA-Z0-9_-]+=(?=(?:[^"]*"[^"]*")*[^"]*$))|(\/\/.*|&lt;!--[\s\S]*?--&gt;)/g;
 
         return escaped.replace(tokenRegex, (match, str, tag, tagEnd, keyword, type, attr, comment) => {
-            if (comment) return `<span style="color: #6b7280;">${comment}</span>`; // Muted Comment
-            if (str) return `<span style="color: #fbbf24;">${str}</span>`; // Amber String
+            if (comment) return `<span style="color: #6a737d;">${comment}</span>`; // Muted Comment
+            if (str) return `<span style="color: #a5d6ff;">${str}</span>`; // Soft Blue String
             if (tag) {
                 const parts = tag.split(/(&lt;\/?)/);
-                return `<span style="color: #64748b;">${parts[1]}</span><span style="color: #34d399; font-weight: 500;">${parts[2]}</span>`; // Emerald Tag
+                return `<span style="color: #8b949e;">${parts[1]}</span><span style="color: #7ee787; font-medium;">${parts[2]}</span>`; // Mint Tag
             }
-            if (tagEnd) return `<span style="color: #64748b;">${tagEnd}</span>`; // Tag Bracket
-            if (keyword) return `<span style="color: #10b981; font-weight: 600;">${keyword}</span>`; // Primary Keyword
-            if (type) return `<span style="color: #2dd4bf; font-weight: 500;">${type}</span>`; // Teal Type
+            if (tagEnd) return `<span style="color: #8b949e;">${tagEnd}</span>`; // Tag Bracket
+            if (keyword) return `<span style="color: #ff7b72; font-weight: 500;">${keyword}</span>`; // Soft Red Keyword
+            if (type) return `<span style="color: #79c0ff; font-weight: 500;">${type}</span>`; // Soft Cyan Type
             if (attr) {
                 const attrName = attr.slice(0, -1);
-                return `<span style="color: #6ee7b7;">${attrName}</span><span style="color: #94a3b8;">=</span>`; // Mint Attribute
+                return `<span style="color: #d2a8ff;">${attrName}</span><span style="color: #8b949e;">=</span>`; // Soft Purple Attribute
             }
             return match;
         });
@@ -362,7 +362,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
         <div className={`fixed inset-0 z-50 flex flex-col justify-end ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}>
             {/* Backdrop */}
             <div 
-                className={`absolute inset-0 bg-black/50 backdrop-blur-md transition-all duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}
+                className={`absolute inset-0 bg-black/10 backdrop-blur-xs transition-all duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}
                 onClick={onClose}
             />
 
@@ -578,15 +578,11 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                 ))}
                             </div>
 
-                            {/* Ultra-Visual Vertical Timeline Container */}
-                            <ol className="relative pl-7 space-y-6 before:absolute before:left-2.75 before:top-2.5 before:bottom-2.5 before:w-0.5 before:bg-linear-to-b before:from-primary before:via-emerald-400/60 before:to-primary/20">
+                            {/* Inspector Layout Container */}
+                            <div className="space-y-6">
                                 
                                 {/* Step 1: Install Icon */}
-                                <li className="relative flex flex-col gap-2 group/step">
-                                    <span className="absolute -left-7 top-0.5 flex items-center justify-center w-5.5 h-5.5 rounded-full bg-linear-to-tr from-primary to-emerald-400 text-primary-foreground text-[10px] font-black font-mono shadow-md shadow-primary/30 ring-4 ring-background z-10 select-none group-hover/step:scale-110 transition-transform duration-200">
-                                        1
-                                    </span>
-                                    
+                                <div className="flex flex-col gap-2">
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-1.5">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
@@ -621,14 +617,10 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                             )}
                                         </button>
                                     </div>
-                                </li>
+                                </div>
 
                                 {/* Step 2: Component Code */}
-                                <li className="relative flex flex-col gap-2 group/step">
-                                    <span className="absolute -left-7 top-0.5 flex items-center justify-center w-5.5 h-5.5 rounded-full bg-linear-to-tr from-primary to-emerald-400 text-primary-foreground text-[10px] font-black font-mono shadow-md shadow-primary/30 ring-4 ring-background z-10 select-none group-hover/step:scale-110 transition-transform duration-200">
-                                        2
-                                    </span>
-
+                                <div className="flex flex-col gap-2">
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-1.5">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -637,34 +629,32 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                     </div>
 
                                     {showCodePreview && (
-                                        <div className="relative rounded-xl border border-primary/25 dark:border-primary/35 bg-[#0b1411] text-[#e2e8f0] font-mono text-[11px] overflow-hidden shadow-lg hover:shadow-[0_0_25px_-5px_rgba(16,185,129,0.2)] transition-all duration-300 group/code">
-                                            {/* Glowing Top Primary Accent Line */}
-                                            <div className="h-0.5 w-full bg-linear-to-r from-primary via-emerald-400 to-primary/40" aria-hidden="true" />
+                                        <div className="relative rounded-xl border border-border/70 bg-[#0d1117] text-[#c9d1d9] font-mono text-[11px] overflow-hidden shadow-xs group/code">
                                             
                                             {/* Editor Header Bar */}
-                                            <div className="flex items-center justify-between px-3 py-1.5 bg-[#12201b] border-b border-primary/20 text-[10px] text-[#cbd5e1]">
+                                            <div className="flex items-center justify-between px-3 py-1.5 bg-[#161b22] border-b border-border/50 text-[10px] text-[#8b949e]">
                                                 <div className="flex items-center gap-2">
                                                     <div className="flex items-center gap-1.5" aria-hidden="true">
-                                                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/90 inline-block shadow-xs shadow-emerald-500/50" />
-                                                        <span className="w-2.5 h-2.5 rounded-full bg-primary/70 inline-block" />
-                                                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/60 inline-block" />
+                                                        <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 inline-block" />
+                                                        <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 inline-block" />
+                                                        <span className="w-2.5 h-2.5 rounded-full bg-zinc-700 inline-block" />
                                                     </div>
-                                                    <span className="text-primary/40">|</span>
-                                                    <span className="flex items-center gap-1.5 text-foreground/90 font-medium">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                                    <span className="text-[#30363d]">|</span>
+                                                    <span className="flex items-center gap-1.5 text-zinc-300 font-medium">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-400" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                                                         {activeTab === 'svg' ? 'icon.svg' : activeTab === 'nextjs' ? 'Icon.tsx' : 'Icon.vue'}
                                                     </span>
                                                 </div>
 
                                                 <div className="flex items-center gap-1.5">
-                                                    <span className="text-[9px] font-semibold uppercase font-mono px-1.5 py-0.5 rounded bg-primary/20 text-primary-foreground border border-primary/40 shadow-xs">
+                                                    <span className="text-[9px] font-semibold uppercase font-mono px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700/60">
                                                         {activeTab === 'svg' ? 'XML' : activeTab === 'nextjs' ? 'TSX' : 'VUE'}
                                                     </span>
                                                     {activeTab === 'svg' && (
                                                         <button
                                                             type="button"
                                                             onClick={downloadFile}
-                                                            className="px-2 py-0.5 rounded hover:bg-primary/25 text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer flex items-center gap-1 text-[10px] focus-visible:outline-none"
+                                                            className="px-2 py-0.5 rounded hover:bg-zinc-800 text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer flex items-center gap-1 text-[10px] focus-visible:outline-none"
                                                             title="Download SVG File"
                                                             aria-label="Download SVG File"
                                                         >
@@ -675,7 +665,7 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                                     <button
                                                         type="button"
                                                         onClick={() => copyToClipboard(getCodeSnippet(), 'Snippet')}
-                                                        className="px-2 py-0.5 rounded hover:bg-primary/25 text-[#cbd5e1] hover:text-white transition-colors cursor-pointer focus-visible:outline-none"
+                                                        className="px-2 py-0.5 rounded hover:bg-zinc-800 text-[#cbd5e1] hover:text-white transition-colors cursor-pointer focus-visible:outline-none"
                                                         title="Copy Code Snippet"
                                                         aria-label="Copy Code Snippet"
                                                     >
@@ -692,22 +682,18 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                             </div>
 
                                             {/* Editor Content Area */}
-                                            <div className="p-3 max-h-26.25 overflow-auto leading-relaxed select-text font-mono scrollbar-thin text-[#e2e8f0] bg-[#0b1411]">
+                                            <div className="p-3 max-h-26.25 overflow-auto leading-relaxed select-text font-mono scrollbar-thin text-[#c9d1d9] bg-[#0d1117]">
                                                 <pre 
-                                                    className="whitespace-pre text-[#e2e8f0]"
+                                                    className="whitespace-pre text-[#c9d1d9]"
                                                     dangerouslySetInnerHTML={{ __html: getHighlightedCodeHtml(getCodeSnippet()) }}
                                                 />
                                             </div>
                                         </div>
                                     )}
-                                </li>
+                                </div>
 
                                 {/* Step 3: Example Usage */}
-                                <li className="relative flex flex-col gap-2 group/step">
-                                    <span className="absolute -left-7 top-0.5 flex items-center justify-center w-5.5 h-5.5 rounded-full bg-linear-to-tr from-primary to-emerald-400 text-primary-foreground text-[10px] font-black font-mono shadow-md shadow-primary/30 ring-4 ring-background z-10 select-none group-hover/step:scale-110 transition-transform duration-200">
-                                        3
-                                    </span>
-
+                                <div className="flex flex-col gap-2">
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-1.5">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
@@ -715,27 +701,25 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                         </div>
                                     </div>
 
-                                    <div className="relative rounded-xl border border-primary/25 dark:border-primary/35 bg-[#0b1411] text-[#e2e8f0] font-mono text-[11px] overflow-hidden shadow-lg hover:shadow-[0_0_25px_-5px_rgba(16,185,129,0.2)] transition-all duration-300 group/code">
-                                        {/* Glowing Top Primary Accent Line */}
-                                        <div className="h-0.5 w-full bg-linear-to-r from-primary via-emerald-400 to-primary/40" aria-hidden="true" />
+                                    <div className="relative rounded-xl border border-border/70 bg-[#0d1117] text-[#c9d1d9] font-mono text-[11px] overflow-hidden shadow-xs group/code">
 
                                         {/* Editor Header Bar */}
-                                        <div className="flex items-center justify-between px-3 py-1.5 bg-[#12201b] border-b border-primary/20 text-[10px] text-[#cbd5e1]">
+                                        <div className="flex items-center justify-between px-3 py-1.5 bg-[#161b22] border-b border-border/50 text-[10px] text-[#8b949e]">
                                             <div className="flex items-center gap-2">
-                                                <span className="flex items-center gap-1.5 text-foreground/90 font-medium">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                                <span className="flex items-center gap-1.5 text-zinc-300 font-medium">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-zinc-400" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                                                     {activeTab === 'svg' ? 'example.html' : activeTab === 'nextjs' ? 'App.tsx' : 'App.vue'}
                                                 </span>
                                             </div>
 
                                             <div className="flex items-center gap-2">
-                                                <span className="text-[9px] font-semibold uppercase font-mono px-1.5 py-0.5 rounded bg-primary/20 text-primary-foreground border border-primary/40 shadow-xs">
+                                                <span className="text-[9px] font-semibold uppercase font-mono px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700/60">
                                                     USAGE
                                                 </span>
                                                 <button
                                                     type="button"
                                                     onClick={() => copyToClipboard(getExampleUsageSnippet(), 'Usage')}
-                                                    className="px-2 py-0.5 rounded hover:bg-primary/25 text-[#cbd5e1] hover:text-white transition-colors cursor-pointer focus-visible:outline-none"
+                                                    className="px-2 py-0.5 rounded hover:bg-zinc-800 text-[#cbd5e1] hover:text-white transition-colors cursor-pointer focus-visible:outline-none"
                                                     title="Copy Example Usage Snippet"
                                                     aria-label="Copy Example Usage Snippet"
                                                 >
@@ -752,15 +736,15 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
                                         </div>
 
                                         {/* Editor Content Area */}
-                                        <div className="p-3 max-h-26.25 overflow-auto leading-relaxed select-text font-mono scrollbar-thin text-[#e2e8f0] bg-[#0b1411]">
+                                        <div className="p-3 max-h-26.25 overflow-auto leading-relaxed select-text font-mono scrollbar-thin text-[#c9d1d9] bg-[#0d1117]">
                                             <pre 
-                                                className="whitespace-pre text-[#e2e8f0]"
+                                                className="whitespace-pre text-[#c9d1d9]"
                                                 dangerouslySetInnerHTML={{ __html: getHighlightedCodeHtml(getExampleUsageSnippet()) }}
                                             />
                                         </div>
                                     </div>
-                                </li>
-                            </ol>
+                                </div>
+                            </div>
 
                             {/* Bottom Action Bar (SVG Tab Download Button) */}
                             {activeTab === 'svg' && (
