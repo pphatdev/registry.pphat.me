@@ -25,7 +25,7 @@ export default function Header() {
 
     const links = [
         // { label: "Registry Hub", href: "/", exact: true },
-        { label: "Icons", href: "/icons", exact: false },
+        { label: "Icons", href: "https://icons.pphat.me", exact: false },
         { label: "Docs", href: "/docs", exact: false },
     ];
 
@@ -67,9 +67,12 @@ export default function Header() {
             <div className="flex items-center gap-3 sm:gap-4">
                 <div className="hidden md:flex items-center gap-1.5">
                     {links.map((link) => {
-                        const isActive = link.exact
-                            ? pathname === link.href
-                            : pathname?.startsWith(link.href);
+                        const isExternal = link.href.startsWith("http");
+                        const isActive = isExternal
+                            ? (typeof window !== "undefined" && window.location.hostname.includes("icons"))
+                            : link.exact
+                                ? pathname === link.href
+                                : (link.href !== "/" && pathname?.startsWith(link.href));
 
                         return (
                             <Link

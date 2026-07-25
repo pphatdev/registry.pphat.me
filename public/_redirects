@@ -1,0 +1,3 @@
+# Redirect icons page to the icons subdomain
+/icons    https://icons.pphat.me    301
+/icons/*  https://icons.pphat.me/:splat  301
