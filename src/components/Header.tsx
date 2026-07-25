@@ -10,19 +10,6 @@ export default function Header() {
     const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
 
-    const [isIconsSite, setIsIconsSite] = useState(false);
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const host = window.location.hostname;
-            if (host.includes("icons") || pathname?.startsWith("/icons")) {
-                setIsIconsSite(true);
-            } else {
-                setIsIconsSite(false);
-            }
-        }
-    }, [pathname]);
-
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 20) {
@@ -38,7 +25,7 @@ export default function Header() {
 
     const links = [
         // { label: "Registry Hub", href: "/", exact: true },
-        { label: "Icons", href: "https://icons.pphat.me", exact: false },
+        { label: "Icons", href: "/icons", exact: false },
         { label: "Docs", href: "/docs", exact: false },
     ];
 
@@ -51,7 +38,7 @@ export default function Header() {
         >
             {/* Left: Logo & Branding */}
             <div className="flex items-center gap-2.5">
-                <Link href={isIconsSite ? "https://icons.pphat.me" : "https://registry.pphat.me"} className="flex flex-col items-center justify-center group leading-none">
+                <Link href="/" className="flex flex-col items-center justify-center group leading-none">
                     <div className="relative h-14 shrink-0 flex items-center justify-center pb-2">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
@@ -70,7 +57,7 @@ export default function Header() {
                             className="w-14 h-14 object-contain dark:hidden"
                         />
                         <span className="font-bold z-50 py-1 absolute left-1/2 -translate-x-1/2 bottom-2 text-[9px] px-1.5 rounded-none bg-primary text-primary-foreground leading-none whitespace-nowrap">
-                            {isIconsSite ? "Icons" : "Registry"}
+                            Registry
                         </span>
                     </div>
                 </Link>
@@ -80,12 +67,9 @@ export default function Header() {
             <div className="flex items-center gap-3 sm:gap-4">
                 <div className="hidden md:flex items-center gap-1.5">
                     {links.map((link) => {
-                        const isExternal = link.href.startsWith("http");
-                        const isActive = isExternal
-                            ? (typeof window !== "undefined" && window.location.hostname.includes("icons"))
-                            : link.exact
-                                ? pathname === link.href
-                                : (link.href !== "/" && pathname?.startsWith(link.href));
+                        const isActive = link.exact
+                            ? pathname === link.href
+                            : pathname?.startsWith(link.href);
 
                         return (
                             <Link
