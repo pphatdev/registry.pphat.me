@@ -1,4 +1,1 @@
-# Direct mapping: registry.pphat.me/icons == https://icons.pphat.me
-/icons      https://icons.pphat.me           301
-/icons/     https://icons.pphat.me           301
-/icons/*    https://icons.pphat.me/:splat    301
+# no redirects

@@ -53,12 +53,12 @@ const faqs: { question: string; answer: string }[] = [
     {
         question: "Can I browse icons before installing?",
         answer:
-            "Yes. Visit the Icon Studio at https://icons.pphat.me for live search, per-icon customization (size, stroke width, color), and one-click export to SVG, React, or Vue.",
+            "Yes. Visit the Icon Studio at https://registry.pphat.me/icons for live search, per-icon customization (size, stroke width, color), and one-click export to SVG, React, or Vue.",
     },
     {
         question: "Is @pphatdev/registry free?",
         answer:
-            "Yes. It is open source under the MIT license.",
+            "Yes, standard SVG, React, and Vue icons and components are completely free and open source.",
     },
     {
         question: "Who created @pphatdev/registry?",
@@ -67,25 +67,20 @@ const faqs: { question: string; answer: string }[] = [
     },
 ];
 
-const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "@id": "https://registry.pphat.me/faq#faqpage",
-    url: "https://registry.pphat.me/faq",
-    inLanguage: "en",
-    isPartOf: { "@id": "https://registry.pphat.me/#website" },
-    about: { "@id": "https://registry.pphat.me/#app" },
-    mainEntity: faqs.map((f) => ({
-        "@type": "Question",
-        name: f.question,
-        acceptedAnswer: {
-            "@type": "Answer",
-            text: f.answer,
-        },
-    })),
-};
-
 export default function FaqPage() {
+    const faqJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+            },
+        })),
+    };
+
     return (
         <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 py-12 pb-24">
             <script
@@ -96,7 +91,7 @@ export default function FaqPage() {
             />
 
             <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground mb-6">
-                <Link href="https://registry.pphat.me" className="hover:text-primary transition-colors">Home</Link>
+                <Link href="/" className="hover:text-primary transition-colors">Home</Link>
                 <span>/</span>
                 <span className="text-foreground font-bold">FAQ</span>
             </div>

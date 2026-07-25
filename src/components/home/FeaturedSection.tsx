@@ -62,7 +62,7 @@ const features: FeatureCard[] = [
         accent: 'text-primary',
         ring: 'ring-primary/25',
         glow: 'from-primary/25 to-transparent',
-        href: 'https://icons.pphat.me',
+        href: '/icons',
         linkLabel: 'Browse Icon Studio',
         icon: (
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
