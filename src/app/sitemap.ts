@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 1,
         },
         {
-            url: `${baseUrl}/icons`,
+            url: "https://icons.pphat.me",
             lastModified: new Date(),
             changeFrequency: "weekly",
             priority: 0.9,

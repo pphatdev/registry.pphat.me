@@ -1,4 +1,5 @@
-import { redirect } from "next/navigation";
+import Hero from "@/components/Hero";
+import IconGrid from "@/components/IconGrid";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -24,7 +25,11 @@ export const metadata: Metadata = {
     },
 };
 
-
 export default function Home() {
-    redirect("https://icons.pphat.me");
+    return (
+        <main className="flex-1 relative flex flex-col">
+            <Hero />
+            <IconGrid />
+        </main>
+    );
 }

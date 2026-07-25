@@ -38,7 +38,7 @@ export default function Header() {
         >
             {/* Left: Logo & Branding */}
             <div className="flex items-center gap-2.5">
-                <Link href="/" className="flex flex-col items-center justify-center group leading-none">
+                <Link href="https://registry.pphat.me" className="flex flex-col items-center justify-center group leading-none">
                     <div className="relative h-14 shrink-0 flex items-center justify-center pb-2">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img

@@ -53,7 +53,7 @@ const faqs: { question: string; answer: string }[] = [
     {
         question: "Can I browse icons before installing?",
         answer:
-            "Yes. Visit the Icon Studio at https://registry.pphat.me/icons for live search, per-icon customization (size, stroke width, color), and one-click export to SVG, React, or Vue.",
+            "Yes. Visit the Icon Studio at https://icons.pphat.me for live search, per-icon customization (size, stroke width, color), and one-click export to SVG, React, or Vue.",
     },
     {
         question: "Is @pphatdev/registry free?",
@@ -96,7 +96,7 @@ export default function FaqPage() {
             />
 
             <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground mb-6">
-                <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+                <Link href="https://registry.pphat.me" className="hover:text-primary transition-colors">Home</Link>
                 <span>/</span>
                 <span className="text-foreground font-bold">FAQ</span>
             </div>

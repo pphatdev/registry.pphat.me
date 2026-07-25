@@ -376,7 +376,7 @@ export function InteractivePlayground({
                                     })}
                                     {!iconsLoading && icons.length > PILL_LIMIT && (
                                         <a
-                                            href="/icons"
+                                            href="https://icons.pphat.me"
                                             className="px-2.5 py-1.5 rounded-none text-xs font-mono transition-all cursor-pointer flex items-center gap-1.5 whitespace-nowrap bg-muted/40 hover:bg-muted/70 text-muted-foreground hover:text-foreground border border-transparent shrink-0"
                                             title={`Browse all ${icons.length} icons`}
                                         >
