@@ -66,7 +66,7 @@ const SEARCH_DATA: { group: string; items: SearchItem[] }[] = [
                 id: "explore-icons",
                 title: "Explore Vector Icons",
                 description: "Browse 200+ customizable vector assets",
-                href: "/icons#explore",
+                href: "https://icons.pphat.me#explore",
                 icon: (
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <rect width="7" height="7" x="3" y="3" rx="1" />
@@ -93,7 +93,7 @@ const SEARCH_DATA: { group: string; items: SearchItem[] }[] = [
                 id: "brands-category",
                 title: "Brands Icons Category",
                 description: "Popular brand logos & tech icons",
-                href: "/icons?filter=Brands#explore",
+                href: "https://icons.pphat.me?filter=Brands#explore",
                 icon: (
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M12 2L2 7l10 5 10-5-10-5z" />
