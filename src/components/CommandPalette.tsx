@@ -104,6 +104,64 @@ const SEARCH_DATA: { group: string; items: SearchItem[] }[] = [
         ],
     },
     {
+        group: "Blog & Releases",
+        items: [
+            {
+                id: "blog-index",
+                title: "Blog — all posts",
+                description: "Release notes, guides, and announcements",
+                href: "/blog",
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+                        <path d="M8 7h8" />
+                        <path d="M8 11h6" />
+                    </svg>
+                )
+            },
+            {
+                id: "blog-release-1-4-0",
+                title: "v1.4.0 — subcommand grammar + remove",
+                description: "Latest release: new add/remove grammars",
+                href: "/blog/v1-4-0",
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 2v6" />
+                        <path d="M12 22v-6" />
+                        <path d="M17 5l-5 5-5-5" />
+                        <path d="M7 19l5-5 5 5" />
+                    </svg>
+                )
+            },
+            {
+                id: "blog-releases",
+                title: "Release notes",
+                description: "Every published @pphatdev/registry release",
+                href: "/blog/category/release",
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                        <line x1="7" y1="7" x2="7.01" y2="7" />
+                    </svg>
+                )
+            },
+            {
+                id: "blog-rss",
+                title: "Subscribe via RSS",
+                description: "Get new posts in your feed reader",
+                href: "/blog/rss.xml",
+                external: true,
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 11a9 9 0 0 1 9 9" />
+                        <path d="M4 4a16 16 0 0 1 16 16" />
+                        <circle cx="5" cy="19" r="1" />
+                    </svg>
+                )
+            },
+        ],
+    },
+    {
         group: "Quick Links",
         items: [
             {
