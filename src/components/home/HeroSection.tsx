@@ -23,8 +23,8 @@ export function HeroSection({
     const installCmd = heroPkgManager === 'npm'
         ? "npm install -g @pphatdev/registry"
         : heroPkgManager === 'pnpm'
-        ? "pnpm add -g @pphatdev/registry"
-        : "bun add -g @pphatdev/registry";
+            ? "pnpm add -g @pphatdev/registry"
+            : "bun add -g @pphatdev/registry";
 
     return (
         <section className="relative pt-16 sm:pt-28 pb-16 sm:pb-20 md:pb-24 overflow-hidden flex flex-col justify-center min-h-115 md:min-h-130">
@@ -32,7 +32,7 @@ export function HeroSection({
             <div className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center overflow-hidden select-none">
                 <div className="absolute top-1/4 left-1/3 w-137.5 h-137.5 bg-primary/20 rounded-full blur-[110px] opacity-40 mix-blend-screen animate-pulse-slow"></div>
                 <div className="absolute top-1/2 right-1/4 w-112.5 h-112.5 bg-emerald-500/15 rounded-full blur-[90px] opacity-30 mix-blend-screen animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
-                
+
                 {/* Ripple effect rings */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-100 h-100 rounded-full border border-primary/20 animate-ripple"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-175 rounded-full border border-primary/10 animate-ripple" style={{ animationDelay: "1s" }}></div>
@@ -71,37 +71,51 @@ export function HeroSection({
 
                     {/* Top Hero Headline Banner */}
                     <div className="flex flex-col items-center text-center gap-3.5 max-w-3xl mx-auto">
-                        {latestPost && (
-                            <Link
-                                href={latestPost.href}
-                                className="group inline-flex items-center gap-2 max-w-full pl-2 pr-3 py-1 text-[11px] font-mono bg-background/70 dark:bg-[#0d1117]/80 rounded-none border border-border/60 hover:border-primary/50 shadow-xs backdrop-blur-md transition-colors"
-                            >
-                                <span className="px-1.5 py-0.5 rounded-none bg-primary text-primary-foreground font-bold uppercase tracking-wider text-[9px]">
-                                    {getCategoryLabel(latestPost.category)}
+                        {latestPost ? (() => {
+                            const versionTag = latestPost.tags.find((t) => /^v\d+\.\d+\.\d+/i.test(t));
+                            const isRelease = latestPost.category === "release" && !!versionTag;
+
+                            let badgeText = getCategoryLabel(latestPost.category);
+                            if (isRelease) {
+                                const postDate = new Date(latestPost.date);
+                                const now = new Date();
+                                const diffInDays = (now.getTime() - postDate.getTime()) / (1000 * 60 * 60 * 24);
+                                const isNewRelease = diffInDays <= 30;
+                                badgeText = isNewRelease ? "New Release" : "Release";
+                            }
+
+                            const detail = isRelease ? `${versionTag}, ${formatPostDate(latestPost.date)}` : latestPost.title;
+                            return (
+                                <Link href={latestPost.href} className="inline-flex items-center gap-2 px-3.5 py-1 text-xs text-primary font-bold font-mono bg-primary/10 rounded-none border border-primary/20 shadow-xs backdrop-blur-md hover:border-primary/50 transition-colors group">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                                    </span>
+
+                                    {badgeText}
+
+                                    <span className="truncate text-foreground group-hover:text-primary transition-colors font-semibold">
+                                        {detail}
+                                    </span>
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0">
+                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                        <polyline points="12 5 19 12 12 19" />
+                                    </svg>
+                                </Link>
+                            );
+                        })() : (
+                            <div className="inline-flex items-center gap-2 px-3.5 py-1 text-xs text-primary font-bold font-mono bg-primary/10 rounded-none border border-primary/20 shadow-xs backdrop-blur-md">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                                 </span>
-                                <span className="truncate text-foreground group-hover:text-primary transition-colors font-semibold">
-                                    {latestPost.title}
-                                </span>
-                                <span className="hidden sm:inline text-muted-foreground/70">·</span>
-                                <time
-                                    dateTime={latestPost.date}
-                                    className="hidden sm:inline text-muted-foreground/80"
-                                >
-                                    {formatPostDate(latestPost.date)}
-                                </time>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0">
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                    <polyline points="12 5 19 12 12 19" />
-                                </svg>
-                            </Link>
+                                @pphatdev/registry v1.4.0
+                            </div>
                         )}
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1 text-xs text-primary font-bold font-mono bg-primary/10 rounded-none border border-primary/20 shadow-xs backdrop-blur-md">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                            </span>
-                            @pphatdev/registry v1.4.0
-                        </div>
+
+
+
 
                         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.12] text-foreground mt-1">
                             @pphatdev/registry <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-emerald-400 to-teal-300">Documentation</span>
@@ -119,11 +133,10 @@ export function HeroSection({
                                     <button
                                         key={pkg}
                                         onClick={() => setHeroPkgManager(pkg)}
-                                        className={`px-3 py-1 rounded-none text-xs font-mono font-bold transition-all cursor-pointer ${
-                                            heroPkgManager === pkg
-                                                ? 'bg-background text-foreground shadow-xs'
-                                                : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
-                                        }`}
+                                        className={`px-3 py-1 rounded-none text-xs font-mono font-bold transition-all cursor-pointer ${heroPkgManager === pkg
+                                            ? 'bg-background text-foreground shadow-xs'
+                                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                                            }`}
                                     >
                                         {pkg}
                                     </button>
