@@ -312,7 +312,7 @@ export function FeaturedSection({ copyToClipboard, copiedCommand }: FeaturedSect
                                             <span className="text-[10px] font-mono font-bold text-emerald-500 dark:text-emerald-400 bg-emerald-400/10 border border-emerald-400/25 rounded-none px-3 py-1 uppercase tracking-widest">
                                                 Coming Soon
                                             </span>
-                                            <p className="text-xs text-muted-foreground text-center max-w-[12rem]">
+                                            <p className="text-xs text-muted-foreground text-center max-w-48">
                                                 Components are being crafted with care.
                                             </p>
                                         </div>
