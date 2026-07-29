@@ -5,11 +5,10 @@ export const NuxtIcon = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>
         ref={ref}
         width="48"
         height="48"
-        viewBox="-10.2941 -10.2941 44.5884 44.5884"
+        viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
         {...props}
     >
-        <rect x="-10.2941" y="-10.2941" width="44.5884" height="44.5884" rx="15" fill="currentColor" opacity="0.1"/>
         <style>{`
             @keyframes popup { 0% { opacity: 0; transform: scale(0);} 100% { opacity: 1; transform: scale(1);} }
             #nuxt-logo { animation: popup 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;}

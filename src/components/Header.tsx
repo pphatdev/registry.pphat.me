@@ -27,6 +27,7 @@ export default function Header() {
         // { label: "Registry Hub", href: "/", exact: true },
         { label: "Icons", href: "/icons", exact: false },
         { label: "Docs", href: "/docs", exact: false },
+        { label: "Blog", href: "/blog", exact: false },
     ];
 
     return (

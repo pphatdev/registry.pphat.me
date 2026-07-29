@@ -1,0 +1,87 @@
+---
+title: "@pphatdev/registry v1.4.0 — subcommand grammar + remove"
+excerpt: "v1.4.0 lands two additive changes: the new `add icon` / `add component` subcommand grammar, and a brand-new `remove` command family for deleting previously downloaded items. No breaking changes."
+date: "2026-07-28"
+category: "release"
+tags: ["release", "v1.4.0", "cli"]
+author: "PPhat"
+cover: "/docs.png"
+---
+
+**v1.4.0** is out. Two additive changes ship in this release, so upgrading is a drop-in: every command that worked in v1.3.x still works exactly the same way.
+
+Update in place:
+
+```bash
+npm install -g @pphatdev/registry@latest
+# or, per-project
+npx @pphatdev/registry@1.4.0 <command>
+```
+
+## What's new
+
+### 1. Subcommand grammar for `add`
+
+You can now write `add` as a parent command with `icon` / `component` subcommands. This reads better in scripts and matches the mental model most users already had for the tool.
+
+```bash
+# New subcommand grammar
+pphat add icon react vue github
+pphat add component button card
+
+# Hyphenated forms still work
+pphat add-icon react vue github
+pphat add-component button card
+
+# Legacy shortcut still works
+pphat add react vue                # same as `pphat add icon react vue`
+```
+
+All three grammars accept the same `-f` / `-d` flags and produce identical output. Pick whichever reads best in your workflow.
+
+### 2. `remove` — brand new
+
+`remove` mirrors `add`'s exact path resolution — it reads your `pphatdev.json`, walks the same enabled formats, and deletes only files an equivalent `add` would have written. Missing files are treated as "already gone" (exit 0), and each format reports `Removed <name> (N files)`.
+
+```bash
+# Subcommand form
+pphat remove icon react vue
+pphat remove component button
+
+# Hyphenated form
+pphat remove-icon react vue
+pphat remove-component button
+pphat remove-comp modal              # short alias
+
+# With flag overrides — restrict to a specific format or directory
+pphat remove icon react -f svg -d public/icons
+```
+
+If you pass an unknown target like `pphat remove foo`, the CLI exits 1 with a clear `Unknown target "foo"` message rather than silently doing nothing.
+
+## Migration notes
+
+**None required.** v1.4.0 is a minor release — additive, no breaking changes.
+
+- Every v1.3.x invocation continues to work bit-for-bit.
+- The old `.alias('add')` on `add-icon` was removed internally because `add` is now a parent command, but the previous behavior (`pphat add <name>` treated as `add-icon <name>`) is preserved as a legacy fallback in the parent action.
+
+## Docs refreshed
+
+The site has been rewritten around the new grammar. Every code sample now shows both forms side-by-side so you can copy whichever you prefer:
+
+- **[CLI Commands](/docs/commands)** — full reference including the new `add` / `remove` parent commands and every alias.
+- **[Installation](/docs/installation)** — workflow now covers the subcommand grammar and includes a new "Remove Icons or Components" step.
+- **[Configuration](/docs/configuration)** — override examples show both grammars.
+- **[Using Icons](/docs/icons/usage)** — includes a new "Removing Icons" section.
+- **[Component Basics](/docs/components/basics)** — includes a new "Removing Components" section.
+
+## Behind the scenes
+
+- **36 tests / 10 suites, all passing** (~32s). New `tests/remove.test.ts` covers the hyphenated form, the subcommand form, and error paths.
+- **Contributor + telemetry docs** were split out of the sibling repo's root README into `docs/DEVELOPMENT.md` and `docs/TELEMETRY.md` for easier maintenance.
+- **`pphat -v`** prints `1.4.0`. (Heads up: `pphat --version` currently errors — a `commander` flag-parsing quirk that's tracked as a follow-up.)
+
+## Feedback
+
+Found a bug or have a feature request? Open an issue on **[github.com/pphatdev/registry](https://github.com/pphatdev/registry/issues)** — every report helps prioritize the next release.

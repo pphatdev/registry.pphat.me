@@ -1,6 +1,6 @@
 {
   "name": "registry.pphat.me (website)",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,7 +11,7 @@
     "pages:deploy": "next build && wrangler pages deploy ./out"
   },
   "dependencies": {
-    "@pphatdev/registry": "^1.2.0",
+    "@pphatdev/registry": "^1.4.0",
     "next": "^16.2.11",
     "next-mdx-remote": "^6.0.0",
     "next-themes": "^0.4.6",

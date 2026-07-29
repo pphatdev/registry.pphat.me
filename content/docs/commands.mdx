@@ -1,12 +1,12 @@
 # CLI Commands
 
-A complete reference for every command exposed by the **@pphatdev/registry** CLI.
+A complete reference for every command exposed by the **@pphatdev/registry** CLI (v1.4.0).
 
 You can run the CLI via global installation (`pphat`) or directly via `npx`. The following invocations are equivalent:
 
 <CopyCode code="npx pphat <command>" />
 <CopyCode code="npx pphatdev <command>" />
-<CopyCode code="npx pphatdev <command>" />
+<CopyCode code="npx @pphatdev/registry <command>" />
 
 ---
 
@@ -48,18 +48,45 @@ Lists available icons or components in the registry with interactive page-by-pag
 
 ---
 
-## `add-icon` / `add`
+## `add`
 
-Downloads one or multiple icons from the registry into your project.
+Parent command that downloads icons or components using a subcommand grammar. Both forms below are equivalent — pick whichever reads best in your workflow.
+
+### `add icon <names…>`
+
+<CopyCode code="npx pphat add icon react vue github" />
+
+### `add component <names…>`
+
+<CopyCode code="npx pphat add component button card modal" />
+
+### Legacy shortcut
+
+For backwards compatibility, `add <name>` with no subcommand is treated as `add icon <name>`:
+
+<CopyCode code="npx pphat add react vue" />
+
+### Options (apply to every form)
+
+| Flag | Long flag | Description |
+| --- | --- | --- |
+| `-f` | `--format <fmt>` | Output format (`svg`, `nextjs`, `nuxtjs`) |
+| `-d` | `--dir <path>` | Destination directory |
+
+---
+
+## `add-icon`
+
+Hyphenated alias for `add icon`. Downloads one or multiple icons from the registry into your project.
 
 <CopyCode code="npx pphat add-icon react vue github" />
 
 ### Options
 
-| Flag | Long Flag | Description |
+| Flag | Long flag | Description |
 | --- | --- | --- |
-| `-f` | `--format <fmt>` | Specify output format (`svg`, `nextjs`, `nuxtjs`) |
-| `-d` | `--dir <path>` | Specify destination directory |
+| `-f` | `--format <fmt>` | Output format (`svg`, `nextjs`, `nuxtjs`) |
+| `-d` | `--dir <path>` | Destination directory |
 
 ### Examples
 
@@ -70,17 +97,59 @@ Downloads one or multiple icons from the registry into your project.
 
 ## `add-component` / `add-comp`
 
-Downloads one or multiple UI components from the registry.
+Hyphenated alias for `add component`. Downloads one or multiple UI components.
 
 <CopyCode code="npx pphat add-component button card modal" />
 
 ### Options
 
-| Flag | Long Flag | Description |
+| Flag | Long flag | Description |
 | --- | --- | --- |
-| `-f` | `--format <fmt>` | Specify output format (`nextjs`, `nuxtjs`) |
-| `-d` | `--dir <path>` | Specify destination directory |
+| `-f` | `--format <fmt>` | Output format (`nextjs`, `nuxtjs`) |
+| `-d` | `--dir <path>` | Destination directory |
 
 ### Examples
 
 <CopyCode code="npx pphat add-component button -f nextjs -d src/components/ui" />
+<CopyCode code="npx pphat add-comp card modal" />
+
+---
+
+## `remove`
+
+Parent command that deletes previously downloaded icons or components. It mirrors `add`'s path resolution, so it only removes files an equivalent `add` would have written. Missing files are treated as "already gone" — no error, exit 0.
+
+### `remove icon <names…>`
+
+<CopyCode code="npx pphat remove icon react vue" />
+
+### `remove component <names…>`
+
+<CopyCode code="npx pphat remove component button card" />
+
+### Options (apply to every form)
+
+| Flag | Long flag | Description |
+| --- | --- | --- |
+| `-f` | `--format <fmt>` | Restrict removal to one format (`svg`, `nextjs`, `nuxtjs`) |
+| `-d` | `--dir <path>` | Restrict removal to a specific directory |
+
+Reports `Removed X (N files)` per format.
+
+---
+
+## `remove-icon`
+
+Hyphenated alias for `remove icon`.
+
+<CopyCode code="npx pphat remove-icon react vue" />
+<CopyCode code="npx pphat remove-icon react -f svg -d public/icons" />
+
+---
+
+## `remove-component` / `remove-comp`
+
+Hyphenated alias for `remove component`.
+
+<CopyCode code="npx pphat remove-component button card" />
+<CopyCode code="npx pphat remove-comp modal -f nextjs -d src/components/ui" />

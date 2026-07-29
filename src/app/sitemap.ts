@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { FLAT_DOCS } from "@/config/docs";
+import { getAllCategories, getAllPosts } from "@/lib/blog";
 
 export const dynamic = "force-static";
 
@@ -26,6 +27,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8,
         },
         {
+            url: `${baseUrl}/blog`,
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/blog/rss.xml`,
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.6,
+        },
+        {
             url: `${baseUrl}/llms.txt`,
             lastModified: new Date(),
             changeFrequency: "weekly",
@@ -46,5 +59,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
     }));
 
-    return [...routes, ...docsRoutes];
+    const blogRoutes: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
+        url: `${baseUrl}${post.href}`,
+        lastModified: new Date(post.date),
+        changeFrequency: "monthly",
+        priority: 0.7,
+    }));
+
+    const categoryRoutes: MetadataRoute.Sitemap = getAllCategories().map((cat) => ({
+        url: `${baseUrl}/blog/category/${cat.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.5,
+    }));
+
+    return [...routes, ...docsRoutes, ...blogRoutes, ...categoryRoutes];
 }

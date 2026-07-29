@@ -13,8 +13,8 @@ importers:
   .:
     dependencies:
       '@pphatdev/registry':
-        specifier: ^1.2.0
-        version: 1.2.0(@types/node@20.19.43)
+        specifier: ^1.4.0
+        version: 1.4.0(@types/node@20.19.43)
       next:
         specifier: ^16.2.11
         version: 16.2.11(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@20.19.43)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -818,8 +818,8 @@ packages:
   '@poppinss/exception@1.2.3':
     resolution: {integrity: sha512-dCED+QRChTVatE9ibtoaxc+WkdzOSjYTKi/+uacHWIsfodVfpsueo3+DKpgU5Px8qXjgmXkSvhXvSCz3fnP9lw==}
 
-  '@pphatdev/registry@1.2.0':
-    resolution: {integrity: sha512-KAoIViIc4XphY0qlV/qCc5R37pHsQ1VkoJEIHFSgh/PUlMPq6IFxKM26LsjEUTSgro9xDfBzyaWjgsS5LePG1g==}
+  '@pphatdev/registry@1.4.0':
+    resolution: {integrity: sha512-PoAI31A8jbj4enNDLlbheVbNfr4n/HHFciPHGP+WB9Y6Nx8DTudiS+cIEJhZLqPc0q6D4Im6s0hJ2A2z+Dj0LQ==}
     hasBin: true
 
   '@rtsao/scc@1.1.0':
@@ -3568,7 +3568,7 @@ snapshots:
 
   '@poppinss/exception@1.2.3': {}
 
-  '@pphatdev/registry@1.2.0(@types/node@20.19.43)':
+  '@pphatdev/registry@1.4.0(@types/node@20.19.43)':
     dependencies:
       '@inquirer/prompts': 8.5.2(@types/node@20.19.43)
       chalk: 4.1.2

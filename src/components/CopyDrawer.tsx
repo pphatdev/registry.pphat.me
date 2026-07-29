@@ -11,9 +11,16 @@ interface CopyDrawerProps {
     size: number;
     strokeWidth: number;
     color: string;
+    downloadCount?: number;
 }
 
-export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, color }: CopyDrawerProps) {
+function formatDownloadCount(count: number): string {
+    if (count < 1000) return String(count);
+    if (count < 1_000_000) return `${(count / 1000).toFixed(count < 10_000 ? 1 : 0)}k`;
+    return `${(count / 1_000_000).toFixed(1)}M`;
+}
+
+export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, color, downloadCount }: CopyDrawerProps) {
     const [renderedIcon, setRenderedIcon] = useState<{ name: string; svgContent?: string; target?: string; [key: string]: unknown } | null>(null);
     const [svgContent, setSvgContent] = useState<string>("");
     const [loading, setLoading] = useState(false);
@@ -390,6 +397,20 @@ export default function CopyDrawer({ isOpen, onClose, icon, size, strokeWidth, c
 
                     {/* Header Action Badges & Close Button */}
                     <div className="flex items-center gap-2">
+                        {typeof downloadCount === "number" && downloadCount > 0 && (
+                            <div
+                                className="flex items-center gap-1.5 px-2.5 py-1 rounded-none bg-primary/10 border border-primary/25 text-[11px] font-mono text-primary font-bold"
+                                title={`${downloadCount.toLocaleString()} total downloads (top-100 icons, all-time)`}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" x2="12" y1="15" y2="3" />
+                                </svg>
+                                <span>{formatDownloadCount(downloadCount)}</span>
+                                <span className="opacity-60 font-normal uppercase text-[9px] tracking-wider">downloads</span>
+                            </div>
+                        )}
                         <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-none bg-muted/50 border border-border/50 text-[11px] font-mono text-muted-foreground">
                             <span className="w-1.5 h-1.5 rounded-none bg-emerald-500 animate-pulse" />
                             SVG 2.0 Ready

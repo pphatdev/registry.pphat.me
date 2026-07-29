@@ -1,6 +1,6 @@
 # Component Basics
 
-Download and integrate custom UI components from the registry into your project using `@pphatdev/registry`.
+Download, integrate, and remove custom UI components from the registry using `@pphatdev/registry`.
 
 ---
 
@@ -20,14 +20,38 @@ Browse available UI components in the registry:
 
 ### 3. Add Components
 
-Download one or more components using `add-component` (or `add-comp`):
+Since **v1.4.0** the CLI accepts two equivalent grammars. Pick whichever reads best in your workflow:
+
+#### Subcommand grammar
+
+<CopyCode code="npx pphat add component button card modal" />
+
+#### Hyphenated grammar
 
 <CopyCode code="npx pphat add-component button card modal" />
+<CopyCode code="npx pphat add-comp button card modal" />
 
 ---
 
 ## Command Overrides
 
-Override default component output settings using flags:
+Override default component output settings using `-f` (`--format`) or `-d` (`--dir`):
 
-<CopyCode code="npx pphat add-component button -f nextjs -d src/components/ui" />
+<CopyCode code="npx pphat add component button -f nextjs -d src/components/ui" />
+<CopyCode code="npx pphat add-component card -f nuxtjs" />
+
+---
+
+## Removing Components
+
+Use `remove component` (or the hyphenated `remove-component` / `remove-comp`) to delete previously downloaded components. Removal mirrors `add`'s path resolution, so it only touches files an equivalent `add` would have written. Missing files are treated as "already gone" — no error, exit 0.
+
+### Remove from Every Enabled Format
+
+<CopyCode code="npx pphat remove component button card" />
+<CopyCode code="npx pphat remove-component button card" />
+
+### Restrict to a Specific Format or Directory
+
+<CopyCode code="npx pphat remove component button -f nextjs -d src/components/ui" />
+<CopyCode code="npx pphat remove-comp modal -f nuxtjs" />

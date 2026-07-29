@@ -69,14 +69,34 @@ Browse available icons or components using the `list` (or `ls`) command with pag
 
 ### 4. Add Icons or Components
 
-Download icons or components directly into your project:
+Download icons or components directly into your project. Since **v1.4.0** the CLI accepts two equivalent grammars — pick whichever reads best:
+
+#### Subcommand grammar
+
+<CopyCode code="npx pphat add icon react vue github" />
+<CopyCode code="npx pphat add component button card modal" />
+
+#### Hyphenated grammar
 
 <CopyCode code="npx pphat add-icon react vue github" />
 <CopyCode code="npx pphat add-component button card modal" />
+
+> `npx pphat add react` (no subcommand) is preserved as a legacy shortcut for `add icon react`.
 
 #### Custom target directory or format
 
 Override your default configuration on the fly using `-d` (`--dir`) or `-f` (`--format`):
 
-<CopyCode code="npx pphat add-icon react vue -d src/assets/icons" />
-<CopyCode code="npx pphat add-component button -f nextjs -d src/components/ui" />
+<CopyCode code="npx pphat add icon react vue -d src/assets/icons" />
+<CopyCode code="npx pphat add component button -f nextjs -d src/components/ui" />
+
+### 5. Remove Icons or Components
+
+New in **v1.4.0** — the `remove` command family deletes files an equivalent `add` would have written. Missing files are treated as "already gone" (exit 0), and each format reports `Removed X (N files)`.
+
+<CopyCode code="npx pphat remove icon react vue" />
+<CopyCode code="npx pphat remove component button" />
+
+Hyphenated aliases also work (`remove-icon`, `remove-component`, `remove-comp`), and the same `-f` / `-d` flags apply:
+
+<CopyCode code="npx pphat remove-icon react -f svg -d public/icons" />

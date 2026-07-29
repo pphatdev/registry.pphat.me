@@ -118,7 +118,13 @@ const IconCard = React.memo(function IconCard({ icon, size, strokeWidth, color, 
     );
 });
 
-export default function ClientIconGrid({ icons }: { icons: { name: string; svgContent?: string; target?: string; category?: string; [key: string]: unknown }[] }) {
+export default function ClientIconGrid({
+    icons,
+    downloadCounts = {},
+}: {
+    icons: { name: string; svgContent?: string; target?: string; category?: string; [key: string]: unknown }[];
+    downloadCounts?: Record<string, number>;
+}) {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -268,13 +274,14 @@ export default function ClientIconGrid({ icons }: { icons: { name: string; svgCo
 
     return (
         <>
-            <CopyDrawer 
+            <CopyDrawer
                 isOpen={!!selectedIconForCopy}
                 onClose={() => setSelectedIconForCopy(null)}
                 icon={selectedIconForCopy}
                 size={globalSize}
                 strokeWidth={globalStrokeWidth}
                 color={globalColor}
+                downloadCount={selectedIconForCopy ? downloadCounts[selectedIconForCopy.name as string] : undefined}
             />
 
 

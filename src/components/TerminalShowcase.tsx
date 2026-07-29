@@ -26,7 +26,7 @@ export function TerminalShowcase({
         "pphat",
         "pphat init",
         "pphat list icons",
-        "pphat add react -f nextjs"
+        "pphat add icon react -f nextjs"
     ], [installCmd]);
 
     const [currentCmdIndex, setCurrentCmdIndex] = useState<number>(0);
@@ -318,13 +318,21 @@ export function TerminalShowcase({
                                 <div className="text-zinc-300 text-[11px] mt-1">
                                     <span className="text-amber-400 font-bold">Commands:</span>
                                     <br />
-                                    {"  "}<span className="text-emerald-400 font-bold">add-icon|add [options] [names...]</span>       Download and copy icons or components into your project
-                                    <br />
-                                    {"  "}<span className="text-emerald-400 font-bold">add-component [options] [names...]</span>      Download and copy components into your project
-                                    <br />
                                     {"  "}<span className="text-emerald-400 font-bold">init</span>                                    Initialize configuration (pphatdev.json) and set up your project preferences
                                     <br />
                                     {"  "}<span className="text-emerald-400 font-bold">list|ls &lt;type&gt;</span>                          List all available items in the registry (icons or components)
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">add [options] [names...]</span>                Download icons/components (use `add icon` or `add component` subcommands)
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">add-icon [options] [names...]</span>           Download one or more icons into your project
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">add-component [options] [names...]</span>      Download one or more UI components into your project
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">remove [names...]</span>                       Delete previously downloaded items (use `remove icon` or `remove component`)
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">remove-icon [options] [names...]</span>        Delete previously downloaded icons
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">remove-component|remove-comp [options] [names...]</span>  Delete previously downloaded components
                                     <br />
                                     {"  "}<span className="text-emerald-400 font-bold">config [command]</span>                        Manage @pphatdev/registry configuration
                                     <br />
@@ -335,11 +343,13 @@ export function TerminalShowcase({
                                     <br />
                                     {"  "}$ pphat init
                                     <br />
-                                    {"  "}$ pphat add-icon react vue github
+                                    {"  "}$ pphat add icon react vue github
                                     <br />
-                                    {"  "}$ pphat add-icon react -f nextjs -d src/components/icons
+                                    {"  "}$ pphat add icon react -f nextjs -d src/components/icons
                                     <br />
-                                    {"  "}$ pphat add-component button card
+                                    {"  "}$ pphat add component button card
+                                    <br />
+                                    {"  "}$ pphat remove icon react
                                     <br />
                                     {"  "}$ pphat list icons
                                     <br />
@@ -511,7 +521,7 @@ export function TerminalShowcase({
                     </div>
                 )}
 
-                {/* LINE BLOCK 5: pphat add react -f nextjs */}
+                {/* LINE BLOCK 5: pphat add icon react -f nextjs */}
                 {completedStepCount >= 4 && currentCmdIndex >= 4 && (
                     <div className="flex flex-col gap-2 pt-4 border-t border-zinc-800/60 transition-all duration-300">
                         <div className="flex items-center justify-between font-bold">
