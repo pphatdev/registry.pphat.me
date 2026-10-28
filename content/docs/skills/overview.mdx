@@ -1,0 +1,41 @@
+# AI Agent Skills Overview
+
+Discover how to enhance your AI coding assistants with portable, modular capabilities using **@pphatdev/registry** (v1.5.1+).
+
+---
+
+## What are AI Agent Skills?
+
+An **AI Agent Skill** is an encapsulated folder of domain-specific instructions, workflows, and tool configurations that extend an AI coding assistant's capabilities. 
+
+Skills follow the open standard formalized by `skills.sh` and `vercel-labs/skills`, centered around a root `SKILL.md` file:
+
+```text
+my-skill/
+├── SKILL.md            # Required: Instructions, triggers, and YAML frontmatter
+├── scripts/            # Optional: Automated scripts and utilities
+├── templates/          # Optional: Code templates or scaffolding assets
+└── references/         # Optional: Additional API references and docs
+```
+
+When an agent loads a skill, it gains specialized procedural knowledge—such as generating compliant API endpoints, creating atomic component libraries, or auditing code for security vulnerabilities.
+
+---
+
+## Why Manage Skills with @pphatdev/registry?
+
+- **Multi-Agent Universal Support**: Works across all leading AI coding assistants, including **Universal Agent / Antigravity**, **Claude Code**, **Cursor**, **Windsurf**, **Cline**, and **GitHub Copilot**.
+- **Automated Agent Detection**: Automatically discovers configured coding agents in your project workspace.
+- **Reproducible Lockfiles (`skills-lock.json`)**: Locks exact upstream hashes and file trees so everyone on your team runs identical skill revisions.
+- **One-Command Installation**: Easily fetch skills from GitHub repositories (`pphatdev/skills`), Git URLs, or local directory paths.
+
+---
+
+## Quick Example
+
+Install a skill repository into your project:
+
+<CopyCode code="npx pphat add skill pphatdev/skills" />
+
+The interactive terminal prompt lets you search, preview descriptions, select individual skills or choose "Select All", and select target coding agents seamlessly.
+

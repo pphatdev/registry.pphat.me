@@ -1,0 +1,41 @@
+# Skills Lockfile & Manifest
+
+Learn how **@pphatdev/registry** manages skill reproducibility, version pinning, and workspace configuration.
+
+---
+
+## The `skills-lock.json` Lockfile
+
+When you install skills, the CLI generates a deterministic `skills-lock.json` lockfile in your project root. Similar to `pnpm-lock.yaml` or `package-lock.json`, it guarantees that every team member and CI pipeline runs identical skill contents.
+
+### Lockfile Schema
+
+```json
+{
+  "version": 1,
+  "skills": {
+    "api-documentation": {
+      "source": "pphatdev/skills",
+      "sourceType": "github",
+      "skillPath": ".agent/skills/api-documentation/SKILL.md",
+      "computedHash": "80e34d5a9899f6250366da728bd51d14fd941a54233d27891781b97b19a0823d"
+    }
+  }
+}
+```
+
+### Deterministic Cryptographic Hashing
+
+- The CLI uses recursive folder SHA-256 hashing (`computeSkillFolderHash`) compatible with the `skills.sh` standard.
+- Files are canonicalized and sorted deterministically before hashing.
+- Any unexpected local drift or upstream modification is immediately flagged.
+
+---
+
+## Workspace Manifest (`.skills.json`)
+
+Installed skills are tracked in a lightweight workspace manifest (`.skills.json`) that records:
+- Origin sources (e.g. GitHub repositories or Git URLs)
+- Target agent directory paths
+- Configured coding assistant bindings
+

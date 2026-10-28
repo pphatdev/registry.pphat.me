@@ -1,0 +1,112 @@
+# Managing AI Agent Skills
+
+Learn how to install, inspect, update, and remove AI Agent skills using the CLI.
+
+---
+
+## Installing Skills (`add skill`)
+
+Install one or more skills from public GitHub repositories, Git URLs, or local directory paths:
+
+### Interactive Installation (Recommended)
+
+<CopyCode code="npx pphat add skill pphatdev/skills" />
+
+The interactive UI will:
+1. Fetch and parse the available skills from the repository.
+2. Present a searchable list with real-time keyword filtering.
+3. Show clean selection indicators (`○` unselected, `●` selected) toggled with `Spacebar`.
+4. Provide a "Select All" toggle with live count.
+5. Render a live description panel previewing the highlighted skill's instructions.
+6. Prompt you to target detected coding agents (`Universal Agent`, `Claude Code`, `Cursor`, `Windsurf`, `Cline`, etc.).
+
+### Install Specific Skills
+
+Pass `--skill` (or `-s`) to install one or more specific skills directly:
+
+<CopyCode code="npx pphat add skill pphatdev/skills --skill api-documentation" />
+
+### Install Multiple Repositories
+
+<CopyCode code="npx pphat add skill pphatdev/skills vercel-labs/skills" />
+
+### Non-Interactive / CI Mode
+
+Install all available skills without prompting:
+
+<CopyCode code="npx pphat add skill pphatdev/skills --all -y" />
+
+### Preview Without Installing
+
+Inspect what skills a repository contains without writing files:
+
+<CopyCode code="npx pphat add skill pphatdev/skills --list" />
+
+### Target Specific Agents
+
+<CopyCode code="npx pphat add skill pphatdev/skills -a claude cursor" />
+
+### Global Installation
+
+To make a skill available across all your local projects, install globally into `~/.agent/skills/`:
+
+<CopyCode code="npx pphat add skill pphatdev/skills -g" />
+
+---
+
+## Listing Skills (`list skills`)
+
+Inspect all skills currently installed in your workspace:
+
+<CopyCode code="npx pphat list skills" />
+
+Or use the short alias:
+
+<CopyCode code="npx pphat ls skills" />
+
+---
+
+## Updating Skills (`update skill`)
+
+Keep skills in sync with upstream improvements and bug fixes:
+
+### Update All Installed Skills
+
+<CopyCode code="npx pphat update skill" />
+
+### Update a Specific Repository or Skill
+
+<CopyCode code="npx pphat update skill pphatdev/skills" />
+
+### Update Global Skills
+
+<CopyCode code="npx pphat update skill -g" />
+
+---
+
+## Removing Skills (`remove skill`)
+
+Cleanly delete installed skills and purge tracking manifests:
+
+### Remove by Repository Source
+
+<CopyCode code="npx pphat remove skill pphatdev/skills" />
+
+### Remove by Skill Name
+
+<CopyCode code="npx pphat remove skill api-documentation" />
+
+### Remove from Global Directory
+
+<CopyCode code="npx pphat remove skill api-documentation -g" />
+
+---
+
+## Hyphenated Command Aliases
+
+For seamless workflow ergonomics, hyphenated aliases are fully supported:
+
+- `npx pphat add-skill <sources...>`
+- `npx pphat update-skill [targets...]`
+- `npx pphat remove-skill <targets...>`
+

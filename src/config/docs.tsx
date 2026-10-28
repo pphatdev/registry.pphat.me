@@ -176,6 +176,59 @@ export const DOCS_CONFIG: DocGroup[] = [
                 )
             }
         ]
+    },
+    {
+        title: "AI Agent Skills",
+        icon: (
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2v4" />
+                <path d="m4.93 4.93 2.83 2.83" />
+                <path d="M2 12h4" />
+                <path d="m4.93 19.07 2.83-2.83" />
+                <path d="M12 18v4" />
+                <path d="m16.24 16.24 2.83 2.83" />
+                <path d="M18 12h4" />
+                <path d="m16.24 7.76 2.83-2.83" />
+            </svg>
+        ),
+        items: [
+            {
+                title: "Skills Overview",
+                href: "/docs/skills/overview",
+                slug: "skills/overview",
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 2a8 8 0 0 0-8 8c0 3.3 2 6.2 5 7.4V20a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2.6c3-1.2 5-4.1 5-7.4a8 8 0 0 0-8-8z" />
+                        <line x1="10" x2="14" y1="22" y2="22" />
+                    </svg>
+                )
+            },
+            {
+                title: "Skill Management",
+                href: "/docs/skills/management",
+                slug: "skills/management",
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="4 17 10 11 4 5" />
+                        <line x1="12" x2="20" y1="19" y2="19" />
+                    </svg>
+                )
+            },
+            {
+                title: "Lockfile & Manifest",
+                href: "/docs/skills/lockfile",
+                slug: "skills/lockfile",
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="16" x2="8" y1="13" y2="13" />
+                        <line x1="16" x2="8" y1="17" y2="17" />
+                        <polyline points="10 9 9 9 8 9" />
+                    </svg>
+                )
+            }
+        ]
     }
 ];
 
