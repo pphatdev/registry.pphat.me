@@ -57,6 +57,24 @@ const SEARCH_DATA: { group: string; items: SearchItem[] }[] = [
                     </svg>
                 )
             },
+            {
+                id: "skills-docs",
+                title: "AI Agent Skills",
+                description: "SKILL.md management & multi-agent support",
+                href: "/docs/skills/overview",
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 2v4" />
+                        <path d="m4.93 4.93 2.83 2.83" />
+                        <path d="M2 12h4" />
+                        <path d="m4.93 19.07 2.83-2.83" />
+                        <path d="M12 18v4" />
+                        <path d="m16.24 16.24 2.83 2.83" />
+                        <path d="M18 12h4" />
+                        <path d="m16.24 7.76 2.83-2.83" />
+                    </svg>
+                )
+            },
         ],
     },
     {
@@ -116,6 +134,20 @@ const SEARCH_DATA: { group: string; items: SearchItem[] }[] = [
                         <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
                         <path d="M8 7h8" />
                         <path d="M8 11h6" />
+                    </svg>
+                )
+            },
+            {
+                id: "blog-release-1-5-1",
+                title: "v1.5.1 — AI Agent Skill Management",
+                description: "Latest release: SKILL.md management & lockfile integrity",
+                href: "/blog/v1-5-1",
+                icon: (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 2v6" />
+                        <path d="M12 22v-6" />
+                        <path d="M17 5l-5 5-5-5" />
+                        <path d="M7 19l5-5 5 5" />
                     </svg>
                 )
             },

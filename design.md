@@ -72,7 +72,7 @@ The interactive playground stage is unified inside a single glassmorphic card, d
 
 ```
 +-----------------------------------------------------------------------------------+
-| (o)(o)(o) @pphatdev/registry                                      v1.4.0 Playground |
+| (o)(o)(o) @pphatdev/registry                                      v1.5.1 Playground |
 +-----------------------------------------------------------------------------------+
 |  SIDE 1: VECTOR ICON PREVIEW (6 Cols)   | SIDE 2: CONTROLS & CODE OUTPUT (6 Cols) |
 |  +------------------------------------+ | +-------------------------------------+ |

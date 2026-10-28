@@ -9,10 +9,10 @@ export default function Hero() {
     const [heroPkgManager, setHeroPkgManager] = useState<'npm' | 'pnpm' | 'bun'>('npm');
 
     const installCmd = heroPkgManager === 'npm'
-        ? "npx pphatdev add-icon <iconname>"
+        ? "npx pphatdev add icon <iconname>"
         : heroPkgManager === 'pnpm'
-        ? "pnpm dlx pphatdev add-icon <iconname>"
-        : "bunx pphatdev add-icon <iconname>";
+            ? "pnpm dlx pphatdev add icon <iconname>"
+            : "bunx pphatdev add icon <iconname>";
 
     const copyToClipboard = async (text: string, id: string) => {
         try {
@@ -67,7 +67,7 @@ export default function Hero() {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                         </span>
-                        @pphatdev/registry v1.4.0
+                        @pphatdev/registry v1.5.1
                     </div>
 
                     {/* Headline Title */}
@@ -89,11 +89,10 @@ export default function Hero() {
                                 <button
                                     key={pkg}
                                     onClick={() => setHeroPkgManager(pkg)}
-                                    className={`px-3 py-1 rounded-none text-xs font-mono font-bold transition-all cursor-pointer ${
-                                        heroPkgManager === pkg
+                                    className={`px-3 py-1 rounded-none text-xs font-mono font-bold transition-all cursor-pointer ${heroPkgManager === pkg
                                             ? 'bg-background text-foreground shadow-xs'
                                             : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
-                                    }`}
+                                        }`}
                                 >
                                     {pkg}
                                 </button>

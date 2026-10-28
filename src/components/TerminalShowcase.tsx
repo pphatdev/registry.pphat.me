@@ -311,30 +311,40 @@ export function TerminalShowcase({
                                 <div className="text-zinc-300 text-[11px] mt-1">
                                     <span className="text-amber-400 font-bold">Options:</span>
                                     <br />
-                                    {"  "}<span className="text-emerald-400 font-bold">-v, -V, --version</span>     Output the current version
+                                    {"  "}<span className="text-emerald-400 font-bold">-v, --version</span>         Output the current version
                                     <br />
-                                    {"  "}<span className="text-emerald-400 font-bold">-h, --help</span>        display help for command
+                                    {"  "}<span className="text-emerald-400 font-bold">-h, --help</span>            display help for command
                                 </div>
                                 <div className="text-zinc-300 text-[11px] mt-1">
                                     <span className="text-amber-400 font-bold">Commands:</span>
                                     <br />
                                     {"  "}<span className="text-emerald-400 font-bold">init</span>                                    Initialize configuration (pphatdev.json) and set up your project preferences
                                     <br />
-                                    {"  "}<span className="text-emerald-400 font-bold">list|ls &lt;type&gt;</span>                          List all available items in the registry (icons or components)
+                                    {"  "}<span className="text-emerald-400 font-bold">list|ls &lt;type&gt;</span>                          List all available items in the registry (icons, components, or skills)
                                     <br />
-                                    {"  "}<span className="text-emerald-400 font-bold">add [options] [names...]</span>                Download icons/components (use `add icon` or `add component` subcommands)
+                                    {"  "}<span className="text-emerald-400 font-bold">add [options] [items...]</span>              Add icons, components, or skills (`add icon`, `add component`, or `add skill`)
                                     <br />
                                     {"  "}<span className="text-emerald-400 font-bold">add-icon [options] [names...]</span>           Download one or more icons into your project
                                     <br />
                                     {"  "}<span className="text-emerald-400 font-bold">add-component [options] [names...]</span>      Download one or more UI components into your project
                                     <br />
-                                    {"  "}<span className="text-emerald-400 font-bold">remove [names...]</span>                       Delete previously downloaded items (use `remove icon` or `remove component`)
+                                    {"  "}<span className="text-emerald-400 font-bold">add-skill [options] &lt;sources...&gt;</span>          Install AI agent skills from GitHub repositories (like skills.sh)
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">update [options] [items...]</span>           Update previously installed skills (`update skill [names...]`)
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">update-skill [options] [targets...]</span>     Update previously installed AI agent skills to latest versions
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">remove [items...]</span>                       Remove items (`remove icon`, `remove component`, or `remove skill`)
                                     <br />
                                     {"  "}<span className="text-emerald-400 font-bold">remove-icon [options] [names...]</span>        Delete previously downloaded icons
                                     <br />
-                                    {"  "}<span className="text-emerald-400 font-bold">remove-component|remove-comp [options] [names...]</span>  Delete previously downloaded components
+                                    {"  "}<span className="text-emerald-400 font-bold">remove-component|remove-comp</span>            Delete previously downloaded components
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">remove-skill [options] &lt;targets...&gt;</span>       Remove previously installed AI agent skills
                                     <br />
                                     {"  "}<span className="text-emerald-400 font-bold">config [command]</span>                        Manage @pphatdev/registry configuration
+                                    <br />
+                                    {"  "}<span className="text-emerald-400 font-bold">stats [options]</span>                         Show CLI usage statistics or remote registry analytics
                                     <br />
                                     {"  "}<span className="text-emerald-400 font-bold">help [command]</span>                          display help for command
                                 </div>
@@ -349,9 +359,15 @@ export function TerminalShowcase({
                                     <br />
                                     {"  "}$ pphat add component button card
                                     <br />
+                                    {"  "}$ pphat add skill pphatdev/skills
+                                    <br />
+                                    {"  "}$ pphat update skill pphatdev/skills
+                                    <br />
                                     {"  "}$ pphat remove icon react
                                     <br />
                                     {"  "}$ pphat list icons
+                                    <br />
+                                    {"  "}$ pphat list skills
                                     <br />
                                     {"  "}$ pphat config get icons.nextjs.dir
                                 </div>

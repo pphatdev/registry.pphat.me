@@ -110,7 +110,7 @@ export function HeroSection({
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                                     <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                                 </span>
-                                @pphatdev/registry v1.4.0
+                                @pphatdev/registry v1.5.1
                             </div>
                         )}
 
@@ -122,7 +122,7 @@ export function HeroSection({
                         </h1>
 
                         <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl opacity-90">
-                            A powerful and extremely fast CLI tool to instantly download and manage custom UI components and icons on-demand for Next.js, Nuxt 3, or raw SVG.
+                            A powerful and extremely fast CLI tool to instantly download and manage custom UI components, icons, and AI agent skills on-demand for Next.js, Nuxt 3, or raw SVG.
                         </p>
 
                         {/* HERO INSTALLATION PACKAGE MANAGER SWITCHER & QUICK COPY */}
