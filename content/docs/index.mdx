@@ -2,16 +2,16 @@
 
 Welcome to the official documentation for **@pphatdev/registry** 🚀.
 
-A powerful and extremely fast CLI tool to instantly download and manage custom UI components and icons for your frontend projects.
+A powerful and extremely fast CLI tool to instantly download and manage custom UI components, vector icons, and AI agent skills for your frontend projects.
 
-Instead of bundling thousands of heavy icons in an npm package, this CLI dynamically fetches precisely the components and icons you need on-demand. It supports outputting raw SVGs, or converting them into ready-to-use, perfectly formatted **Next.js** (React) or **Nuxt.js** (Vue) components!
+Instead of bundling thousands of heavy icons or monolithic component libraries in an npm package, this CLI dynamically fetches precisely what you need on-demand. It supports outputting raw SVGs, converting them into ready-to-use, perfectly formatted **Next.js** (React) or **Nuxt.js** (Vue) components, and installing modular **AI Agent Skills** (`SKILL.md`) for leading AI coding assistants!
 
 ---
 
 ## Why @pphatdev/registry?
 
 ### Zero Bundle Bloat
-Only download the components and icons you actually use in your project. No more massive dependencies.
+Only download the components, icons, and skills you actually use in your project. No more massive dependencies.
 
 ### Lightning Fast
 Powered by a static registry hosted on GitHub's raw CDN with zero rate limits for users.
@@ -21,6 +21,9 @@ SVGs are automatically wrapped and formatted into native `.tsx` (React) or `.vue
 
 ### Perfect Code Formatting
 Integrates a smart XML formatter that precisely aligns tags, preserving nested CSS (`@keyframes`) and attributes for lint-free output.
+
+### AI Agent Skill Management
+Install, update, and manage modular AI coding assistant skills (`SKILL.md`) with automatic agent detection and reproducible `skills-lock.json` lockfile integrity.
 
 ### Configurable & Persistent
 Automatically remembers your preferred directory and format via a tiny configuration file (`pphatdev.json`).

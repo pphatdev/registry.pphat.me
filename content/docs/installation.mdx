@@ -25,6 +25,8 @@ If you plan to use the CLI frequently across many projects, install it globally 
 Then use the short commands anywhere:
 
 <CopyCode code="pphat init" />
+<CopyCode code="pphat -v" />
+<CopyCode code="pphat --version" />
 
 ---
 
@@ -62,14 +64,15 @@ Or fetch / set specific keys:
 
 ### 3. Discover Items in the Registry
 
-Browse available icons or components using the `list` (or `ls`) command with pagination:
+Browse available icons, components, or installed skills:
 
 <CopyCode code="npx pphat list icons" />
 <CopyCode code="npx pphat ls components" />
+<CopyCode code="npx pphat list skills" />
 
 ### 4. Add Icons or Components
 
-Download icons or components directly into your project. Since **v1.4.0** the CLI accepts two equivalent grammars — pick whichever reads best:
+Download icons or components directly into your project using subcommand or hyphenated grammar:
 
 #### Subcommand grammar
 
@@ -90,13 +93,23 @@ Override your default configuration on the fly using `-d` (`--dir`) or `-f` (`--
 <CopyCode code="npx pphat add icon react vue -d src/assets/icons" />
 <CopyCode code="npx pphat add component button -f nextjs -d src/components/ui" />
 
-### 5. Remove Icons or Components
+### 5. Install AI Agent Skills
 
-New in **v1.4.0** — the `remove` command family deletes files an equivalent `add` would have written. Missing files are treated as "already gone" (exit 0), and each format reports `Removed X (N files)`.
+New in **v1.5.1** — install modular AI coding assistant skills (`SKILL.md`) from GitHub repositories with automated agent detection and lockfile generation:
+
+<CopyCode code="npx pphat add skill pphatdev/skills" />
+<CopyCode code="npx pphat add skill pphatdev/skills --skill api-documentation" />
+<CopyCode code="npx pphat add skill pphatdev/skills -a claude cursor" />
+
+### 6. Remove Resources
+
+Cleanly remove previously downloaded icons, components, or skills:
 
 <CopyCode code="npx pphat remove icon react vue" />
 <CopyCode code="npx pphat remove component button" />
+<CopyCode code="npx pphat remove skill pphatdev/skills" />
 
-Hyphenated aliases also work (`remove-icon`, `remove-component`, `remove-comp`), and the same `-f` / `-d` flags apply:
+Hyphenated aliases also work (`remove-icon`, `remove-component`, `remove-skill`):
 
 <CopyCode code="npx pphat remove-icon react -f svg -d public/icons" />
+<CopyCode code="npx pphat remove-skill api-documentation" />

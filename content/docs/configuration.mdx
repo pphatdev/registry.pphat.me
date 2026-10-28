@@ -92,3 +92,11 @@ The `remove` command family accepts the same flags to scope a deletion to a spec
 
 <CopyCode code="npx pphat remove icon react -f svg -d public/icons" />
 <CopyCode code="npx pphat remove-component button -f nextjs -d src/components/ui" />
+
+---
+
+## Skills Configuration (`.skills.json` & `skills-lock.json`)
+
+When managing AI agent skills, the CLI maintains two companion configuration files:
+- **`.skills.json`**: Workspace manifest tracking installed skill repositories, custom target agent directories, and bindings.
+- **`skills-lock.json`**: Cryptographic lockfile storing deterministic SHA-256 folder hashes to ensure reproducible and tamper-free skill execution.

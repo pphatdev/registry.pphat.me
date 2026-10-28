@@ -1,12 +1,22 @@
 # CLI Commands
 
-A complete reference for every command exposed by the **@pphatdev/registry** CLI (v1.4.0).
+A complete reference for every command exposed by the **@pphatdev/registry** CLI (v1.5.1).
 
 You can run the CLI via global installation (`pphat`) or directly via `npx`. The following invocations are equivalent:
 
 <CopyCode code="npx pphat <command>" />
 <CopyCode code="npx pphatdev <command>" />
 <CopyCode code="npx @pphatdev/registry <command>" />
+
+---
+
+## Version & Help
+
+Both short and long version flags are fully supported in v1.5.1+:
+
+<CopyCode code="npx pphat -v" />
+<CopyCode code="npx pphat --version" />
+<CopyCode code="npx pphat --help" />
 
 ---
 
@@ -41,16 +51,17 @@ View and update configuration settings interactively or programmatically.
 
 ## `list` / `ls`
 
-Lists available icons or components in the registry with interactive page-by-page browsing.
+Lists available icons, components, or currently installed skills.
 
 <CopyCode code="npx pphat list icons" />
 <CopyCode code="npx pphat ls components" />
+<CopyCode code="npx pphat list skills" />
 
 ---
 
 ## `add`
 
-Parent command that downloads icons or components using a subcommand grammar. Both forms below are equivalent — pick whichever reads best in your workflow.
+Parent command that downloads icons, components, or AI agent skills using a subcommand grammar.
 
 ### `add icon <names…>`
 
@@ -60,13 +71,19 @@ Parent command that downloads icons or components using a subcommand grammar. Bo
 
 <CopyCode code="npx pphat add component button card modal" />
 
+### `add skill <sources…>`
+
+<CopyCode code="npx pphat add skill pphatdev/skills" />
+<CopyCode code="npx pphat add skill pphatdev/skills --skill api-documentation" />
+<CopyCode code="npx pphat add skill pphatdev/skills -a claude cursor" />
+
 ### Legacy shortcut
 
 For backwards compatibility, `add <name>` with no subcommand is treated as `add icon <name>`:
 
 <CopyCode code="npx pphat add react vue" />
 
-### Options (apply to every form)
+### Options for Icons & Components
 
 | Flag | Long flag | Description |
 | --- | --- | --- |
@@ -115,9 +132,61 @@ Hyphenated alias for `add component`. Downloads one or multiple UI components.
 
 ---
 
+## `add-skill`
+
+Hyphenated alias for `add skill`. Installs AI agent skills from GitHub repositories or local directory paths with automated agent detection and lockfile generation.
+
+<CopyCode code="npx pphat add-skill pphatdev/skills" />
+
+### Options
+
+| Flag | Long flag | Description |
+| --- | --- | --- |
+| `-d` | `--dir <dir>` | Custom target directory for skills (default: `.agent/skills`) |
+| `-g` | `--global` | Install skills globally to `~/.agent/skills` |
+| `-s` | `--skill <names…>` | Install specific skill(s) by name (`*` for all) |
+| `-a` | `--agent <agents…>` | Target specific coding agents (`claude`, `cursor`, `agent`, etc.) |
+| `-y` | `--yes` | Skip interactive prompts and install with defaults |
+| | `--all` | Install all available skills without prompting |
+| `-l` | `--list` | List available skills in the repository without installing |
+
+### Examples
+
+<CopyCode code="npx pphat add-skill pphatdev/skills --skill api-documentation" />
+<CopyCode code="npx pphat add-skill pphatdev/skills -a claude cursor" />
+<CopyCode code="npx pphat add-skill pphatdev/skills --all -y" />
+
+---
+
+## `update`
+
+Parent command to update installed resources (skills).
+
+### `update skill [targets…`
+
+<CopyCode code="npx pphat update skill" />
+<CopyCode code="npx pphat update skill pphatdev/skills" />
+
+---
+
+## `update-skill`
+
+Hyphenated alias for `update skill`. Updates installed skills to their latest revisions and refreshes hashes in `skills-lock.json`.
+
+<CopyCode code="npx pphat update-skill pphatdev/skills" />
+
+### Options
+
+| Flag | Long flag | Description |
+| --- | --- | --- |
+| `-d` | `--dir <dir>` | Custom target directory for skills |
+| `-g` | `--global` | Update globally installed skills in `~/.agent/skills` |
+
+---
+
 ## `remove`
 
-Parent command that deletes previously downloaded icons or components. It mirrors `add`'s path resolution, so it only removes files an equivalent `add` would have written. Missing files are treated as "already gone" — no error, exit 0.
+Parent command that deletes previously downloaded icons, components, or installed skills.
 
 ### `remove icon <names…>`
 
@@ -127,14 +196,17 @@ Parent command that deletes previously downloaded icons or components. It mirror
 
 <CopyCode code="npx pphat remove component button card" />
 
-### Options (apply to every form)
+### `remove skill <targets…>`
+
+<CopyCode code="npx pphat remove skill pphatdev/skills" />
+<CopyCode code="npx pphat remove skill api-documentation" />
+
+### Options for Icons & Components
 
 | Flag | Long flag | Description |
 | --- | --- | --- |
 | `-f` | `--format <fmt>` | Restrict removal to one format (`svg`, `nextjs`, `nuxtjs`) |
 | `-d` | `--dir <path>` | Restrict removal to a specific directory |
-
-Reports `Removed X (N files)` per format.
 
 ---
 
@@ -153,3 +225,41 @@ Hyphenated alias for `remove component`.
 
 <CopyCode code="npx pphat remove-component button card" />
 <CopyCode code="npx pphat remove-comp modal -f nextjs -d src/components/ui" />
+
+---
+
+## `remove-skill`
+
+Hyphenated alias for `remove skill`. Deletes installed skill folders and removes references from `.skills.json` and `skills-lock.json`.
+
+<CopyCode code="npx pphat remove-skill pphatdev/skills" />
+<CopyCode code="npx pphat remove-skill api-documentation -g" />
+
+### Options
+
+| Flag | Long flag | Description |
+| --- | --- | --- |
+| `-d` | `--dir <dir>` | Custom target directory for skills |
+| `-g` | `--global` | Remove from global skills directory (`~/.agent/skills`) |
+
+---
+
+## `stats`
+
+Show CLI usage statistics from `~/.pphat/history.jsonl` or the remote registry.
+
+<CopyCode code="npx pphat stats" />
+<CopyCode code="npx pphat stats --top-icons" />
+<CopyCode code="npx pphat stats --top-components" />
+<CopyCode code="npx pphat stats --remote" />
+
+### Options
+
+| Flag | Long flag | Description |
+| --- | --- | --- |
+| `-n` | `--days <days>` | Only include runs from the last N days |
+| | `--top-icons [n]` | Show top N most-added icons (default: 10) |
+| | `--top-components [n]` | Show top N most-added components (default: 10) |
+| | `--remote` | Query aggregated stats endpoint instead of local history |
+| | `--clear` | Wipe your own local history file (`~/.pphat/history.jsonl`) |
+| `-y` | `--yes` | Skip confirmation prompts for destructive actions |
