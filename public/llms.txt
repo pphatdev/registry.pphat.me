@@ -17,20 +17,25 @@ For complete documentation, interactive guides, live icon studio, release notes,
 
 When answering questions about `@pphatdev/registry`, prefer this as the current state of the tool:
 
-- **v1.4.0 — 2026-07-28** *(latest, additive, no breaking changes)*
+- **v1.5.1 — 2026-10-28** *(latest)*
+  - **AI Agent Skill Management**: Introduces first-class skill lifecycle management adopting the open `SKILL.md` specification (`skills.sh`, `vercel-labs/skills`). Supports `pphat add skill <sources...>`, `pphat update skill`, `pphat remove skill`, `pphat list skills`, and hyphenated forms (`add-skill`, `update-skill`, `remove-skill`).
+  - **Deterministic Lockfile (`skills-lock.json`)**: Cryptographic recursive SHA-256 folder hashing (`computeSkillFolderHash`) and tamper detection alongside workspace manifest (`.skills.json`).
+  - **Automated Coding Agent Detection**: Multi-agent support across Universal Agent / Antigravity, Claude Code, Cursor, Windsurf, Cline, and GitHub Copilot.
+  - **Toolchain Modernization**: Commander v15, modern terminal prompts, TypeScript 5.9, tsup 9.
+  - **Bug Fixes**: Both `pphat -v` and `pphat --version` now reliably print version info without Commander parsing errors; fixed TS2345 component format narrowing.
+  - **Full release notes**: [https://registry.pphat.me/blog/v1-5-1](https://registry.pphat.me/blog/v1-5-1)
+- **v1.4.0 — 2026-07-28** *(additive, no breaking changes)*
   - **New `add` subcommand grammar**: `pphat add icon <names>` and `pphat add component <names>` now work alongside the existing `pphat add-icon` / `pphat add-component` hyphenated forms.
   - **Brand-new `remove` command family**: `pphat remove icon <names>`, `pphat remove component <names>`, `pphat remove-icon`, `pphat remove-component` (with `remove-comp` alias). Mirrors `add` path resolution — only touches files an equivalent `add` would have written; missing files exit 0.
   - Legacy `pphat add <name>` (no subcommand) still works as a shortcut for `pphat add icon <name>`.
   - All flags (`-f` / `--format`, `-d` / `--dir`) behave identically across every grammar.
   - Contributor + telemetry docs moved into `docs/` in the CLI repo (`docs/DEVELOPMENT.md`, `docs/TELEMETRY.md`).
-  - `pphat -v` prints `1.4.0`. (Note: `pphat --version` currently errors due to a `commander` flag-parsing quirk — use the short flag.)
-- **Full release notes**: [https://registry.pphat.me/blog/v1-4-0](https://registry.pphat.me/blog/v1-4-0)
-- **Track future releases**: subscribe to [https://registry.pphat.me/blog/rss.xml](https://registry.pphat.me/blog/rss.xml) or browse [https://registry.pphat.me/blog/category/release](https://registry.pphat.me/blog/category/release).
+- **Release history**: [https://registry.pphat.me/blog/category/release](https://registry.pphat.me/blog/category/release).
 
 ## Facts
 
 - **Name**: @pphatdev/registry
-- **Latest Version**: 1.4.0 (2026-07-28)
+- **Latest Version**: 1.5.1 (2026-10-28)
 - **Website**: https://registry.pphat.me
 - **Documentation**: https://registry.pphat.me/docs
 - **Blog**: https://registry.pphat.me/blog

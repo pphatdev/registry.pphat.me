@@ -6,9 +6,9 @@
 [![license](https://img.shields.io/npm/l/@pphatdev/registry.svg?style=flat-square)](https://npmjs.org/package/@pphatdev/registry)
 [![Build & Test](https://github.com/pphatdev/registry.pphat.me/actions/workflows/ci.yml/badge.svg)](https://github.com/pphatdev/icons/actions/workflows/ci.yml)
 
-A powerful and extremely fast CLI tool to instantly download and manage custom UI components and icons for your frontend projects.
+A powerful and extremely fast CLI tool to instantly download and manage custom UI components, vector icons, and AI agent skills for your frontend projects.
 
-Instead of bundling thousands of heavy icons in an npm package, this CLI dynamically fetches precisely the components and icons you need on-demand. It supports outputting raw SVGs, or converting them into ready-to-use, perfectly formatted **Next.js** (React) or **Nuxt.js** (Vue) components.
+Instead of bundling thousands of heavy icons in an npm package, this CLI dynamically fetches precisely the components, icons, and skills you need on-demand. It supports outputting raw SVGs, converting them into ready-to-use, perfectly formatted **Next.js** (React) or **Nuxt.js** (Vue) components, and installing modular **AI Agent Skills** (`SKILL.md`) for leading AI coding assistants.
 
 This repository powers the showcase and documentation site for the `@pphatdev/registry` CLI. It is built with Next.js, Tailwind CSS, and Framer Motion.
 
@@ -59,23 +59,42 @@ npx pphat ls components
 
 ### 3. Add an item
 
-Download a component or icon (for example, `react`, `vue`, `github`) with the `add` command. It automatically downloads and formats it based on your `pphatdev.json` preferences.
+Download a component, icon, or AI agent skill with the `add` command. It automatically downloads and formats it based on your configuration preferences.
 
 ```bash
+# Add icons
+npx pphat add icon react vue
+# or legacy shortcut
 npx pphat add react
+
+# Add components
+npx pphat add component button card
+
+# Add AI agent skills
+npx pphat add skill pphatdev/skills
 ```
 
 Override the output format on the fly with `-f` / `--format`:
 
 ```bash
 # Raw SVG
-npx pphat add react -f svg
+npx pphat add icon react -f svg
 
 # Next.js React component
-npx pphat add react -f nextjs
+npx pphat add icon react -f nextjs
 
 # Nuxt.js Vue component
-npx pphat add react -f nuxtjs
+npx pphat add icon react -f nuxtjs
+```
+
+### 4. Remove an item
+
+Delete downloaded items and clean up configurations:
+
+```bash
+npx pphat remove icon react
+npx pphat remove component button
+npx pphat remove skill pphatdev/skills
 ```
 
 ## Global installation (optional)
