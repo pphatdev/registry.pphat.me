@@ -1,0 +1,163 @@
+---
+title: "@pphatdev/registry v1.5.1 — AI Agent Skill Management"
+excerpt: "v1.5.1 introduces first-class AI Agent Skill Management (SKILL.md), reproducible lockfile integrity via skills-lock.json, and multi-agent automated detection."
+date: "2026-10-28"
+category: "release"
+tags: ["release", "v1.5.1", "cli", "skills"]
+author: "PPhat"
+cover: "/docs.png"
+---
+
+**v1.5.1** is officially here. This milestone release expands `@pphatdev/registry` beyond UI components and vector icons to introduce first-class **AI Agent Skill Management**, built on the open `SKILL.md` specification adopted by `skills.sh` and `vercel-labs/skills`.
+
+Update to the latest version immediately:
+
+```bash
+npm install -g @pphatdev/registry@latest
+# or run on demand via npx
+npx @pphatdev/registry@1.5.1 <command>
+```
+
+---
+
+## 🌟 Highlights & What's New
+
+### 1. `pphat add skill` — Install AI Agent Skills
+
+Developers and AI coding agents can now discover, install, update, and manage modular capabilities directly from GitHub repositories, Git URLs, or local directory paths:
+
+```bash
+# Install skills from a GitHub repository
+pphat add skill pphatdev/skills
+
+# Install multiple skill repositories in a single command
+pphat add skill pphatdev/skills vercel-labs/skills
+
+# Install a specific skill from a repository
+pphat add skill pphatdev/skills --skill api-documentation
+
+# Target specific AI coding assistants
+pphat add skill pphatdev/skills -a claude cursor
+
+# Non-interactive / CI mode (install all skills without prompts)
+pphat add skill pphatdev/skills --all -y
+
+# Inspect available skills without installing
+pphat add skill pphatdev/skills --list
+
+# Hyphenated form is also supported
+pphat add-skill pphatdev/skills -g
+```
+
+#### Modern Interactive Terminal Experience
+- **Searchable Multi-Select**: Filter skills in real-time as you type keywords.
+- **Circle Checkboxes**: Intuitive `○` (unselected) and `●` (selected) indicators toggled smoothly with the `Spacebar`.
+- **Select All**: Fast one-touch toggle with live selection counters (`Select All (0/N)`).
+- **Live Description Panel**: Dynamically previews documentation and instructions for the highlighted skill.
+- **Agent Detection**: Automatically detects configured coding assistants in the workspace with `Universal Agent (.agent/skills)` enabled by default.
+- **Project or Global Scope**: Easily install locally (`.agent/skills/`) or globally (`~/.agent/skills/`).
+
+---
+
+### 2. `skills-lock.json` — Deterministic Integrity Lockfile
+
+To ensure reproducibility across engineering teams and CI/CD environments, installed skills are automatically tracked in `skills-lock.json`:
+
+```json
+{
+  "version": 1,
+  "skills": {
+    "api-documentation": {
+      "source": "pphatdev/skills",
+      "sourceType": "github",
+      "skillPath": ".agent/skills/api-documentation/SKILL.md",
+      "computedHash": "80e34d5a9899f6250366da728bd51d14fd941a54233d27891781b97b19a0823d"
+    }
+  }
+}
+```
+
+- **Cryptographic SHA-256 Hashing**: Recursive folder hashing (`computeSkillFolderHash`) matching the `skills.sh` standard.
+- **Tamper Detection**: Detects any unexpected local drift or upstream modifications.
+- **Workspace Manifest (`.skills.json`)**: Persists skill sources, targets, and configured agent bindings.
+
+---
+
+### 3. `pphat update skill` — Refresh Installed Skills
+
+Keep your installed skills in sync with upstream improvements and bug fixes:
+
+```bash
+# Update a specific skill repository
+pphat update skill pphatdev/skills
+
+# Update all installed skills in the current project
+pphat update skill
+
+# Hyphenated alias
+pphat update-skill
+```
+
+The CLI fetches the latest commits or releases, updates destination directory files, and refreshes the SHA-256 checksums in `skills-lock.json`.
+
+---
+
+### 4. `pphat remove skill` — Clean Skill Removal
+
+Safely delete installed skills and purge all tracking references:
+
+```bash
+# Remove by repository source
+pphat remove skill pphatdev/skills
+
+# Remove by individual skill name
+pphat remove skill api-documentation
+
+# Hyphenated alias
+pphat remove-skill api-documentation
+```
+
+This cleans up skill directories and purges entries from both `.skills.json` and `skills-lock.json`.
+
+---
+
+### 5. `pphat list skills` — Inspect Installed Skills
+
+List all skills installed in the current project:
+
+```bash
+pphat list skills
+# or short alias
+pphat ls skills
+```
+
+---
+
+## ⚡ Toolchain & Dependency Modernization
+
+- **Commander**: Upgraded to `commander@^15.0.0` with modernized option parsing.
+- **Terminal UI**: Modernized interactive prompts with `@clack/prompts@^1.8.1`, `@inquirer/prompts@^8.7.5`, `ora@^9.4.1`, and `chalk@^6.0.1`.
+- **TypeScript & Build Pipeline**: Switched to `moduleResolution: "bundler"` and `module: "ESNext"`, running on stable `typescript@^5.9.3` and `tsup@^9.0.0`.
+- **Server Workspace**: Updated Cloudflare Workers dependencies (`wrangler`, `undici`, `sharp`) to patch upstream vulnerabilities.
+
+---
+
+## 🐛 Bug Fixes & Refinements
+
+- **Version Flag Compatibility**: Standardized version option flags to `-v, --version`. Both flags now correctly output the version number without Commander flag-parsing errors.
+- **Component Format Narrowing**: Resolved a TypeScript type error (`TS2345`) where parent CLI commands could pass `format: 'svg'` into component handlers.
+- **Terminal Prompt Re-rendering**: Fixed an off-by-one ANSI line erasure quirk in the interactive search multiselect prompt.
+
+---
+
+## 🧪 Verification & QA
+
+- All 35 tests passing across 4 test suites (`tests/skills.test.ts`, `tests/help.test.ts`, `tests/config*.test.ts`, `tests/init.test.ts`).
+- Full type safety verified with `npx tsc --noEmit` with zero errors.
+- Clean distribution builds in `dist/` and executable wrappers in `bin/`.
+
+---
+
+## Feedback & Community
+
+Encountered an issue or have ideas for skills? Check out the [Documentation](/docs) or file an issue on [GitHub](https://github.com/pphatdev/registry/issues).
